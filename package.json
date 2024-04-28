@@ -25,7 +25,7 @@
     "url": "https://github.com/LinHanlove/atom-tools"
   },
   "bugs": {
-    "url": "https://github.com/LinHanlove/atom-tools/blob/master/README.md"
+    "url": "https://tools.atomnotion.com/"
   },
   "main": "./dist/atom-tools.umd.cjs",
   "module": "./dist/atom-tools.js",
