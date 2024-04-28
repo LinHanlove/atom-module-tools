@@ -19,13 +19,13 @@
   "files": [
     "dist"
   ],
-  "homepage": "",
+  "homepage": "https://tools.atomnotion.com/",
   "repository": {
     "type": "git",
     "url": "https://github.com/LinHanlove/atom-tools"
   },
   "bugs": {
-    "url": "https://tools.atomnotion.com/"
+    "email": "2188817393@qq.com"
   },
   "main": "./dist/atom-tools.umd.cjs",
   "module": "./dist/atom-tools.js",
