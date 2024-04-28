@@ -1,0 +1,58 @@
+{
+  "name": "atom-tools",
+  "author": "linhan",
+  "license": "MIT",
+  "description": "A quick tool and function collection designed specifically for projects using the JavaScript language",
+  "keywords": [
+    "JavaScript",
+    "Typescript",
+    "utils",
+    "tool",
+    "function",
+    "quick",
+    "atom",
+    "vueUse",
+    "vue-hooks",
+    "atom-tools"
+  ],
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LinHanlove/atom-tools"
+  },
+  "bugs": {
+    "url": "https://github.com/LinHanlove/atom-tools/blob/master/README.md"
+  },
+  "main": "./dist/atom-tools.umd.cjs",
+  "module": "./dist/atom-tools.js",
+  "types": "./dist/types/lib/main.d.ts",
+  "exports": {
+    "types": "./dist/types/lib/main.d.ts",
+    "import": "./dist/atom-tools",
+    "require": "./dist/atom-tools.umd"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": " tsc && vite build  ",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.10",
+    "vitepress": "^1.1.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "vite-plugin-dts": "^3.9.0"
+  }
+}
