@@ -1,9 +1,24 @@
 import './style.css'
 import typescriptLogo from './typescript.svg'
-import { formatDate } from '@/main';
-import * as atom from '@/main';
+import { copyText } from '@/main';
 
-console.log(formatDate, atom);
+
+const list = [
+  { name: '张三', age: 18 },
+  { name: '李四', age: 22 },
+  { name: '王五', age: 18 },
+]
+
+
+const copy = (e: string) => {
+
+  return copyText({
+    value: e, callback: (e) => {
+      console.log('hahha');
+
+    }
+  })
+}
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
@@ -15,13 +30,13 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     </a>
     <h1>Vite + TypeScript</h1>
     <div class="card">
-      <button id="counter" type="button"></button>
+      <button id="counter" type="button" >atom</button>
     </div>
     <p class="read-the-docs">
       Click on the Vite and TypeScript logos to learn more
     </p>
   </div>
 `
-
+document.getElementById('counter')?.addEventListener('click', () => copy('atom'))
 
 

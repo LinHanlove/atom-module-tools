@@ -1,5 +1,5 @@
 ---
-title: 一键复制
+title: 模糊匹配
 ---
 
 # 模糊匹配
@@ -13,28 +13,20 @@ title: 一键复制
 
 | 参数  | 说明             | 类型     | 默认值 |
 | ----- | ---------------- | -------- | ------ |
-| params | -- | `FuzzyMatchByPropertyParams` | -      |
+| params | -- | `IFuzzyMatchByProperty` | -      |
 
 ## 参数类型
 
 ```ts
-interface FuzzyMatchByPropertyParams {
-  /**
-   * 匹配的属性名
-   */
-  prop: string;
-  /**
-   * 匹配的属性值
-   */
-  key: string;
-  /**
-   * 匹配的数组
-   */
-  list: any[];
-  /**
-   * 回调函数
-   */
-  cb?:Function
+interface IFuzzyMatchByProperty {
+    /** 要进行模糊匹配的数组 */
+    array: any[]
+    /** 模糊匹配针对的属性 */
+    prop: string
+    /** 传入的字段 多用于本地输入框搜索 */
+    key: string
+    /** 回调函数 */
+    callback?: Function
 }
 ```
 

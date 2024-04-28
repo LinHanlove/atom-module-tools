@@ -117,7 +117,17 @@ export const transformDateWeekCN = (date: Date | number): string => {
   return text
 }
 
-
+/**
+ * 获取某个日期是当年的第几天
+ */
+export const getDayOfYear = (date: Date | number) => {
+  if (typeof date === 'number') {
+    date = new Date(date)
+  }
+  const start = new Date(date.getFullYear(), 0, 1)
+  const diff = (date as Date).valueOf() - start.valueOf()
+  return Math.floor(diff / DATA_CONSTANT.ONE_DAY) + 1
+}
 
 
 /**

@@ -6,29 +6,27 @@ title: 根据指定属性去重数组
 
 ### uniqueByProperty
 
+## 说明
+给定一个数组，根据数组的某一属性去重
+
+
 ## 参数
 
 | 参数  | 说明             | 类型     | 默认值 |
 | ----- | ---------------- | -------- | ------ |
-| option | -- | `UniqueByProperty` | -      |
+| option | -- | `IUniqueByProperty` | -      |
 
 
 ## 参数类型
 
 ```ts
-interface UniqueByProperty {
-  /**
-   * 指定的属性名
-   */
-  prop: string;
-  /**
-   * 数组
-   */
-  list: any[];
-  /**
-   * 回调函数
-   */
-  cb?:Function
+interface IUniqueByProperty {
+  /** 需要去重的数组 */
+  array: any[],
+  /** 去重字段 */
+  key: string
+  /** 回调函数 */
+  callback?: (arg0: any) => void
 }
 ```
 
