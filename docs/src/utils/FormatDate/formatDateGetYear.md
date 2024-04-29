@@ -24,9 +24,9 @@ title: 传入日期获取年份
 ```js
 import { formatDateGetYear } from 'atom-tools';
 
-formatDateGetYear('2020-01-01'); // 2024
+console.log(formatDateGetYear('2020-01-01')); // 2024
 
-formatDateGetYear(new Date()); // 2024
+console.log(formatDateGetYear(new Date())); // 2024
 
-formatDateGetYear(1609459200000); // 2021
+console.log(formatDateGetYear(1609459200000)); // 2021
 ```

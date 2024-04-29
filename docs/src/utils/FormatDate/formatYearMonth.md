@@ -11,7 +11,7 @@ title: formatYearMonth
 
 | 参数名 | 类型             | 默认值 | 说明             |
 | ------ | ---------------- | ------ | ---------------- |
-| date   | `Date`  `Number` | -      | 需要格式化的日期 |
+| date   | `Date`  `Number` `String` | -      | 需要格式化的日期 |
 
 ## 返回
 
@@ -22,41 +22,15 @@ title: formatYearMonth
 ### 基础用法
 
 ```js
+import { formatYearMonth } from 'atom-tools'
 
 // 传入date
-import { formatYearMonth } from 'atom-tools'
+console.log(formatYearMonth(new Date())) // 2024-04
 
-const date = new Date()
+// 传入时间戳
+console.log(formatYearMonth(1714405699791)) // 2024-04
 
-const formatDate = formatYearMonth(date)
-
-console.log(formatDate) // 01-01
+// 传入字符串
+console.log(formatYearMonth('2024-04-29')) // 2024-04
+console.log(formatYearMonth('2024/4/15')) // 2024-04
 ```
-<!-- 
-```js
-// 传入string
-import { formatDate } from '@/utils'
-
-const date = '2022-01-01'
-
-const formatDate = formatDate(date)
-
-console.log(formatDate) // 2022-01-01
-``` -->
-
-```js
-// 传入number
-import { formatYearMonth } from 'atom-tools'
-
-const date = 1640995200000
-
-const formatDate = formatDate(date)
-
-console.log(formatDate) // 01-01
-```
-
-```js
-
-
-    
-

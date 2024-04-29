@@ -23,11 +23,11 @@ title: 格式化日期为中文星期
 ```ts
 import { formatDateWeekCN } from 'atom-tools';
 
-formatDateWeekCN(new Date());// 输出：星期一
+console.log(formatDateWeekCN(new Date()));// 输出：星期一
 
-formatDateWeekCN(new Date('2022-01-01'));// 输出：星期五
+console.log(formatDateWeekCN(new Date('2022-01-01')));// 输出：星期五
 
-formatDateWeekCN(1);// 输出：星期一
+console.log(formatDateWeekCN(1));// 输出：星期一
 ```
 
 

@@ -11,52 +11,26 @@ title: formatDate
 
 | 参数名 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| date | `Date`  `Number` | - | 需要格式化的日期 |
+| date | `Date`  `Number` `String` | - | 需要格式化的日期 |
 
 ## 返回
 
-`string`
+`string` 
 
 ## 代码演示
 
 ### 基础用法
 
 ```js
+import { formatDate } from 'atom-tools'
 
 // 传入date
-import { formatDate } from 'atom-tools'
+console.log(formatDate(new Date())) // 2024-04-29
 
-const date = new Date()
+// 传入时间戳
+console.log(formatDate(1714405699791)) // 2024-04-29
 
-const formatDate = formatDate(date)
-
-console.log(formatDate) // 2022-01-01
+// 传入字符串
+console.log(formatDate('2024-04-29')) // 2024-04-29
+console.log(formatDate('2024/4/15')) // 2024-04-29
 ```
-<!-- 
-```js
-// 传入string
-import { formatDate } from '@/utils'
-
-const date = '2022-01-01'
-
-const formatDate = formatDate(date)
-
-console.log(formatDate) // 2022-01-01
-``` -->
-
-```js
-// 传入number
-import { formatDate } from 'atom-tools'
-
-const date = 1640995200000
-
-const formatDate = formatDate(date)
-
-console.log(formatDate) // 2022-01-01
-```
-
-```js
-
-
-    
-
