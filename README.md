@@ -1,5 +1,5 @@
 <div style="text-align:center;width:100%;display:flex;align-items: center;justify-content: center;">
-<img src="./docs/src/public/image/logo.png" alt="logo_1" style="zoom:50%; width: 500px; height: 500px; " />
+<img src="./docs/src/public/image/logo.png" alt="logo_1" style="zoom:50%; width: 400px; height: 400px; " />
 </div>
 
 # AtomTools
@@ -54,13 +54,21 @@ import { formatDate } from "atom-tools"
 ## 用法
 
 ```js
+import { pick } from 'atom-tools'; 
 
-// 传入date
-import { formatDate } from 'atom-tools'
+interface Person {
+  name: string;
+  age: number;
+  email: string;
+}
 
-const date = new Date()
+const person: Person = {
+  name: 'John Doe',
+  age: 30,
+  email: 'john.doe@example.com'
+};
 
-const formatDate = formatDate(date)
-
-console.log(formatDate) // 2022-01-01
+// 使用 pick 函数筛选出 'name' 和 'age' 属性
+const selectedFields = pick(person, ['name', 'age']);
+console.log(selectedFields); // 输出：{ name: 'John Doe', age: 30 }
 ```
