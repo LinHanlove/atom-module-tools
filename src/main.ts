@@ -2,13 +2,6 @@ import './style.css'
 import typescriptLogo from './typescript.svg'
 import { copyText, rgbGray, DATA_CONSTANT, isLeapYear, getUrlParams, randomHexColor, removeElementMark, preventRightKey } from '@/main';
 
-
-const list = [
-  { name: '张三', age: 18 },
-  { name: '李四', age: 22 },
-  { name: '王五', age: 18 },
-]
-
 // url地址
 const url = 'https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&tn=49055317_48_hao_pg&wd=atom-tools'
 
@@ -37,7 +30,7 @@ const copy = (e: string) => {
   // console.log(isLeapYear('2024/4/15')) // 04-29
 
   return copyText({
-    value: e, callback: (e) => {
+    value: e, callback: () => {
       console.log(DATA_CONSTANT.LAST_WEEK);
     }
   })
