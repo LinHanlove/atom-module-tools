@@ -3,6 +3,18 @@ import { toUpper } from '../String/index'
 const toString = Object.prototype.toString
 
 
+
+/**
+ * 在值是 null、undefined 或空字符串时返回一个指定的空值。
+ *
+ * @template T 表示 value 参数的类型。
+ * @param value - 需要检查的原始值，可以是 T 类型或 null/undefined。
+ * @param emptyValue - 当原始值为 null、undefined 或空字符串时返回的值，应与 T 类型兼容。
+ * @returns 返回原始值，或者当原始值为 null、undefined 或空字符串时返回 `emptyValue`。
+ */
+export const optional = <T>(value: T | null | undefined, emptyValue: T) => {
+  return (([null, undefined, ''] as any[]).includes(value) ? emptyValue : value) as T | undefined
+}
 /**
  * 检测数据类型
  * @param value 要检测的数据

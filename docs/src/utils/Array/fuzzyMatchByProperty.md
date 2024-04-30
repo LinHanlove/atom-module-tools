@@ -7,30 +7,28 @@ title: 模糊匹配
 ### fuzzyMatchByProperty
 
 ## 说明
-给定一个对象数组，根据指定的属性进行模糊匹配，并返回匹配到的对象
+`fuzzyMatchByProperty` 函数用于在给定的对象数组中，根据指定属性进行模糊匹配。它将返回与搜索关键词最匹配的对象。
 
 ## 参数
 
-| 参数  | 说明             | 类型     | 默认值 |
-| ----- | ---------------- | -------- | ------ |
-| params | -- | `IFuzzyMatchByProperty` | -      |
+| 参数   | 说明               | 类型                    | 默认值 |
+| ------ | ------------------ | ----------------------- | ------ |
+| params | 包含搜索参数的对象 | `IFuzzyMatchByProperty` | ---    |
 
 ## 参数类型
 
 ```ts
 interface IFuzzyMatchByProperty {
-    /** 要进行模糊匹配的数组 */
-    array: any[]
-    /** 模糊匹配针对的属性 */
-    prop: string
-    /** 传入的字段 多用于本地输入框搜索 */
-    key: string
-    /** 回调函数 */
-    callback?: Function
+    /** 要进行模糊匹配的对象数组 */
+    array: object[];
+    /** 要匹配的属性名 */
+    prop: string;
+    /** 用户输入的搜索关键词 */
+    key: string;
+    /** （可选）匹配成功后的回调函数 */
+    callback?: () => void;
 }
 ```
-
-
 
 ## 返回值
 
@@ -55,7 +53,7 @@ const params = {
 
 const result = fuzzyMatchByProperty(params);
 
-console.log(result); // { name: '张三', age: 18 }
+console.log(result); // 输出：{ name: '张三', age: 18 }
 
 ```
     

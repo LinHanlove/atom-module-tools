@@ -1,18 +1,18 @@
 ---
-title: 随机HEX颜色
+title: 随机 HEX 颜色
 ---
 
-# 随机HEX颜色
+# 随机 HEX 颜色
 
 ### randomHexColor
 
 ## 说明
-随机生成HEX颜色
-
+`randomHexColor` 函数用于生成一个随机的十六进制颜色值。
 
 ## 返回值
 
-`string`
+`string` - 返回一个随机的十六进制颜色字符串，例如 `#ddf900`。
+
 
 ## 代码演示
 

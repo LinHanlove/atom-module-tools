@@ -7,26 +7,24 @@ title: 数组对象排序
 ### arraySortByKey
 
 ## 说明
-给定一个数组，根据数组的某一属性排序
+`arraySortByKey` 函数接受一个对象数组和一个键名，然后根据该键名对应的属性值对数组进行排序。
 
 ## 参数
 
-| 参数  | 说明             | 类型     | 默认值 |
-| ----- | ---------------- | -------- | ------ |
-| params | -- | `IArraySortByKey` | -      |
+| 参数   | 说明                   | 类型              | 默认值 |
+| ------ | ---------------------- | ----------------- | ------ |
+| params | 包含数组和键的参数对象 | `IArraySortByKey` | ---    |
 
 ## 参数类型
 
 ```ts
 interface IArraySortByKey {
-  /** 需要排序的数组 */
-  array: any[],
-  /* 以什么字段排序 */
-  key: string
+  /** 需要排序的数组，其中每个元素都是一个对象 */
+  array: object[];
+  /** 用于排序的数组元素的键 */
+  key: string;
 }
 ```
-
-
 
 ## 返回值
 
@@ -51,7 +49,7 @@ const result = arraySortByKey({
 });
 
 console.log(result);
-// [
+// 输出：[
 //   { name: '王五', age: 15 },
 //   { name: '张三', age: 18 },
 //   { name: '李四', age: 22 },

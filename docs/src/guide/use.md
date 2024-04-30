@@ -1,7 +1,7 @@
 ## 快速上手
 
 > 使用前须知：
-> 使用atom-tools之前，请确保你已熟练使用TypeScript **以下简称ts**
+> 使用atom-tools之前，请确保你已熟练使用TypeScript(  **以下简称ts**)
 
 ## 安装
 
@@ -26,21 +26,23 @@ yarn add atom-tools
 ##### 我们推荐按需导入使用 **atom-tools**
 
 ```ts
-import { fuzzyMatchByProperty } from '@/utils/Array';
+import { pick } from 'atom-tools'; 
 
-const params = {
-  prop: 'name',
-  key: '张三',
-  list: [
-    { name: '张三', age: 18 },
-    { name: '李四', age: 20 },
-    { name: '王五', age: 22 },
-  ],
+interface Person {
+  name: string;
+  age: number;
+  email: string;
+}
+
+const person: Person = {
+  name: 'John Doe',
+  age: 30,
+  email: 'john.doe@example.com'
 };
 
-const result = fuzzyMatchByProperty(params);
-
-console.log(result); // { name: '张三', age: 18 }
+// 使用 pick 函数筛选出 'name' 和 'age' 属性
+const selectedFields = pick(person, ['name', 'age']);
+console.log(selectedFields); // 输出：{ name: 'John Doe', age: 30 }
 
 ```
     

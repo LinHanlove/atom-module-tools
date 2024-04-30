@@ -109,7 +109,7 @@ export default {
     '/utils/': [
         {
             text: 'Use',
-            link: '../utils/Array/fuzzyMatchByProperty',
+            link: '/utils/Array/arraySortByKey',
             items: getFilesItem()
         }
     ]

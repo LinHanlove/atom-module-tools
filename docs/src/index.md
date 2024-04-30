@@ -5,12 +5,12 @@ layout: home
 hero:
   name: "atom-tools"
   text: "全量的快捷工具库"
-  tagline: Typescript based shortcut tool library
+  tagline: A fast, powerful, and out of the box TypeScript tool library
   image: /image/logo.png
   actions:
     - theme: brand
       text: 快速开始
-      link: /utils/Array/fuzzyMatchByProperty
+      link: /utils/Array/arraySortByKey
     - theme: alt
       text: 示例
       link: /guide/use

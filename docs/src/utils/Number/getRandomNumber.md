@@ -1,5 +1,5 @@
 ---
-title: keepDecimal
+title: getRandomNumber
 ---
 
 # 随机数字
@@ -7,28 +7,25 @@ title: keepDecimal
 ### getRandomNumber
 
 ## 说明
-生成随机字数字，该数字唯一
+`getRandomNumber` 函数用于生成一个指定长度的唯一随机数字。
 
 ## 参数
 
-| 参数 | 说明 | 类型   | 默认值 |
-| ---- | ---- | ------ | ------ |
-| digit | 自定义长度 | `Number` | 2      |
+| 参数  | 说明               | 类型     | 默认值 |
+| ----- | ------------------ | -------- | ------ |
+| digit | 随机数字的期望长度 | `Number` | 2      |
 
 ## 返回值
 
-`string`
+`string` - 返回一个指定长度的唯一随机数字字符串。
 
 ## 代码演示
 
 ### 基础用法
 
 ```ts
-import { getRandomNumber } from 'atom-tools';
+import { getRandomNumber } from 'atom-tools'; 
 
-console.log(getRandomNumber(3)); // 258
-
+// 生成一个3位长度的随机数字
+console.log(getRandomNumber(3)); // 输出：一个3位长度的随机数字，例如 "258"
 ```
-
-
-    
