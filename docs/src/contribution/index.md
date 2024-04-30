@@ -28,8 +28,7 @@ git commit -am "Add some feature or fix a bug"
 
 ## 联系我们
 如果您有任何问题或建议，欢迎随时通过以下方式联系我们：
-<!-- 无序列表 -->
-- 邮箱：a2188817393@qq.com
+- 邮箱：2188817393@qq.com
 - 电话：15097255355
 - GitHub：[讨论](https://github.com/LinHanlove/atom-tools/discussions)
 - 稀土掘金：https://juejin.cn/post/7362370608346677283
