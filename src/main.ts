@@ -1,6 +1,6 @@
 import './style.css'
 import typescriptLogo from './typescript.svg'
-import { copyText, rgbGray, DATA_CONSTANT, isLeapYear, getUrlParams, randomHexColor, removeElementMark, preventRightKey } from '@/main';
+import { copyText, rgbGray, is, isDef, isEmpty, isObject, DATA_CONSTANT, isLeapYear, getUrlParams, randomHexColor, removeElementMark, preventRightKey } from '@/main';
 
 // url地址
 const url = 'https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&tn=49055317_48_hao_pg&wd=atom-tools'
@@ -25,9 +25,15 @@ const copy = (e: string) => {
   // 传入时间戳
   console.log(isLeapYear(2023)) // 04-29
 
-  // 传入字符串
-  // console.log(isLeapYear('2024-04-29')) // 04-29
-  // console.log(isLeapYear('2024/4/15')) // 04-29
+  console.log(is('123', 'String')); // true
+  console.log(isDef('123')); // true
+  console.log(isDef(undefined)); // false
+  console.log(isObject(null)); // false
+  console.log(isObject({})); // true
+  console.log(isEmpty(null)); // true
+  console.log(isEmpty({ a: 1 })); // false
+
+
 
   return copyText({
     value: e, callback: () => {

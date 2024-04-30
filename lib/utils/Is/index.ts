@@ -1,135 +1,254 @@
+import { toUpper } from '../String/index'
+
 const toString = Object.prototype.toString
 
-export function is(val: unknown, type: string) {
-  return toString.call(val) === `[object ${type}]`
-}
 
-export function isDef<T = unknown>(val?: T): val is T {
-  return typeof val !== 'undefined'
-}
-
-export function isUnDef<T = unknown>(val?: T): val is T {
-  return !isDef(val)
-}
-
-export function isObject(val: any): val is Record<any, any> {
-  return val !== null && is(val, 'Object')
-}
-
-export function isEmpty<T = unknown>(val: T): val is T {
-  if (isArray(val) || isString(val)) {
-    return val.length === 0
-  }
-
-  if (val instanceof Map || val instanceof Set) {
-    return val.size === 0
-  }
-
-  if (isObject(val)) {
-    return Object.keys(val).length === 0
-  }
-
-  if (isNull(val)) {
-    return val === null
-  }
-
-  if (isNaN(val)) {
-    return true
-  }
-
-  if (isUnDef(val)) {
-    return true
-  }
-
-  return false
-}
-
-export function isDate(val: unknown): val is Date {
-  return is(val, 'Date')
-}
-
-export function isNaN(val: unknown) {
-  return Object.is(val, NaN)
-}
-
-export function isNull(val: unknown): val is null {
-  return val === null
-}
-
-export function isNullAndUnDef(val: unknown): val is null | undefined {
-  return isUnDef(val) && isNull(val)
-}
-
-export function isNullOrUnDef(val: unknown): val is null | undefined {
-  return isUnDef(val) || isNull(val)
-}
-
-export function isNumber(val: unknown): val is number {
-  return is(val, 'Number')
-}
-
-export function isPromise<T = any>(val: unknown): val is Promise<T> {
-  return is(val, 'Promise') && isObject(val) && isFunction(val.then) && isFunction(val.catch)
-}
-
-export function isString(val: unknown): val is string {
-  return is(val, 'String')
-}
-
-export function isFunction(val: unknown): val is Function {
-  return typeof val === 'function'
-}
-
-export function isBoolean(val: unknown): val is boolean {
-  return is(val, 'Boolean')
-}
-
-export function isRegExp(val: unknown): val is RegExp {
-  return is(val, 'RegExp')
-}
-
-export function isArray(val: any): val is Array<any> {
-  return val && Array.isArray(val)
-}
-
-export function isWindow(val: any): val is Window {
-  return typeof window !== 'undefined' && is(val, 'Window')
-}
-
-export function isElement(val: unknown): val is Element {
-  return isObject(val) && !!val.tagName
-}
-
-export function isMap(val: unknown): val is Map<any, any> {
-  return is(val, 'Map')
-}
-
-export const isServer = typeof window === 'undefined'
-
-export const isClient = !isServer
-
-export function isUrl(path: string): boolean {
-  const reg =
-    /(((^https?:(?:\/\/)?)(?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[\w]*))?)$/
-  return reg.test(path)
+/**
+ * 检测数据类型
+ * @param value 要检测的数据
+ * @param type 类型
+ * @returns 
+ */
+export function is(value: unknown, type: string) {
+  return toString.call(value) === `[object ${toUpper(type)}]`
 }
 
 /**
- * @function 是否是手机号码
- * @param value
- * @returns
+ * 检测一个数是否为undefined
+ * @param value 
+ * @returns 
+ */
+export function isDef<T = unknown>(value?: T): value is T {
+  return typeof value === 'undefined'
+}
+
+/**
+ * 检测一个数是否为object
+ * @param value 
+ * @returns 
+ */
+export function isObject(value: any): value is Record<any, any> {
+  return value !== null && is(value, 'Object')
+}
+
+/**
+ * 检查一个值是否为空
+ * 空的定义包括：数组、字符串、Map、Set、对象（无键值对）、null、NaN、未定义或未声明的值
+ * @param value 需要检查的值
+ * @returns 如果值为空，则返回true，否则返回false
+ */
+export function isEmpty<T = unknown>(value: T): value is T {
+  // 如果是数组或字符串，检查其长度是否为0
+  if (isArray(value) || isString(value)) {
+    return value.length === 0;
+  }
+
+  // 如果是Map或Set实例，检查其size属性是否为0
+  if (value instanceof Map || value instanceof Set) {
+    return value.size === 0;
+  }
+
+  // 如果是对象，检查其是否有可枚举的键
+  if (isObject(value)) {
+    return Object.keys(value).length === 0;
+  }
+
+  // 如果是null，直接比较
+  if (isNull(value)) {
+    return value === null;
+  }
+
+  // 如果是NaN，使用isNaN函数检查
+  if (isNaN(value)) {
+    return true;
+  }
+
+  // 如果值未定义或未声明，返回true
+  if (!isDef(value)) {
+    return true;
+  }
+
+  // 如果以上都不是，即值非空，返回false
+  return false;
+}
+
+/**
+ * 判断是否是日期
+ * @param value 
+ * @returns 
+ */
+export function isDate(value: unknown): value is Date {
+  return is(value, 'Date')
+}
+
+
+/**
+ * 判断是否是NaN
+ * @param value 
+ * @returns 
+ */
+export function isNaN(value: unknown) {
+  return Object.is(value, NaN)
+}
+
+
+/**
+ * 判断是否是null
+ * @param value 
+ * @returns 
+ */
+export function isNull(value: unknown): value is null {
+  return value === null
+}
+
+
+/**
+ * 判断是否是undefine和null的交集
+ * @param value 
+ * @returns 
+ */
+export function isNullAndUnDef(value: unknown): value is null | undefined {
+  return !isDef(value) && isNull(value)
+}
+
+/**
+ * 判断是否是undefine和null的并集
+ * @param value 
+ * @returns 
+ */
+export function isNullOrUnDef(value: unknown): value is null | undefined {
+  return !isDef(value) || isNull(value)
+}
+
+
+/**
+ * 判断是不是数字
+ * @param value 
+ * @returns 
+ */
+export function isNumber(value: unknown): value is number {
+  return is(value, 'Number')
+}
+
+/**
+ * 判断一个值是否为 Promise 对象
+ * @param value 需要判断的值
+ * @returns 如果 value 是 Promise 对象，则返回 true，否则返回 false
+ */
+export function isPromise<T = any>(value: unknown): value is Promise<T> {
+  return is(value, 'Promise') && isObject(value) && isFunction(value.then) && isFunction(value.catch)
+}
+
+/**
+ * 判断一个值是否为字符串类型
+ * @param value 需要判断的值
+ * @returns 如果 value 是字符串，则返回 true，否则返回 false
+ */
+export function isString(value: unknown): value is string {
+  return is(value, 'String');
+}
+
+/**
+ * 判断一个值是否为函数类型
+ * @param value 需要判断的值
+ * @returns 如果 value 是函数，则返回 true，否则返回 false
+ */
+export function isFunction(value: unknown): value is Function {
+  return typeof value === 'function';
+}
+
+/**
+ * 判断一个值是否为布尔类型
+ * @param value 需要判断的值
+ * @returns 如果 value 是布尔类型，则返回 true，否则返回 false
+ */
+export function isBoolean(value: unknown): value is boolean {
+  return is(value, 'Boolean');
+}
+
+/**
+ * 判断一个值是否为正则表达式类型
+ * @param value 需要判断的值
+ * @returns 如果 value 是正则表达式，则返回 true，否则返回 false
+ */
+export function isRegExp(value: unknown): value is RegExp {
+  return is(value, 'RegExp');
+}
+
+/**
+ * 判断一个值是否为数组类型
+ * @param value 需要判断的值
+ * @returns 如果 value 是数组，则返回 true，否则返回 false
+ */
+export function isArray(value: any): value is Array<any> {
+  return value && Array.isArray(value);
+}
+
+/**
+ * 判断当前环境是否为浏览器环境（非服务器端）
+ * @param value 需要判断的值（此处未使用，仅作为参数模板）
+ * @returns 如果是浏览器环境，则返回 true，否则返回 false
+ */
+export function isWindow(value: any): value is Window {
+  return typeof window !== 'undefined' && is(value, 'Window');
+}
+
+/**
+ * 判断一个值是否为 HTML 元素
+ * @param value 需要判断的值
+ * @returns 如果 value 是 HTML 元素，则返回 true，否则返回 false
+ */
+export function isElement(value: unknown): value is Element {
+  return isObject(value) && !!value.tagName;
+}
+
+/**
+ * 判断一个值是否为 Map 类型
+ * @param value 需要判断的值
+ * @returns 如果 value 是 Map 类型，则返回 true，否则返回 false
+ */
+export function isMap(value: unknown): value is Map<any, any> {
+  return is(value, 'Map');
+}
+
+/**
+ * 判断当前环境是否为服务器端
+ * @returns 如果是服务器端，则返回 true，否则返回 false
+ */
+export const isServer = typeof window === 'undefined';
+
+/**
+ * 判断当前环境是否为客户端（浏览器环境）
+ * @returns 如果是客户端，则返回 true，否则返回 false
+ */
+export const isClient = !isServer;
+
+/**
+ * 判断一个字符串是否为有效的 URL 地址
+ * @param path 需要判断的字符串
+ * @returns 如果 path 是有效的 URL 地址，则返回 true，否则返回 false
+ */
+export function isUrl(path: string): boolean {
+  const reg = /(((^https?:(?:\/\/)?)(?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[\w]*))?)$/;
+  return reg.test(path);
+}
+
+/**
+ * 判断一个字符串是否为有效的手机号码
+ * @param value 需要判断的字符串
+ * @returns 如果 value 是有效的手机号码，则返回 true，否则返回 false
  */
 export function isMobileNumber(value: string): boolean {
-  const reg = /^1[3456789]\d{9}$/
-  return reg.test(value)
+  const reg = /^1[3456789]\d{9}$/;
+  return reg.test(value);
 }
 
 /**
- * @function 是否是座机
- * @param value
- * @returns
+ * 判断一个字符串是否为有效的座机号码
+ * @param value 需要判断的字符串
+ * @returns 如果 value 是有效的座机号码，则返回 true，否则返回 false
  */
 export function isTelePhoneNumber(value: string): boolean {
-  const reg = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/
-  return reg.test(value)
+  const reg = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
+  return reg.test(value);
 }

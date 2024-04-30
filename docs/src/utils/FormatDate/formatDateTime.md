@@ -11,7 +11,7 @@ title: formatDateTime
 
 | 参数名 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| date | `Date`  `Number` `String` | - | 需要格式化的日期 |
+| date | `Date`  `Number` `String` | --- | 需要格式化的日期 |
 
 ## 返回
 
