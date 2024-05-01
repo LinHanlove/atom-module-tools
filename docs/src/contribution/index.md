@@ -33,3 +33,29 @@ git commit -am "Add some feature or fix a bug"
 - GitHub：[讨论](https://github.com/LinHanlove/atom-tools/discussions)
 - 稀土掘金：https://juejin.cn/post/7362370608346677283
 - 微信：添加微信号 "linhan_0119"
+
+
+
+<br/>
+
+# 我们的团队
+
+向我们优秀的团队问好
+
+<VPTeamMembers size="small" :members="members" />
+
+
+<script setup>
+import { VPTeamMembers } from 'vitepress/theme'
+
+const members = [
+  {
+    avatar: '../public/image/creator.jpg',
+    name: 'Lin Han',
+    title: 'Creator',
+    links: [
+      { icon: 'github', link: 'https://github.com/LinHanlove' },
+    ]
+  },
+]
+</script>

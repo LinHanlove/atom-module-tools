@@ -16,11 +16,18 @@ export default defineConfig({
     nav: nav,
     sidebar: sidebar,
     socialLinks: [
-      { icon: "github", link: "https://github.com/vuejs/vitepress" },
+      { icon: "github", link: "https://github.com/LinHanlove/atom-tools" },
     ],
-
     search: {
       provider: 'local'
-    }
+    },
+    lastUpdated: {
+      text: 'Updated at',
+      formatOptions: {
+        dateStyle: 'full',
+        timeStyle: 'medium'
+      }
+    },
+
   },
 });

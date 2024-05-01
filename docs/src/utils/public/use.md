@@ -1,7 +1,9 @@
+> [!WARNING]
+> 使用前须知：
+> 使用atom-tools之前，请确保你已熟练使用TypeScript(  **以下简称ts**), 并且了解 **ts** 中的 **type**, **interface**, **enum**, **class**, **namespace**, **module**, **import**, **export** 等关键字。
+
 ## 快速上手
 
-> 使用前须知：
-> 使用atom-tools之前，请确保你已熟练使用TypeScript(  **以下简称ts**)
 
 ## 安装
 
