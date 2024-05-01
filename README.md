@@ -1,13 +1,13 @@
 
 <p align="center">
   <a href="https://tools.atomnotion.com" target="_blank" rel="noopener noreferrer">
-    <img width="200" src="./docs/src/public/image/logo.png" alt="Vite logo">
+    <img width="200" src="./docs/src/public/image/logo.png" alt="atom-tools logo">
   </a>
 </p>
 <br/>
 <p align="center">
   <a href="https://www.npmjs.com/package/atom-tools"><img src="https://img.shields.io/npm/v/atom-tools.svg" alt="npm package"></a>
-  <a href="https://www.npmjs.com/package/atom-tools"><img src="https://img.shields.io/node/v/vite.svg" alt="node compatibility"></a>
+  <a href="https://www.npmjs.com/package/atom-tools"><img src="https://img.shields.io/node/v/atom-tools.svg" alt="node compatibility"></a>
 <!--   <a href="https://tools.atomnotion.com"><img src="https://github.com/vitejs/vite/actions/workflows/ci.yml/badge.svg?branch=main" alt="build status"></a>
   <a href="https://tools.atomnotion.com"><img src="https://developer.stackblitz.com/img/start_pr_dark_small.svg" alt="Start new PR in StackBlitz Codeflow"></a>
   <a href="https://tools.atomnotion.com"><img src="https://img.shields.io/badge/chat-discord-blue?style=flat&logo=discord" alt="discord chat"></a> -->
@@ -16,7 +16,7 @@
 
 # AtomTools 
 
-## 极速、强大、开箱即用的 TypeScript 工具库
+### 极速、强大、开箱即用的 TypeScript 工具库
 
 ⚡️ **AtomTools** 是一个现代的、基于 TypeScript 的 JavaScript 工具库，它包含了众多在项目开发中不可或缺的实用工具函数。通过简单的导入语句，您可以快速地将这些工具函数应用到您的项目中。
 
