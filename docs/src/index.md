@@ -10,10 +10,10 @@ hero:
   actions:
     - theme: brand
       text: 快速开始
-      link: /utils/Array/arraySortByKey
+      link: /utils/public/guide
     - theme: alt
       text: 示例
-      link: /guide/use
+      link: /utils/public/use
 
 features:
   - title: Simplicity First

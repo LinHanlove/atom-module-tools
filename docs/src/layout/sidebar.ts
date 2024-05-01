@@ -41,10 +41,10 @@ type IChildren = {
 /**
  * @function 侧边栏结构表
  */
-const getFilesItem = (): IAncestor[] => {
+const getFilesItem = (src): IAncestor[] => {
     try {
         // 获取存放文档的目录文件夹
-        const dri = path.join(__dirname, '../utils');
+        const dri = path.join(__dirname, src);
 
         // 一级菜单
         const ancestorsFileMap = [] as IAncestor[];
@@ -70,10 +70,11 @@ const getFilesItem = (): IAncestor[] => {
                 subFiles.forEach(subItem => {
 
                     const key = subItem.split('.')[0];
-
+                    // 正则去除src的..
+                    const base = src.replace(/\.\.\//g, '');
                     childrenFilesMap.push({
                         text: key,
-                        link: `/utils/${menuKey}/${key}`
+                        link: `${base}/${menuKey}/${key}`
                     });
                 });
 
@@ -95,22 +96,23 @@ const getFilesItem = (): IAncestor[] => {
 
 
 export default {
-    // 使用指南
-    '/guide/': [
-        {
-            text: 'Guide',
-            link: '/guide/home',
-            items: [
-                { text: '快速上手', link: '/guide/use' },
-            ]
-        }
-    ],
     // 使用
     '/utils/': [
         {
-            text: 'Use',
-            link: '/utils/Array/arraySortByKey',
-            items: getFilesItem()
+            text: 'Guide',
+            link: '/utils/public/guide',
+            items: [
+                { text: '快速上手', link: '/utils/public/use' },
+            ]
+        },
+        {
+            text: 'Public',
+            items: getFilesItem('../utils/public/')
+        },
+        {
+            text: 'Special',
+            items: getFilesItem('../utils/special/')
         }
-    ]
+    ],
+
 }

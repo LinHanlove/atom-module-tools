@@ -1,5 +1,5 @@
 <div style="text-align:center;width:100%;display:flex;align-items: center;justify-content: center;">
-<img src="../public/image/logo.png" alt="logo_1" style="zoom:50%; width: 500px; height: 500px; " />
+<img src="../../public/image/logo.png" alt="logo_1" style="zoom:50%; width: 500px; height: 500px; " />
 </div>
 
 # AtomTools
@@ -16,7 +16,7 @@
 
 ### 特性
 
-- 🌈 **全能兼容**：完美兼容任何由 JavaScript 或 TypeScript 开发的项目。
+- 🌈 **全能兼容**：完美兼容任何由 JavaScript 或 TypeScript 开发的项目，当然也包括微信小程序
 - 🚀 **极速体验**：提供快速的开发体验，提升编程效率。
 - 📠 **类型安全**：完全使用 TypeScript 编写，享有强大的类型提示和检查。
 - 🍃 **轻量设计**：注重库的轻量化，无冗余依赖。
