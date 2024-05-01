@@ -1,8 +1,18 @@
-<div style="text-align:center;width:100%;display:flex;align-items: center;justify-content: center;">
-<img src="./docs/src/public/image/logo.png" alt="logo_1" style="zoom:50%; width: 400px; height: 400px; " />
-</div>
 
-[![npm version](https://img.shields.io/npm/v/atom-tools.svg)](https://www.npmjs.com/package/atom-tools)
+<p align="center">
+  <a href="https://tools.atomnotion.com" target="_blank" rel="noopener noreferrer">
+    <img width="200" src="./docs/src/public/image/logo.png" alt="Vite logo">
+  </a>
+</p>
+<br/>
+<p align="center">
+  <a href="https://www.npmjs.com/package/atom-tools"><img src="https://img.shields.io/npm/v/atom-tools.svg" alt="npm package"></a>
+  <a href="https://www.npmjs.com/package/atom-tools"><img src="https://img.shields.io/node/v/vite.svg" alt="node compatibility"></a>
+<!--   <a href="https://tools.atomnotion.com"><img src="https://github.com/vitejs/vite/actions/workflows/ci.yml/badge.svg?branch=main" alt="build status"></a>
+  <a href="https://tools.atomnotion.com"><img src="https://developer.stackblitz.com/img/start_pr_dark_small.svg" alt="Start new PR in StackBlitz Codeflow"></a>
+  <a href="https://tools.atomnotion.com"><img src="https://img.shields.io/badge/chat-discord-blue?style=flat&logo=discord" alt="discord chat"></a> -->
+</p>
+<br/>
 
 # AtomTools 
 
