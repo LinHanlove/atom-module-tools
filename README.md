@@ -2,7 +2,9 @@
 <img src="./docs/src/public/image/logo.png" alt="logo_1" style="zoom:50%; width: 400px; height: 400px; " />
 </div>
 
-# AtomTools
+
+
+# AtomTools [![npm version](https://img.shields.io/npm/v/atom-tools.svg)](https://www.npmjs.com/package/atom-tools)
 
 ## 极速、强大、开箱即用的 TypeScript 工具库
 
