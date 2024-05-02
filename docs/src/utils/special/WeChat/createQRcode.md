@@ -2,9 +2,9 @@
 title: QRCode Generator Function
 ---
 
-# QRCode 生成函数
+# 二维码生成 
 
-### 二维码生成
+### createQRCode
 
 ## 说明
 `createQRCode` 函数用于生成一个二维码图片。用户可以指定要转换为二维码的内容和一些可选的配置参数。

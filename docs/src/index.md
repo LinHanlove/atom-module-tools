@@ -16,11 +16,11 @@ hero:
       link: /utils/public/use
 
 features:
-  - title: Simplicity First
+  - title: 🚀 Simplicity First
     details: Minimal setup with TypeScript project structure helps you focus on use
-  - title: tools
+  - title: 🍃 tools
     details: Enjoy the dev experience of tools, use tools components in project
-  - title: more
+  - title: ⚡️ more
     details: more good,more convenient,more utils
 
     footer: MIT Licensed | Copyright © atom-to

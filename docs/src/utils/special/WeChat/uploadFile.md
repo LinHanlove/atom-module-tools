@@ -2,9 +2,9 @@
 title: Upload File Function
 ---
 
-# 文件上传函数
+# 文件上传
 
-### 文件上传
+### uploadFile
 
 ## 说明
 `uploadFile` 函数用于在微信小程序环境中上传文件。它接受一个包含上传参数的对象。函数返回一个`Promise`，允许调用者通过链式调用`.then()`来处理上传成功的结果。
