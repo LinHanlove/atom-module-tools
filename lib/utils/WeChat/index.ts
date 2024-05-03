@@ -2,7 +2,7 @@ import { TYPE } from '@/types/global'
 import QRCode from 'qrcode'
 
 /**
- * 生成二维码的函数
+ * @function 生成二维码的函数
  * @param content 需要转换为二维码的内容
  * @param options 二维码的配置选项
  * @returns {Promise<string>} 返回一个Promise，解析为base64编码的二维码图片
@@ -36,7 +36,7 @@ export const createQRCode = (
 }
 
 /**
- * 上传文件
+ * @function 上传文件
  * @param params 需要上传的参数
  * @returns
  */

@@ -1,6 +1,6 @@
 import { TYPE } from '@/types/global'
 /**
- * 一键复制
+ * @function 一键复制
  * @param value 要复制的文本
  * @param callback 回调函数
  * @returns
@@ -25,7 +25,7 @@ export const copyText = async (params: TYPE.ICopyText) => {
 }
 
 /**
- * 将rgb颜色灰度化 基于光感加权平均值
+ * @function 将rgb颜色灰度化 基于光感加权平均值
  * @param rgb
  * @returns 灰度值
  */
@@ -43,7 +43,7 @@ export const rgbGray = (rgb: string[] | string) => {
 }
 
 /**
- * 解析url地址中的参数 返回一个对象
+ * @function 解析url地址中的参数 返回一个对象
  * @param url
  * @returns 参数对象
  */
@@ -54,7 +54,7 @@ export const getUrlParams = (url: string) => {
 }
 
 /**
- * 生成随机HEX颜色
+ * @function 生成随机HEX颜色
  * @returns
  */
 export const randomHexColor = () => {
@@ -64,7 +64,7 @@ export const randomHexColor = () => {
 }
 
 /**
- * 去掉标签字符串中的元素标记
+ * @function 去掉标签字符串中的元素标记
  * @param str 元素标签字符串
  * @returns
  */
@@ -73,7 +73,7 @@ export const removeElementMark = (str: string) => {
 }
 
 /**
- * 全屏
+ * @function 全屏
  */
 export const toFullScreen = (): void => {
   const element = document.documentElement as TYPE.IFullScreenAbleHTMLElement
@@ -91,7 +91,7 @@ export const toFullScreen = (): void => {
 }
 
 /**
- * 退出全屏
+ * @function 退出全屏
  */
 export const exitFullScreen = (): void => {
   const document = window.document as TYPE.IExitFullScreenAbleHTMLElement
@@ -109,7 +109,7 @@ export const exitFullScreen = (): void => {
 }
 
 /**
- * 禁止右键，选择，复制
+ * @function 禁止右键，选择，复制
  */
 export const preventRightKey = () => {
   ;['contextmenu', 'selectstart', 'copy'].forEach(function (e) {
@@ -118,3 +118,26 @@ export const preventRightKey = () => {
     })
   })
 }
+
+
+/**
+ * 清除指定的 cookie 或所有 cookie。
+ * @param name 可选。如果提供，将清除指定名称的 cookie。
+ */
+export const clearAllCookie = (name?: string) => {
+  if (name) {
+    // 清除指定名称的 cookie
+    document.cookie = name + '=0; path=/; expires=' + new Date(0).toUTCString();
+    document.cookie = name + '=0; path=/; domain=' + document.domain + '; expires=' + new Date(0).toUTCString();
+  } else {
+    // 清除所有 cookie
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      let cookie = cookies[i].trim();
+      const eqPos = cookie.indexOf('=');
+      let name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+      document.cookie = name + '=0; path=/; expires=' + new Date(0).toUTCString();
+      document.cookie = name + '=0; path=/; domain=' + document.domain + '; expires=' + new Date(0).toUTCString();
+    }
+  }
+};

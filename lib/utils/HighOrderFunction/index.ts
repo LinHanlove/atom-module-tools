@@ -2,7 +2,7 @@
  * sleep 函数用于模拟异步操作的延迟。
  * 它接受一个表示延迟时间（以毫秒为单位）的参数，并返回一个 Promise 对象。
  * 当指定的延迟时间过后，Promise 会被 resolve。
- *
+ * @function
  * @param {number} duration - 延迟的时间，单位为毫秒。
  * @returns {Promise<void>} - 一个在延迟时间过后解析的 Promise 对象。
  */
@@ -13,7 +13,7 @@ export function sleep(duration: number | undefined) {
 }
 
 /**
- * 深度克隆一个值。
+ * @function 深度克隆一个值。
  * 使用 JSON 方法进行序列化和反序列化来实现深度克隆。
  * 注意：此方法不能克隆函数、undefined、循环引用的对象等。
  *
@@ -25,8 +25,7 @@ export function cloneDeep(value: unknown) {
 }
 
 /**
- * 创建一个节流函数，确保函数在指定的时间间隔内最多执行一次。
- *
+ * @function 创建一个节流函数，确保函数在指定的时间间隔内最多执行一次。
  * @param {Function} func - 需要节流的函数。
  * @param {number} limit - 时间间隔，单位为毫秒。必须是一个大于0的数字。
  * @param {boolean} immediate - 可选，是否立即执行函数。默认为 false。
@@ -70,8 +69,7 @@ export function throttle(func: Function, limit: number, immediate?: boolean): Fu
 }
 
 /**
- * 创建一个防抖函数，确保函数在指定的时间间隔结束后才执行。
- *
+ * @function 创建一个防抖函数，确保函数在指定的时间间隔结束后才执行。
  * @param {Function} func - 需要防抖的函数。
  * @param {number} wait - 等待时间，单位为毫秒。
  * @param {boolean} immediate - 可选，是否立即执行函数。默认为 false。

@@ -3,8 +3,7 @@ import { toUpper } from '../String/index'
 const toString = Object.prototype.toString
 
 /**
- * 在值是 null、undefined 或空字符串时返回一个指定的空值。
- *
+ * @function 在值是 null、undefined 或空字符串时返回一个指定的空值。
  * @template T 表示 value 参数的类型。
  * @param value - 需要检查的原始值，可以是 T 类型或 null/undefined。
  * @param emptyValue - 当原始值为 null、undefined 或空字符串时返回的值，应与 T 类型兼容。
@@ -14,7 +13,7 @@ export const optional = <T>(value: T | null | undefined, emptyValue: T) => {
   return (([null, undefined, ''] as any[]).includes(value) ? emptyValue : value) as T | undefined
 }
 /**
- * 检测数据类型
+ * @function 检测数据类型
  * @param value 要检测的数据
  * @param type 类型
  * @returns
@@ -24,7 +23,7 @@ export function is(value: unknown, type: string) {
 }
 
 /**
- * 检测一个数是否为undefined
+ * @function 检测一个数是否为undefined
  * @param value
  * @returns
  */
@@ -33,7 +32,7 @@ export function isDef<T = unknown>(value?: T): value is T {
 }
 
 /**
- * 检测一个数是否为object
+ * @function 检测一个数是否为object
  * @param value
  * @returns
  */
@@ -42,7 +41,7 @@ export function isObject(value: any): value is Record<any, any> {
 }
 
 /**
- * 检查一个值是否为空
+ * @function 检查一个值是否为空
  * 空的定义包括：数组、字符串、Map、Set、对象（无键值对）、null、NaN、未定义或未声明的值
  * @param value 需要检查的值
  * @returns 如果值为空，则返回true，否则返回false
@@ -83,7 +82,7 @@ export function isEmpty<T = unknown>(value: T): value is T {
 }
 
 /**
- * 判断是否是日期
+ * @function 判断是否是日期
  * @param value
  * @returns
  */
@@ -92,7 +91,7 @@ export function isDate(value: unknown): value is Date {
 }
 
 /**
- * 判断是否是NaN
+ * @function 判断是否是NaN
  * @param value
  * @returns
  */
@@ -101,7 +100,7 @@ export function isNaN(value: unknown) {
 }
 
 /**
- * 判断是否是null
+ * @function 判断是否是null
  * @param value
  * @returns
  */
@@ -110,7 +109,7 @@ export function isNull(value: unknown): value is null {
 }
 
 /**
- * 判断是否是undefine和null的交集
+ * @function 判断是否是undefine和null的交集
  * @param value
  * @returns
  */
@@ -119,7 +118,7 @@ export function isNullAndUnDef(value: unknown): value is null | undefined {
 }
 
 /**
- * 判断是否是undefine和null的并集
+ * @function 判断是否是undefine和null的并集
  * @param value
  * @returns
  */
@@ -128,7 +127,7 @@ export function isNullOrUnDef(value: unknown): value is null | undefined {
 }
 
 /**
- * 判断是不是数字
+ * @function 判断是不是数字
  * @param value
  * @returns
  */
@@ -137,7 +136,7 @@ export function isNumber(value: unknown): value is number {
 }
 
 /**
- * 判断一个值是否为 Promise 对象
+ * @function 判断一个值是否为 Promise 对象
  * @param value 需要判断的值
  * @returns 如果 value 是 Promise 对象，则返回 true，否则返回 false
  */
@@ -148,7 +147,7 @@ export function isPromise<T = any>(value: unknown): value is Promise<T> {
 }
 
 /**
- * 判断一个值是否为字符串类型
+ * @function判断一个值是否为字符串类型
  * @param value 需要判断的值
  * @returns 如果 value 是字符串，则返回 true，否则返回 false
  */
@@ -157,7 +156,7 @@ export function isString(value: unknown): value is string {
 }
 
 /**
- * 判断一个值是否为函数类型
+ * @function 判断一个值是否为函数类型
  * @param value 需要判断的值
  * @returns 如果 value 是函数，则返回 true，否则返回 false
  */
@@ -166,7 +165,7 @@ export function isFunction(value: unknown): value is Function {
 }
 
 /**
- * 判断一个值是否为布尔类型
+ * @function 判断一个值是否为布尔类型
  * @param value 需要判断的值
  * @returns 如果 value 是布尔类型，则返回 true，否则返回 false
  */
@@ -175,7 +174,7 @@ export function isBoolean(value: unknown): value is boolean {
 }
 
 /**
- * 判断一个值是否为正则表达式类型
+ * @function 判断一个值是否为正则表达式类型
  * @param value 需要判断的值
  * @returns 如果 value 是正则表达式，则返回 true，否则返回 false
  */
@@ -184,7 +183,7 @@ export function isRegExp(value: unknown): value is RegExp {
 }
 
 /**
- * 判断一个值是否为数组类型
+ * @function 判断一个值是否为数组类型
  * @param value 需要判断的值
  * @returns 如果 value 是数组，则返回 true，否则返回 false
  */
@@ -193,7 +192,7 @@ export function isArray(value: any): value is Array<any> {
 }
 
 /**
- * 判断当前环境是否为浏览器环境（非服务器端）
+ * @function 判断当前环境是否为浏览器环境（非服务器端）
  * @param value 需要判断的值（此处未使用，仅作为参数模板）
  * @returns 如果是浏览器环境，则返回 true，否则返回 false
  */
@@ -202,7 +201,7 @@ export function isWindow(value: any): value is Window {
 }
 
 /**
- * 判断一个值是否为 HTML 元素
+ * @function 判断一个值是否为 HTML 元素
  * @param value 需要判断的值
  * @returns 如果 value 是 HTML 元素，则返回 true，否则返回 false
  */
@@ -211,7 +210,7 @@ export function isElement(value: unknown): value is Element {
 }
 
 /**
- * 判断一个值是否为 Map 类型
+ * @function 判断一个值是否为 Map 类型
  * @param value 需要判断的值
  * @returns 如果 value 是 Map 类型，则返回 true，否则返回 false
  */
@@ -220,19 +219,19 @@ export function isMap(value: unknown): value is Map<any, any> {
 }
 
 /**
- * 判断当前环境是否为服务器端
+ * @function 判断当前环境是否为服务器端
  * @returns 如果是服务器端，则返回 true，否则返回 false
  */
 export const isServer = typeof window === 'undefined'
 
 /**
- * 判断当前环境是否为客户端（浏览器环境）
+ * @function 判断当前环境是否为客户端（浏览器环境）
  * @returns 如果是客户端，则返回 true，否则返回 false
  */
 export const isClient = !isServer
 
 /**
- * 判断一个字符串是否为有效的 URL 地址
+ * @function 判断一个字符串是否为有效的 URL 地址
  * @param path 需要判断的字符串
  * @returns 如果 path 是有效的 URL 地址，则返回 true，否则返回 false
  */
@@ -243,7 +242,7 @@ export function isUrl(path: string): boolean {
 }
 
 /**
- * 判断一个字符串是否为有效的手机号码
+ * @function 判断一个字符串是否为有效的手机号码
  * @param value 需要判断的字符串
  * @returns 如果 value 是有效的手机号码，则返回 true，否则返回 false
  */
@@ -253,7 +252,7 @@ export function isMobileNumber(value: string): boolean {
 }
 
 /**
- * 判断一个字符串是否为有效的座机号码
+ * @function 判断一个字符串是否为有效的座机号码
  * @param value 需要判断的字符串
  * @returns 如果 value 是有效的座机号码，则返回 true，否则返回 false
  */

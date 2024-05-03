@@ -1,24 +1,47 @@
 import { fillZero } from '../Number'
 import * as CONSTANT from './constant'
+import { isNaN } from '../TypeCheck'
 
-export * from './constant'
 
 /**
- * 日期转年月日
+ * @function 将传入的值转换为日期对象，如果无法转换则抛出错误。
+ * @param date 需要转换的日期值，可以是字符串、时间戳、Date对象、null 或 undefined。
+ * @return 如果转换成功，返回 Date 对象；如果失败，抛出错误。
+ */
+export const toDate = (date: string | number | Date | null | undefined): Date => {
+  if (date === null || date === undefined) {
+    throw new Error('日期参数为空，无法转换为日期对象');
+  }
+
+  let parsedDate: Date;
+
+  if (typeof date === 'string') {
+    parsedDate = new Date(date);
+    if (isNaN(parsedDate.getTime())) {
+      throw new Error('无法识别日期类型: Invalid date format');
+    }
+  } else if (typeof date === 'number') {
+    // 假设时间戳是以毫秒为单位的
+    parsedDate = new Date(date);
+    if (isNaN(parsedDate.getTime())) {
+      throw new Error('提供的数字不是一个有效的时间戳');
+    }
+  } else if (date instanceof Date) {
+    parsedDate = date;
+  } else {
+    throw new Error('无法识别日期类型: Invalid date format');
+  }
+
+  return parsedDate;
+};
+
+
+/**
+ * @function 日期转年月日
  * @param value
  */
-export function formatDate(value: null | undefined): undefined
-export function formatDate(value: string | number | Date): string
-export function formatDate(value: any): string | undefined {
-  if (value === null || value === undefined) {
-    throw new Error('提供的参数不是有效的日期对象')
-  }
-
-  const date = value instanceof Date ? value : new Date(value)
-  if (isNaN(date.getTime())) {
-    throw new Error('提供的参数不是有效的日期对象')
-  }
-
+export function formatDate(value: string | number | Date | null | undefined): string {
+  const date = toDate(value)
   const year = date.getFullYear()
   const month = fillZero(date.getMonth() + 1) // getMonth() 返回的月份是从 0 开始的
   const day = fillZero(date.getDate())
@@ -26,64 +49,33 @@ export function formatDate(value: any): string | undefined {
 }
 
 /**
- * 日期转年月
+ * @function 日期转年月
  */
-export function formatYearMonth(date: Date): string
-export function formatYearMonth(date: string | number): string | undefined
-export function formatYearMonth(date: null | undefined): undefined
 export function formatYearMonth(
-  date: Date | string | number | null | undefined
-): string | undefined {
-  if (date === null || date === undefined) {
-    return undefined
-  } else if (typeof date === 'string' || typeof date === 'number') {
-    const parsedDate = new Date(date)
-    if (isNaN(parsedDate.getTime())) {
-      return undefined
-    }
-    return formatYearMonth(parsedDate)
-  } else {
-    // 确保传入的参数是有效的 Date 对象
-    if (isNaN(date.getTime())) {
-      throw new Error('提供的参数不是有效的日期对象')
-    }
-
-    const year = date.getFullYear()
-    const month = fillZero(date.getMonth() + 1) // getMonth() 返回的月份是从 0 开始的
-    return `${year}-${month}`
-  }
+  value: string | number | Date | null | undefined
+): string {
+  const date = toDate(value)
+  const year = date.getFullYear()
+  const month = fillZero(date.getMonth() + 1) // getMonth() 返回的月份是从 0 开始的
+  return `${year}-${month}`
 }
 
 /**
- * 日期转月日
+ * @function 日期转月日
  * @param value 可以是 Date 对象、日期字符串、日期数字或者 null/undefined
  * @returns 返回格式化的月日字符串，如 '08-15'
  */
-export function formatMonthDay(value: null): undefined
-export function formatMonthDay(value: undefined): undefined
-export function formatMonthDay(value: string): string
-export function formatMonthDay(value: number): string
-export function formatMonthDay(value: Date): string
 export function formatMonthDay(
-  value: Date | string | number | null | undefined
-): string | undefined {
-  if (value === null || value === undefined) {
-    return undefined
-  }
-
-  const date = value instanceof Date ? value : new Date(value)
-  if (isNaN(date.getTime())) {
-    // 如果转换的日期无效，则返回 undefined
-    return undefined
-  }
-
+  value: string | number | Date | null | undefined
+): string {
+  const date = toDate(value)
   const month = fillZero(date.getMonth() + 1) // getMonth() 返回的月份是从 0 开始的
   const day = fillZero(date.getDate())
   return `${month}-${day}` // 返回格式化的月日字符串，格式为 MM-DD
 }
 
 /**
- * 传入日期获取年份
+ * @function 传入日期获取年份
  * @param value
  * @returns
  */
@@ -102,17 +94,13 @@ export function formatDateGetYear(value: string | Date | number): string {
 }
 
 /**
- * 日期转标准时间
+ * @function 日期转标准时间
  * @param value
  * @returns
  */
-export const formatDateTime = (value: string | Date | number) => {
-  const date = value instanceof Date ? value : new Date(value)
+export const formatDateTime = (value: string | number | Date | null | undefined) => {
 
-  // 检查日期是否有效
-  if (isNaN(date.getTime())) {
-    throw new Error('无效的日期值')
-  }
+  const date = toDate(value)
 
   const year = date.getFullYear()
   const month = fillZero(date.getMonth() + 1)
@@ -129,10 +117,9 @@ export const formatDateTime = (value: string | Date | number) => {
  * @function 日期转换为特有格式
  * @param 日期 例：08-25
  */
-export const transformDate = (date: Date | number) => {
-  if (typeof date === 'number') {
-    date = new Date(date)
-  }
+export const transformDate = (value: string | number | Date | null | undefined) => {
+
+  const date = toDate(value)
   return formatMonthDay(date).replace(/-/g, '月') + '日'
 }
 
@@ -156,22 +143,35 @@ export const transformDateWeekCN = (date: Date | number): string => {
 }
 
 /**
- * 获取某个日期是当年的第几天
+ * @function 获取某个日期是当年的第几天
  */
-export const getDayOfYear = (date: Date | number) => {
-  if (typeof date === 'number') {
-    date = new Date(date)
-  }
+export const getDayOfYear = (value: Date | number) => {
+
+  const date = toDate(value)
   const start = new Date(date.getFullYear(), 0, 1)
   const diff = (date as Date).valueOf() - start.valueOf()
   return Math.floor(diff / CONSTANT.DATA_CONSTANT.ONE_DAY) + 1
 }
 
 /**
- * 判断是闰年还是平年
+ * @function 判断是闰年还是平年
  * @param year 年份
  * @returns
  */
 export const isLeapYear = (year: number) => {
   return (year % 4 === 0 && !(year % 100 === 0)) || year % 400 === 0
 }
+
+/**
+ * @function 计算两个日期之间的天数差
+ * @param lastDate 开始日期
+ * @param nextDate 结束日期
+ * @returns 
+ */
+export const getTwoDaysApart = (lastDate: string | number | Date, nextDate: string | number | Date) => {
+  // 计算两个日期之间的天数差
+  const timeDifference = Math.abs(toDate(lastDate).getTime() - toDate(nextDate).getTime());
+  // 将毫秒差转换为天数，并四舍五入
+  return Math.ceil(timeDifference / CONSTANT.DATA_CONSTANT.ONE_DAY);
+};
+

@@ -20,7 +20,7 @@ export const arraySortByKey = (params: TYPE.IArraySortByKey) => {
 }
 
 /**
- * 给定一个数组，根据数组的某一属性去重
+ * @function 给定一个数组，根据数组的某一属性去重
  * @param arr 要去重的数组
  * @param prop 属性值
  * @param callback 回调函数
@@ -37,7 +37,7 @@ export const uniqueByProperty = (params: TYPE.IUniqueByProperty) => {
 }
 
 /**
- * 给定一个对象数组，根据指定的属性进行模糊匹配，并返回匹配到的对象
+ * @function 给定一个对象数组，根据指定的属性进行模糊匹配，并返回匹配到的对象
  * @param array 要去重的数组
  * @param prop 属性值
  * @param key 模糊字符串

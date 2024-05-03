@@ -14,7 +14,7 @@ export function getRandomString(digit = 32) {
 }
 
 /**
- * 转换首字母为大写（或全部），如果转换全部则忽略首字母的转换
+ * @function 转换首字母为大写（或全部），如果转换全部则忽略首字母的转换
  * @param {string} value 需要转换的字符串
  * @param {boolean} [all=false] 是否转换整个字符串的大小写
  * @returns {string} 转换后的字符串
@@ -24,7 +24,7 @@ export function toUpper(value: string, all = false) {
 }
 
 /**
- * 转换首字母为小写（或全部），如果转换全部则忽略首字母的转换
+ * @function 转换首字母为小写（或全部），如果转换全部则忽略首字母的转换
  * @param {string} value 需要转换的字符串
  * @param {boolean} [all=false] 是否转换整个字符串的大小写
  * @returns {string} 转换后的字符串

@@ -1,12 +1,12 @@
 /**
- * 保留小数
+ * @function 保留小数
  */
 export function keepDecimal(num: number) {
   return num.toFixed(2)
 }
 
 /**
- * 补零
+ * @function 补零
  */
 export const fillZero = (num: number) => {
   return num >= 10 ? num : `0${num}`
