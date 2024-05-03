@@ -1,27 +1,29 @@
-# getTwoDaysApart
+---
+ title: getTwoDaysApart
+---
 
-计算两个日期之间的天数差。
+# 计算两个日期之间的天数差。
 
 ### getTwoDaysApart
 
-#### 说明
+## 说明
 
 `getTwoDaysApart` 函数用于计算传入的两个日期之间的天数差。它支持传入日期对象、时间戳或日期字符串。
 
-#### 参数
+## 参数
 
 | 参数名   | 类型                         | 说明     |
 | -------- | ---------------------------- | -------- |
 | lastDate | `Date` / `Number` / `String` | 开始日期 |
 | nextDate | `Date` / `Number` / `String` | 结束日期 |
 
-#### 返回
+## 返回
 
 `number` - 两个日期之间的天数差。
 
-#### 代码演示
+## 代码演示
 
-##### 基础用法
+### 基础用法
 
 ```js
 import { getTwoDaysApart } from 'atom-tools';

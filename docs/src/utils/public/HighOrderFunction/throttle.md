@@ -4,7 +4,7 @@ title: Throttle Function
 
 # 节流函数
 
-### 节流
+### throttle
 
 ## 说明
 

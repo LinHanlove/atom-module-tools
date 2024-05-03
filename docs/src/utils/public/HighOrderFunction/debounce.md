@@ -4,7 +4,7 @@ title: Debounce Function
 
 # 防抖函数
 
-### 防抖
+### debounce
 
 ## 说明
 

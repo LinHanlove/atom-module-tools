@@ -1,4 +1,6 @@
-## title: formatDate
+---
+title: formatDate
+---
 
 # 格式化年月日
 
