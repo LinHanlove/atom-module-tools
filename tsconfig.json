@@ -3,7 +3,7 @@
     "target": "ES2020",
     "useDefineForClassFields": true,
     "module": "ESNext",
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": ["ES2020", "DOM", "DOM.Iterable", "ESNext"],
     "skipLibCheck": true,
 
     /* Bundler mode */
@@ -19,12 +19,12 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     /* 路径别名 */
-    "baseUrl": "./", 
+    "baseUrl": "./",
     "paths": {
       //路径映射，相对于baseUrl
       "@/*": ["./lib/*"]
     }
   },
 
-  "include": ["src","lib"]
+  "include": ["lib", "src"]
 }

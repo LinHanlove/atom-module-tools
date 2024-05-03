@@ -2,11 +2,12 @@
 title: QRCode Generator Function
 ---
 
-# 二维码生成 
+# 二维码生成
 
 ### createQRCode
 
 ## 说明
+
 `createQRCode` 函数用于生成一个二维码图片。用户可以指定要转换为二维码的内容和一些可选的配置参数。
 
 个性化配置请参考 [qrcode](https://www.npmjs.com/package/qrcode) 库的文档。
@@ -33,24 +34,24 @@ title: QRCode Generator Function
 ### 基础用法
 
 ```typescript
-import { createQRCode } from 'atom-tools';
+import { createQRCode } from 'atom-tools'
 
 // 使用 createQRCode 生成二维码
 createQRCode('Hello, World!')
-  .then(base64QRCode => {
+  .then((base64QRCode) => {
     // 使用base64编码的二维码图片
-    console.log(base64QRCode);
+    console.log(base64QRCode)
   })
-  .catch(error => {
+  .catch((error) => {
     // 处理可能发生的错误
-    console.error(error);
-  });
+    console.error(error)
+  })
 ```
 
 ### 个性化配置
 
 ```typescript
-import { createQRCode } from 'atom-tools';
+import { createQRCode } from 'atom-tools'
 
 // 使用 createQRCode 生成二维码，并设置自定义配置
 createQRCode('Hello, Custom QRCode!', {
@@ -58,12 +59,12 @@ createQRCode('Hello, Custom QRCode!', {
   typeNumber: 4,
   errorCorrectLevel: 'H'
 })
-  .then(base64QRCode => {
+  .then((base64QRCode) => {
     // 使用自定义配置生成的base64编码的二维码图片
-    console.log(base64QRCode);
+    console.log(base64QRCode)
   })
-  .catch(error => {
+  .catch((error) => {
     // 处理可能发生的错误
-    console.error(error);
-  });
+    console.error(error)
+  })
 ```

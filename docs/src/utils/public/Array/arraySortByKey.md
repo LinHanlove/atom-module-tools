@@ -7,6 +7,7 @@ title: 数组对象排序
 ### arraySortByKey
 
 ## 说明
+
 `arraySortByKey` 函数接受一个对象数组和一个键名，然后根据该键名对应的属性值对数组进行排序。
 
 ## 参数
@@ -20,9 +21,9 @@ title: 数组对象排序
 ```ts
 interface IArraySortByKey {
   /** 需要排序的数组，其中每个元素都是一个对象 */
-  array: object[];
+  array: object[]
   /** 用于排序的数组元素的键 */
-  key: string;
+  key: string
 }
 ```
 
@@ -35,29 +36,23 @@ interface IArraySortByKey {
 ### 基础用法
 
 ```ts
-import { arraySortByKey } from '@/utils/Array';
+import { arraySortByKey } from '@/utils/Array'
 
 const list = [
   { name: '张三', age: 18 },
   { name: '李四', age: 22 },
-  { name: '王五', age: 15 },
+  { name: '王五', age: 15 }
 ]
 
 const result = arraySortByKey({
-  array:list,
-  key:age
-});
+  array: list,
+  key: age
+})
 
-console.log(result);
+console.log(result)
 // 输出：[
 //   { name: '王五', age: 15 },
 //   { name: '张三', age: 18 },
 //   { name: '李四', age: 22 },
 // ]
-
 ```
-    
-
-
-
-    

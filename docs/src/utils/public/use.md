@@ -1,9 +1,8 @@
 > [!WARNING]
 > 使用前须知：
-> 使用atom-tools之前，请确保你已熟练使用TypeScript(  **以下简称ts**), 并且了解 **ts** 中的 **type**, **interface**, **enum**, **class**, **namespace**, **module**, **import**, **export** 等关键字。
+> 使用atom-tools之前，请确保你已熟练使用TypeScript( **以下简称ts**), 并且了解 **ts** 中的 **type**, **interface**, **enum**, **class**, **namespace**, **module**, **import**, **export** 等关键字。
 
 ## 快速上手
-
 
 ## 安装
 
@@ -28,23 +27,21 @@ yarn add atom-tools
 ##### 我们推荐按需导入使用 **atom-tools**
 
 ```ts
-import { pick } from 'atom-tools'; 
+import { pick } from 'atom-tools'
 
 interface Person {
-  name: string;
-  age: number;
-  email: string;
+  name: string
+  age: number
+  email: string
 }
 
 const person: Person = {
   name: 'John Doe',
   age: 30,
   email: 'john.doe@example.com'
-};
+}
 
 // 使用 pick 函数筛选出 'name' 和 'age' 属性
-const selectedFields = pick(person, ['name', 'age']);
-console.log(selectedFields); // 输出：{ name: 'John Doe', age: 30 }
-
+const selectedFields = pick(person, ['name', 'age'])
+console.log(selectedFields) // 输出：{ name: 'John Doe', age: 30 }
 ```
-    

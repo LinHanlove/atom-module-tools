@@ -20,7 +20,7 @@ export function getRandomString(digit = 32) {
  * @returns {string} 转换后的字符串
  */
 export function toUpper(value: string, all = false) {
-  return all ? value.toUpperCase() : value.charAt(0).toUpperCase() + value.slice(1);
+  return all ? value.toUpperCase() : value.charAt(0).toUpperCase() + value.slice(1)
 }
 
 /**
@@ -30,6 +30,5 @@ export function toUpper(value: string, all = false) {
  * @returns {string} 转换后的字符串
  */
 export function toLower(value: string, all = false) {
-  return all ? value.toLowerCase() : value.charAt(0).toLowerCase() + value.slice(1);
+  return all ? value.toLowerCase() : value.charAt(0).toLowerCase() + value.slice(1)
 }
-

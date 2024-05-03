@@ -7,6 +7,7 @@ title: 去掉标签字符串中的元素标记
 ### removeElementMark
 
 ## 说明
+
 `removeElementMark` 函数用于移除传入的标签字符串中的所有HTML元素标记，只保留纯文本内容。
 
 ## 参数
@@ -24,15 +25,11 @@ title: 去掉标签字符串中的元素标记
 ### 基础用法
 
 ```ts
-import { removeElementMark } from 'atom-tools';
+import { removeElementMark } from 'atom-tools'
 
-const str = '<p>hello world</p>';
+const str = '<p>hello world</p>'
 
-const result = removeElementMark(str);
+const result = removeElementMark(str)
 
-console.log(result); // 输出：hello world
-
+console.log(result) // 输出：hello world
 ```
-
-
-    

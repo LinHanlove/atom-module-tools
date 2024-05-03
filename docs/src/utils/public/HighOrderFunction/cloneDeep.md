@@ -7,6 +7,7 @@ title: cloneDeep
 ### cloneDeep
 
 ## 说明
+
 `cloneDeep` 函数用于深度克隆一个给定的值。它通过序列化值到 JSON 字符串，然后再解析回一个对象，从而实现深度克隆。
 
 注意：此方法不能克隆函数、undefined、循环引用的对象等。
@@ -26,7 +27,7 @@ title: cloneDeep
 ### 基础用法
 
 ```ts
-import { cloneDeep } from 'atom-tools';
+import { cloneDeep } from 'atom-tools'
 
 const original = {
   number: 1,
@@ -36,10 +37,10 @@ const original = {
   undefined: undefined,
   array: [1, 2, 3],
   object: { a: 1, b: 2 },
-  date: new Date(),
-};
+  date: new Date()
+}
 
-const cloned = cloneDeep(original);
+const cloned = cloneDeep(original)
 
-console.log(cloned); // 输出克隆后的值，与 original 不同的引用
+console.log(cloned) // 输出克隆后的值，与 original 不同的引用
 ```

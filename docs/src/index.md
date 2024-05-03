@@ -3,8 +3,8 @@
 layout: home
 
 hero:
-  name: "atom-tools"
-  text: "全量的快捷工具库"
+  name: 'atom-tools'
+  text: '全量的快捷工具库'
   tagline: A fast, powerful, and out of the box TypeScript tool library
   image: /image/logo.png
   actions:
@@ -25,4 +25,3 @@ features:
 
     footer: MIT Licensed | Copyright © atom-to
 ---
-

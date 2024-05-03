@@ -7,6 +7,7 @@ title: toUpper
 ### toUpper
 
 ## 说明
+
 `toUpper` 函数用于将字符串的首字母或全部字符转换为大写。当仅转换首字母时，其余部分保持原样；当转换全部字符时，整个字符串将转换为大写。
 
 ## 参数
@@ -25,11 +26,11 @@ title: toUpper
 ### 基础用法
 
 ```ts
-import { toUpper } from 'atom-tools'; 
+import { toUpper } from 'atom-tools'
 
 // 转换首字母为大写
-console.log(toUpper('atomTools')); // 输出：AtomTools
+console.log(toUpper('atomTools')) // 输出：AtomTools
 
 // 转换全部字符为大写
-console.log(toUpper('atomTools', true)); // 输出：ATOMTOOLS
+console.log(toUpper('atomTools', true)) // 输出：ATOMTOOLS
 ```

@@ -7,6 +7,7 @@ title: Debounce Function
 ### 防抖
 
 ## 说明
+
 `debounce` 函数用于控制传入函数的执行频率，确保函数在指定的时间间隔结束后才执行。如果在这个间隔时间内多次调用函数，则只有最后一次调用会执行。
 
 ## 参数
@@ -26,17 +27,17 @@ title: Debounce Function
 ### 基础用法
 
 ```typescript
-import { debounce } from 'atom-tools';
+import { debounce } from 'atom-tools'
 
 function doSomething() {
-  console.log('Function is executed');
+  console.log('Function is executed')
 }
 
 // 使用 debounce 包装 doSomething，设置等待时间为 500 毫秒
-const debouncedDoSomething = debounce(doSomething, 500);
+const debouncedDoSomething = debounce(doSomething, 500)
 
 // 现在，你可以在需要防抖的事件处理器中使用 debouncedDoSomething
-document.getElementById('someButton').addEventListener('click', debouncedDoSomething);
+document.getElementById('someButton').addEventListener('click', debouncedDoSomething)
 ```
 
 ## 立即执行

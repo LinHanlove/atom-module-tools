@@ -7,6 +7,7 @@ title: Upload File Function
 ### uploadFile
 
 ## 说明
+
 `uploadFile` 函数用于在微信小程序环境中上传文件。它接受一个包含上传参数的对象。函数返回一个`Promise`，允许调用者通过链式调用`.then()`来处理上传成功的结果。
 
 ## 参数
@@ -28,7 +29,7 @@ title: Upload File Function
 ### 基础用法
 
 ```javascript
-import { uploadFile } from 'atom-tools'; // 替换为您的实际库路径
+import { uploadFile } from 'atom-tools'
 
 const params = {
   url: 'https://example.com/upload', // 替换为实际的上传接口URL
@@ -38,13 +39,13 @@ const params = {
   formData: {
     additionalField: 'value'
   }
-};
+}
 
 uploadFile(params)
-  .then(response => {
-    console.log('文件上传成功：', response);
+  .then((response) => {
+    console.log('文件上传成功：', response)
   })
-  .catch(error => {
-    console.error('文件上传失败：', error);
-  });
+  .catch((error) => {
+    console.error('文件上传失败：', error)
+  })
 ```

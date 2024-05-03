@@ -7,6 +7,7 @@ title: isLeapYear
 ### isLeapYear
 
 ## 说明
+
 `isLeapYear` 函数用于判断给定的年份是否为闰年。
 
 ## 参数
@@ -24,12 +25,12 @@ title: isLeapYear
 ### 基础用法
 
 ```js
-import { isLeapYear } from 'atom-tools'; 
+import { isLeapYear } from 'atom-tools'
 
 // 检查特定年份是否为闰年
-console.log(isLeapYear(2024)); // 输出：true，因为2024年是闰年
+console.log(isLeapYear(2024)) // 输出：true，因为2024年是闰年
 
 // 检查其他年份
-console.log(isLeapYear(1900)); // 输出：false，因为1900年不是闰年
-console.log(isLeapYear(2000)); // 输出：true，因为2000年是闰年
+console.log(isLeapYear(1900)) // 输出：false，因为1900年不是闰年
+console.log(isLeapYear(2000)) // 输出：true，因为2000年是闰年
 ```

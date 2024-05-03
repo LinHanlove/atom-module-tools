@@ -7,6 +7,7 @@ title: getDayOfYear
 ### getDayOfYear
 
 ## 说明
+
 `getDayOfYear` 函数用于计算并返回给定日期在该年中是第几天。
 
 ## 参数
@@ -24,11 +25,11 @@ title: getDayOfYear
 ### 基础用法
 
 ```js
-import { getDayOfYear } from 'atom-tools'; 
+import { getDayOfYear } from 'atom-tools'
 
 // 传入 Date 对象
-console.log(getDayOfYear(new Date())); // 输出：当前日期在一年中的天数序号，例如 120
+console.log(getDayOfYear(new Date())) // 输出：当前日期在一年中的天数序号，例如 120
 
 // 传入时间戳
-console.log(getDayOfYear(1714405699791)); // 输出：给定时间戳在一年中的天数序号，例如 120
+console.log(getDayOfYear(1714405699791)) // 输出：给定时间戳在一年中的天数序号，例如 120
 ```

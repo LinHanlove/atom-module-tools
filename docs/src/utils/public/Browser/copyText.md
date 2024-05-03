@@ -7,6 +7,7 @@ title: 一键复制到剪切板
 ### copyText
 
 ## 说明
+
 `copyText` 函数用于将指定的文本内容复制到剪切板，方便用户粘贴使用。
 
 ## 参数
@@ -24,27 +25,23 @@ title: 一键复制到剪切板
 ### 基础用法
 
 ```ts
-import { copyText } from 'atom-tools';
+import { copyText } from 'atom-tools'
 
 // 按钮点击事件
 const clickBtn = () => {
-  copyText('这是一段文字');
-};
-
+  copyText('这是一段文字')
+}
 ```
 
 ### 复制成功提示
 
 ```ts
-import { copyText } from 'atom-tools';
+import { copyText } from 'atom-tools'
 
 // 按钮点击事件
 const clickBtn = () => {
   copyText('这是一段文字', (res) => {
-    console.log(res);
-  });
-};
+    console.log(res)
+  })
+}
 ```
-
-
-    

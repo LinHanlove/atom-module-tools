@@ -3,6 +3,7 @@
 ### getUrlParams
 
 ## 说明
+
 `getUrlParams` 函数用于解析 URL 地址中的查询参数，并将它们转换为一个键值对对象。
 
 ## 参数
@@ -20,15 +21,15 @@
 ### 基础用法
 
 ```ts
-import { getUrlParams } from 'atom-tools';
+import { getUrlParams } from 'atom-tools'
 
 // url地址
 const url = 'https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&tn=49055317_48_hao_pg&wd=atom-tools'
 
 // 传入url地址
-const result = getUrlParams(url); 
+const result = getUrlParams(url)
 
-console.log(result);
+console.log(result)
 // 输出：{
 //     ie: 'utf-8',
 //     f: '8',
@@ -36,9 +37,4 @@ console.log(result);
 //     tn: '49055317_48_hao_pg',
 //     wd: 'atom-tools'
 // }
-
-
 ```
-
-
-    

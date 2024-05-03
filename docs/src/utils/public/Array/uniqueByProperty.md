@@ -7,6 +7,7 @@ title: 根据指定属性去重数组
 ### uniqueByProperty
 
 ## 说明
+
 `uniqueByProperty` 函数接收一个数组和一个属性键，然后根据该属性键的值对数组进行去重处理，返回一个新的去重后的数组。
 
 ## 参数
@@ -20,11 +21,11 @@ title: 根据指定属性去重数组
 ```ts
 interface IUniqueByProperty {
   /** 需要去重的数组，其中每个元素都是一个对象 */
-  array: object[];
+  array: object[]
   /** 用于去重的数组元素的键 */
-  key: string;
+  key: string
   /** （可选）去重完成后的回调函数 */
-  callback?: (uniqueArray: object[]) => void;
+  callback?: (uniqueArray: object[]) => void
 }
 ```
 
@@ -32,32 +33,29 @@ interface IUniqueByProperty {
 
 `去重后的数组`
 
-
 ## 代码演示
 
 ### 基础用法
 
 ```ts
-import { uniqueByProperty } from 'atom-tools';
+import { uniqueByProperty } from 'atom-tools'
 
 const list = [
   { id: 1, name: '张三' },
   { id: 2, name: '李四' },
   { id: 1, name: '张三' },
-  { id: 3, name: '王五' },
-];
+  { id: 3, name: '王五' }
+]
 
 const result = uniqueByProperty({
   prop: 'id',
-  list,
-});
+  list
+})
 
-console.log(result);
+console.log(result)
 // 输出：[
 //   { id: 1, name: '张三' },
 //   { id: 2, name: '李四' },
 //   { id: 3, name: '王五' },
 // ]
 ```
-
-    

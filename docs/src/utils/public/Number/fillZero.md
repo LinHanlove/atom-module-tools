@@ -7,6 +7,7 @@ title: fillZero
 ### fillZero
 
 ## 说明
+
 `fillZero` 函数用于将小于10的数字前面补0，以便格式化为两位数的字符串表示。
 
 ## 参数
@@ -24,11 +25,11 @@ title: fillZero
 ### 基础用法
 
 ```ts
-import { fillZero } from 'atom-tools'; 
+import { fillZero } from 'atom-tools'
 
 // 传入一个小于10的数字
-console.log(fillZero(6)); // 输出："06"
+console.log(fillZero(6)) // 输出："06"
 
 // 传入一个大于等于10的数字
-console.log(fillZero(25)); // 输出："25"，不进行补零
+console.log(fillZero(25)) // 输出："25"，不进行补零
 ```

@@ -1,4 +1,3 @@
-
 <p align="center">
   <a href="https://tools.atomnotion.com" target="_blank" rel="noopener noreferrer">
     <img width="200" src="./docs/src/public/image/logo.png" alt="atom-tools logo">
@@ -14,7 +13,7 @@
 </p>
 <br/>
 
-# AtomTools 
+# AtomTools
 
 ### 极速、强大、开箱即用的 TypeScript 工具库
 
@@ -39,29 +38,31 @@
 您可以通过 NPM、YARN 或 PNPM 安装 **atom-tools**。
 
 NPM
+
 ```
 npm install atom-tools
 ```
+
 #### or
+
 ```
 pnpm add atom-tools
 ```
+
 #### or
+
 ```
 yarn add atom-tools
 ```
 
-
 ### 示例
 
-
 ##### 我们推荐按需导入使用 **atom-tools**
-
 
 ## 用法
 
 ```js
-import { pick } from 'atom-tools'; 
+import { pick } from 'atom-tools';
 
 interface Person {
   name: string;

@@ -7,6 +7,7 @@ title: sleep
 ### sleep
 
 ## 说明
+
 `sleep` 函数用于模拟异步操作中的延迟时间。它接受一个以毫秒为单位的参数来指定延迟的时长，并返回一个 `Promise` 对象。当延迟时间过后，`Promise` 会被解决（resolve）。
 
 ## 参数
@@ -24,18 +25,18 @@ title: sleep
 ### 基础用法
 
 ```ts
-import { sleep } from 'atom-tools';
+import { sleep } from 'atom-tools'
 
 // 使用 async/await
 async function asyncFunction() {
-  console.log('Start sleeping');
-  await sleep(1000); // 延迟 1 秒
-  console.log('Finished sleeping after 1 second');
+  console.log('Start sleeping')
+  await sleep(1000) // 延迟 1 秒
+  console.log('Finished sleeping after 1 second')
 }
 
-asyncFunction();
+asyncFunction()
 
 // 使用 Promise 链式调用
 sleep(500) // 延迟 0.5 秒
-  .then(() => console.log('Finished sleeping after 0.5 second'));
+  .then(() => console.log('Finished sleeping after 0.5 second'))
 ```

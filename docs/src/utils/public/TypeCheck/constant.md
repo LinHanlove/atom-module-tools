@@ -7,6 +7,7 @@ title: 类型判断函数MAP
 ### TYPE_MAP
 
 ## 说明
+
 `TYPE_MAP` 是一个包含多种类型判断函数的集合，这些函数可以帮助你快速判断变量的类型。使用时，你可以直接从 `atom-tools` 导出所需的函数，其用法类似于 `isEmpty` 函数。
 
 ## 函数列表
@@ -40,11 +41,11 @@ title: 类型判断函数MAP
 ### 使用类型判断函数
 
 ```ts
-import { isString, isNumber, isArray } from 'atom-tools';
+import { isString, isNumber, isArray } from 'atom-tools'
 
-const result1 = isString('hello'); // 输出：true
-const result2 = isNumber(123); // 输出：true
-const result3 = isArray([1, 2, 3]); // 输出：true
+const result1 = isString('hello') // 输出：true
+const result2 = isNumber(123) // 输出：true
+const result3 = isArray([1, 2, 3]) // 输出：true
 
-console.log(result1, result2, result3);
+console.log(result1, result2, result3)
 ```

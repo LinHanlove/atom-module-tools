@@ -7,6 +7,7 @@ title: getRandomNumber
 ### getRandomNumber
 
 ## 说明
+
 `getRandomNumber` 函数用于生成一个指定长度的唯一随机数字。
 
 ## 参数
@@ -24,8 +25,8 @@ title: getRandomNumber
 ### 基础用法
 
 ```ts
-import { getRandomNumber } from 'atom-tools'; 
+import { getRandomNumber } from 'atom-tools'
 
 // 生成一个3位长度的随机数字
-console.log(getRandomNumber(3)); // 输出：一个3位长度的随机数字，例如 "258"
+console.log(getRandomNumber(3)) // 输出：一个3位长度的随机数字，例如 "258"
 ```
