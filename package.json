@@ -30,23 +30,24 @@
   "bugs": {
     "email": "2188817393@qq.com"
   },
-  "main": "./dist/atom-tools.js",
-  "module": "./dist/atom-tools.js",
+  "main": "./dist/tools.js",
+  "module": "./dist/tools.js",
   "types": "./dist/types/lib/type/global.d.ts",
   "exports": {
     ".": {
       "types": "./dist/types/lib/type/main.d.ts",
-      "import": "./dist/atom-tools.js",
-      "require": "./dist/atom-tools.umd.js"
+      "import": "./dist/tools.js",
+      "require": "./dist/tools.js"
     },
     "./vue": {
       "types": "./dist/types/lib/vue/index.d.ts",
-      "import": "./dist/atom-tools.js",
-      "require": "./dist/atom-tools.umd.js"
+      "import": "./dist/vue.js",
+      "require": "./dist/vue.js"
     }
   },
   "scripts": {
     "dev": "vite",
+    "build:vue": "vite build ",
     "build": "vue-tsc --noEmit && pnpm prettier --write . && vite build && tsc ",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
@@ -60,6 +61,7 @@
     "@vue/typescript": "^1.8.20",
     "prettier": "^3.2.5",
     "qrcode": "^1.5.3",
+    "terser": "^5.31.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5",
     "vite": "^5.2.10",

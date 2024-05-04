@@ -25,9 +25,15 @@ export default defineConfig({
     minify: true, // 压缩方式
 
     lib: {
-      entry: resolve(__dirname, './lib/main.ts'),
+      entry: {
+        tools: resolve(__dirname, './lib/main.ts'),
+        vue: resolve(__dirname, './lib/components/index.ts')
+      },
       name: 'AtomTools',
-      fileName: 'atom-tools'
+
+      fileName: (_, entryName) => {
+        return `${entryName}.js`
+      }
     },
     rollupOptions: {}
   },

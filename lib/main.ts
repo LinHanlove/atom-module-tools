@@ -10,4 +10,3 @@ export * from '@/utils/Object/index'
 export * from '@/utils/WeChat/index'
 
 export type * from './types/global'
-export * from '@/components/index'
