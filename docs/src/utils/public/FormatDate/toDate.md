@@ -30,21 +30,21 @@ title: 将值转换为日期对象
 ### 基础用法
 
 ```javascript
-import { toDate } from 'atom-tools';
+import { toDate } from 'atom-tools'
 
 // 传入 Date 对象
-const dateFromObject = toDate(new Date());
+const dateFromObject = toDate(new Date())
 
 // 传入时间戳
-const dateFromTimestamp = toDate(1617427200000);
+const dateFromTimestamp = toDate(1617427200000)
 
 // 传入字符串
-const dateFromString = toDate('2024-04-29');
+const dateFromString = toDate('2024-04-29')
 
 try {
   // 尝试转换无效的日期字符串
-  const invalidDate = toDate('not-a-date');
+  const invalidDate = toDate('not-a-date')
 } catch (error) {
-  console.error(error.message); // 输出错误信息
+  console.error(error.message) // 输出错误信息
 }
 ```

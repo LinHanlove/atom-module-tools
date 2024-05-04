@@ -25,19 +25,19 @@ title: 清除所有Cookie
 ### 清除特定 cookie
 
 ```javascript
-import { clearAllCookie } from 'atom-tools';
+import { clearAllCookie } from 'atom-tools'
 
 // 清除名为 'myCookie' 的 cookie
-clearAllCookie('myCookie');
+clearAllCookie('myCookie')
 ```
 
 ### 清除当前域名下的所有 cookie
 
 ```javascript
-import { clearAllCookie } from 'atom-tools';
+import { clearAllCookie } from 'atom-tools'
 
 // 清除当前域名下的所有 cookie
-clearAllCookie();
+clearAllCookie()
 ```
-  
+
 `

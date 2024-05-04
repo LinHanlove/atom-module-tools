@@ -119,7 +119,6 @@ export const preventRightKey = () => {
   })
 }
 
-
 /**
  * 清除指定的 cookie 或所有 cookie。
  * @param name 可选。如果提供，将清除指定名称的 cookie。
@@ -127,17 +126,19 @@ export const preventRightKey = () => {
 export const clearAllCookie = (name?: string) => {
   if (name) {
     // 清除指定名称的 cookie
-    document.cookie = name + '=0; path=/; expires=' + new Date(0).toUTCString();
-    document.cookie = name + '=0; path=/; domain=' + document.domain + '; expires=' + new Date(0).toUTCString();
+    document.cookie = name + '=0; path=/; expires=' + new Date(0).toUTCString()
+    document.cookie =
+      name + '=0; path=/; domain=' + document.domain + '; expires=' + new Date(0).toUTCString()
   } else {
     // 清除所有 cookie
-    const cookies = document.cookie.split(';');
+    const cookies = document.cookie.split(';')
     for (let i = 0; i < cookies.length; i++) {
-      let cookie = cookies[i].trim();
-      const eqPos = cookie.indexOf('=');
-      let name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-      document.cookie = name + '=0; path=/; expires=' + new Date(0).toUTCString();
-      document.cookie = name + '=0; path=/; domain=' + document.domain + '; expires=' + new Date(0).toUTCString();
+      let cookie = cookies[i].trim()
+      const eqPos = cookie.indexOf('=')
+      let name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie
+      document.cookie = name + '=0; path=/; expires=' + new Date(0).toUTCString()
+      document.cookie =
+        name + '=0; path=/; domain=' + document.domain + '; expires=' + new Date(0).toUTCString()
     }
   }
-};
+}

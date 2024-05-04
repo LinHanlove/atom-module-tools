@@ -3,12 +3,20 @@ import { resolve } from 'path'
 import dts from 'vite-plugin-dts'
 import vue from '@vitejs/plugin-vue'
 import commonjs from '@rollup/plugin-commonjs'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 
 export default defineConfig({
   base: './',
   resolve: {
     alias: {
       '@': resolve(__dirname, 'lib')
+    }
+  },
+  server: {
+    port: 5000,
+    open: true,
+    fs: {
+      strict: false
     }
   },
   build: {
@@ -23,8 +31,10 @@ export default defineConfig({
     },
     rollupOptions: {}
   },
+
   plugins: [
-    vue(), // 处理Vue文件
+    vue(), // 处理Vue单文件组件
+    vueJsx(), // 处理Vue JSX
     commonjs(), // 处理CommonJS模块
     dts({
       include: ['src/**/*', 'lib/**/*'],
