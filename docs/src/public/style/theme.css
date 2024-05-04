@@ -1,31 +1,30 @@
 /* 该文件配置网站的文字  图标 等等 一系列dom元素的样式文件 */
 :root {
-
-  --base-color:#008080;
+  --base-color: #008080;
 
   /* 通过配置 自定义颜色 */
   --vp-home-hero-name-color: transparent;
   /* 主页标题文字的颜色  */
-  --vp-home-hero-name-background: -webkit-linear-gradient( 120deg, #bd34fe 30%, var(--base-color));
+  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #bd34fe 30%, var(--base-color));
 
   /* 主页左侧背景添加渐变光圈 */
-  --vp-home-hero-image-background-image: linear-gradient( -45deg, #bd34fe 50%, var(--base-color) 50% );
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    #bd34fe 50%,
+    var(--base-color) 50%
+  );
   --vp-home-hero-image-filter: blur(100px);
 
-    /* 主题基色 */
+  /* 主题基色 */
   --vp-c-brand: #008080;
   /* 白色模式 主题基色 */
   --vp-c-brand-light: #008080;
   /* 黑色模式 主题基色 */
   --vp-c-brand-dark: #008080;
 
-
   /* 按钮背景颜色 */
-  .image-src{
+  .image-src {
     width: 300px;
     height: 300px;
-
   }
-
 }
-

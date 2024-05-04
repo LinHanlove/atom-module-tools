@@ -1,5 +1,5 @@
 ---
- title: getTwoDaysApart
+title: getTwoDaysApart
 ---
 
 # 计算两个日期之间的天数差。
@@ -26,14 +26,14 @@
 ### 基础用法
 
 ```js
-import { getTwoDaysApart } from 'atom-tools';
+import { getTwoDaysApart } from 'atom-tools'
 
 // 传入 Date 对象
-console.log(getTwoDaysApart(new Date('2024-04-01'), new Date('2024-04-03'))); // 输出：2
+console.log(getTwoDaysApart(new Date('2024-04-01'), new Date('2024-04-03'))) // 输出：2
 
 // 传入时间戳
-console.log(getTwoDaysApart(1617427200000, 1617513600000)); // 输出：2
+console.log(getTwoDaysApart(1617427200000, 1617513600000)) // 输出：2
 
 // 传入字符串
-console.log(getTwoDaysApart('2024-04-01', '2024-04-03')); // 输出：2
+console.log(getTwoDaysApart('2024-04-01', '2024-04-03')) // 输出：2
 ```
