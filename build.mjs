@@ -12,26 +12,16 @@ import { fileURLToPath } from 'url'
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
 /**
- * 构建多个库
+ * @Array 特殊构建库的根路径
+ * 规定：必须由大写组成文件夹，其文件夹内必须统一由main.ts导出具体的模块
  */
-const libMap = [
-  {
-    entry: resolve(__dirname, './lib/special/Vue/index.ts'),
-    name: 'AtomToolsVue',
-    filename: 'vue'
-  },
-  {
-    entry: resolve(__dirname, './lib/special/WeChat/index.ts'),
-    name: 'AtomToolsWeChat',
-    filename: 'wechat'
-  }
-]
+const libMapRootPath = ['Vue', 'WeChat']
 
-const libraries = libMap.map(({ entry, filename, name }) => {
+const libraries = libMapRootPath.map((name) => {
   return {
-    entry,
-    name,
-    filename
+    entry: resolve(__dirname, `./lib/special/${name}/main.ts`),
+    name: `AtomTools${name}`,
+    filename: name.toLowerCase()
   }
 })
 

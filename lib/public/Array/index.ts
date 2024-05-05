@@ -1,4 +1,4 @@
-import { TYPE } from '@/types/global'
+import { TYPE } from '@/public/types/global'
 /**
  * @function 给定一个数组，根据数组的某一属性排序
  * @param array 需要排序的数组对象

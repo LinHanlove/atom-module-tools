@@ -1,11 +1,9 @@
 import Test from './Test.vue'
-import {testVue} from '@/special/Vue/index'
+import { testVue } from '@/special/Vue/main'
 
 export default function HelloWorld() {
-
   const handleClick = () => {
-    console.log(testVue);
-    
+    console.log(testVue)
   }
 
   return (

@@ -32,25 +32,30 @@
   },
   "main": "./dist/AtomTools/tools.js",
   "module": "./dist//AtomTools/tools.js",
-  "types": "./dist/types/lib/main.d.ts",
+  "types": "./dist/types/public/main.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/types/lib/main.d.ts",
+      "types": "./dist/types/public/main.d.ts",
       "import": "./dist/AtomTools/tools.js",
       "require": "./dist/AtomTools/tools.js"
     },
     "./vue": {
-      "types": "./dist/types/lib/special/Vue/index.d.ts",
+      "types": "./dist/types/special/Vue/main.d.ts",
       "import": "./dist/AtomToolsVue/vue.js",
       "require": "./dist/AtomToolsVue/vue.js"
+    },
+    "./wechat": {
+      "types": "./dist/types/special/WeChat/main.d.ts",
+      "import": "./dist/AtomToolsWeChat/wechat.js",
+      "require": "./dist/AtomToolsWeChat/wechat.js"
     }
   },
   "scripts": {
     "dev": "vite",
     "build:special": "node build.mjs",
-    "build:tools": "vue-tsc --noEmit && vite build && tsc",
+    "build:tools": "vite build",
     "prettier": " prettier --write .  ",
-    "build": "pnpm prettier  && pnpm build:tools && pnpm build:special",
+    "build": "pnpm prettier && pnpm build:tools && pnpm build:special && tsc",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
