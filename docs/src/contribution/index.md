@@ -39,7 +39,13 @@ git commit -am "Add some feature or fix a bug"
 
   [gitHub标准规范](https://github.com/lean-soft/devopshub-docs-g4e/blob/master/basic/07-pull-request/index.md)
 
+#### 注意点：
+
    ![拉取请求流程](../public/image/contribution.png)
+
+#### 示范：
+
+   ![示范](../public/image/contribution-really.png)
 
 ## 联系我们
 
