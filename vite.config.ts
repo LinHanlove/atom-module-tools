@@ -12,24 +12,29 @@ export default defineConfig({
       '@': resolve(__dirname, 'lib')
     }
   },
-  server: {
-    port: 5000,
-    open: true,
-    fs: {
-      strict: false
-    }
-  },
+  // server: {
+  //   port: 5000,
+  //   open: true,
+  //   // 热更新
+
+  //   fs: {
+  //     strict: false
+  //   }
+  // },
   build: {
     target: 'es2015',
     sourcemap: true, // 映射文件
     minify: true, // 压缩方式
-
     lib: {
       entry: resolve(__dirname, './lib/main.ts'),
       name: 'AtomTools',
-      fileName: 'atom-tools'
+      fileName: 'tools'
     },
-    rollupOptions: {}
+    rollupOptions: {
+      output: {
+        dir: 'dist/AtomTools'
+      }
+    }
   },
 
   plugins: [

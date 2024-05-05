@@ -1,11 +1,18 @@
 import Test from './Test.vue'
+import {testVue} from '@/special/Vue/index'
 
 export default function HelloWorld() {
+
+  const handleClick = () => {
+    console.log(testVue);
+    
+  }
+
   return (
     <div>
-      <h1>Hello, world!</h1>
+      <h1>Hello, world!8</h1>
       <Test />
-      后面准备编写自定义指令 所以集成了tsx 和 vue 配置多入口
+      <button onClick={handleClick}>测试</button>
     </div>
   )
 }
