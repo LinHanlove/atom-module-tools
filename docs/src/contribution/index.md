@@ -30,6 +30,7 @@ git commit -am "Add some feature or fix a bug"
 
 6. **推送到 GitHub**：将您的更改推送到 GitHub 上的分支
 7. **发起 Pull Request**：在 GitHub 上，提交一个新的 Pull Request。
+8. 拉取请求格式如下：
 
 ## 联系我们
 
