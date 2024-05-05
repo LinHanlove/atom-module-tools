@@ -10,7 +10,7 @@ hero:
   actions:
     - theme: brand
       text: 快速开始
-      link: /utils/public/guide
+      link: /utils/guide/guide
     - theme: alt
       text: 示例
       link: /utils/public/use
