@@ -1,9 +1,12 @@
 import Test from './Test.vue'
 import { testVue } from '@/special/Vue/main'
+import { fillZero } from '@/public/main'
 
 export default function HelloWorld() {
   const handleClick = () => {
     console.log(testVue)
+    console.log(fillZero(2));
+    
   }
 
   return (

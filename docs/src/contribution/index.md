@@ -18,18 +18,34 @@ git clone https://github.com/your-github-username/atom-tools.git
 3. **创建分支**：创建一个新分支以进行更改。
 
 ```bash
-git checkout -b your-branch-name
+git checkout -b feature-name // 分支名请以feature-开头
 ```
 
 4. **进行更改**：在 `lib/` 目录下进行您的更改。
-5. **提交更改**：将更改提交到您的分支。
+
+6. **测试功能**：请在`src/`目录下测试,确保您的更改符合预期，并运行测试以确保代码质量。
+  
+7. **提交更改**：将更改提交到您的分支。
 
 ```bash
 git commit -am "Add some feature or fix a bug"
 ```
 
-6. **推送到 GitHub**：将您的更改推送到 GitHub 上的分支
-7. **发起 Pull Request**：在 GitHub 上，提交一个新的 Pull Request。
+7. **推送到 GitHub**：将您的更改推送到 GitHub 上的分支
+
+8. **发起 Pull Request**：在 GitHub 上，提交一个新的 Pull Request。
+
+9. 拉取请求流程如下图   
+
+  [gitHub标准规范](https://github.com/lean-soft/devopshub-docs-g4e/blob/master/basic/07-pull-request/index.md)
+
+#### 注意点：
+
+   ![拉取请求流程](../public/image/contribution.png)
+
+#### 示范：
+
+   ![示范](../public/image/contribution-really.png)
 
 ## 联系我们
 
