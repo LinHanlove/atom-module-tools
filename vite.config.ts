@@ -12,21 +12,20 @@ export default defineConfig({
       '@': resolve(__dirname, 'lib')
     }
   },
-  // server: {
-  //   port: 5000,
-  //   open: true,
-  //   // 热更新
-
-  //   fs: {
-  //     strict: false
-  //   }
-  // },
+  server: {
+    port: 5000,
+    open: true,
+    // 热更新
+    fs: {
+      strict: false
+    }
+  },
   build: {
     target: 'es2015',
     sourcemap: true, // 映射文件
     minify: true, // 压缩方式
     lib: {
-      entry: resolve(__dirname, './lib/main.ts'),
+      entry: resolve(__dirname, './lib/public/main.ts'),
       name: 'AtomTools',
       fileName: 'tools'
     },
@@ -42,7 +41,7 @@ export default defineConfig({
     vueJsx(), // 处理Vue JSX
     commonjs(), // 处理CommonJS模块
     dts({
-      include: ['src/**/*', 'lib/**/*'],
+      include: ['lib/**/*'],
       copyDtsFiles: true, // 自动把目录下的所有d.ts文件复制到dist文件夹
       outDir: 'dist/types' // 指定输出类型声明文件的目录
     })

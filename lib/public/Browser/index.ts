@@ -1,4 +1,4 @@
-import { TYPE } from '@/types/global'
+import { TYPE } from '@/public/types/global'
 /**
  * @function 一键复制
  * @param value 要复制的文本
