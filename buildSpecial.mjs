@@ -1,10 +1,11 @@
+/**
+ * vite目前并不能构建多个特殊库，但是可以通过配置多个lib来解决
+ * github并没有找到解决办法，但是目前这种方式或许是最优的解决方式
+ */
+
 import { build } from 'vite'
 import { resolve } from 'path'
 import { fileURLToPath } from 'url'
-// import dts from 'vite-plugin-dts'
-// import vue from '@vitejs/plugin-vue'
-// import commonjs from '@rollup/plugin-commonjs'
-// import vueJsx from '@vitejs/plugin-vue-jsx'
 
 /**
  * 在 ES 模块中，__dirname 不是一个全局变量，因为它是 CommonJS 模块的一部分。
@@ -25,31 +26,15 @@ const libraries = libMapRootPath.map((name) => {
   }
 })
 
-/**
- * 不知为何，使用脚本运行build 除了构建lib本身，别的好像都不起作用
- * github并没有找到解决办法，但是目前这种方式或许是最优的解决方式
- */
-// const libConfig = {
-//     build: {
-//         rollupOptions: {
-//             plugins: [
-//                 vue(),
-//                 vueJsx(),
-//                 commonjs(),
-//                 dts({
-//                     include: ['src/**/*.ts', 'lib/**/*.ts'],
-//                     copyDtsFiles: true,
-//                     outDir: resolve(__dirname, 'dist/types'),
-//                 }),
-//             ],
-//         },
-//     },
-// }
-
 libraries.forEach(async (lib) => {
   const config = {
     configFile: false,
     base: './',
+    resolve: {
+      alias: {
+        '@': resolve(__dirname, 'lib')
+      }
+    },
     build: {
       // 必须要逐个指定 lib 配置，否则会出现部分配置不生效的情况
       lib: {
@@ -66,16 +51,6 @@ libraries.forEach(async (lib) => {
           dir: resolve(__dirname, `dist/${lib.name}`)
         }
       }
-      //  plugins: [
-      //     vue(),
-      //     vueJsx(),
-      //     commonjs(),
-      //     dts({
-      //         include: ['src/**/*.ts', 'lib/**/*.ts'],
-      //         copyDtsFiles: true,
-      //         outDir: resolve(__dirname, 'dist/types'),
-      //     }),
-      // ],
     }
   }
 

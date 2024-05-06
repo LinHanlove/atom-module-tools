@@ -5,5 +5,6 @@
 
 export * from './CreateQRCode/index'
 export * from './UploadFile/index'
+export * from '@/public/main'
 
 export type * as wechat from './types/global'

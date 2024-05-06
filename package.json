@@ -32,6 +32,7 @@
   },
   "main": "./dist/AtomTools/index.js",
   "module": "./dist//AtomTools/index.js",
+  "miniprogram": "./dist/AtomToolsWeChat",
   "types": "./dist/types/public/main.d.ts",
   "exports": {
     ".": {
