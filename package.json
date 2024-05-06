@@ -52,7 +52,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build:special": "node build.mjs",
+    "build:special": "node buildSpecial.mjs",
     "build:tools": "vite build",
     "prettier": " prettier --write .  ",
     "build": "pnpm prettier && pnpm build:tools && pnpm build:special && tsc",
