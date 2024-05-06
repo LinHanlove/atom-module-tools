@@ -37,8 +37,6 @@ type IChildren = {
   link: string
 }
 
-
-
 /**
  * @function 侧边栏结构表
  */
@@ -52,8 +50,6 @@ const getFilesItem = (src): IAncestor[] => {
 
     // 读取文件夹下的文件
     const readdir = fs.readdirSync(dri)
-
-
 
     readdir.forEach((item, idx) => {
       // 拼接文件路径
@@ -74,7 +70,7 @@ const getFilesItem = (src): IAncestor[] => {
           const key = subItem.split('.')[0]
           // 正则去除src的..
           const base = src.replace(/\.\.\//g, '')
-          console.log(`${base}/${menuKey}/${key}`);
+          console.log(`${base}/${menuKey}/${key}`)
 
           childrenFilesMap.push({
             text: key,
@@ -88,7 +84,6 @@ const getFilesItem = (src): IAncestor[] => {
           items: childrenFilesMap
         })
       }
-
     })
 
     return ancestorsFileMap
@@ -102,17 +97,20 @@ export default {
   '/utils/': [
     {
       text: 'Guide',
-      items: [{
-        text: '指南',
-        link: '/utils/guide/guide.md'
-      },
-      {
-        text: '快速上手',
-        link: '/utils/guide/use.md'
-      }, {
-        text: '目录结构',
-        link: '/utils/guide/directory.md'
-      }]
+      items: [
+        {
+          text: '指南',
+          link: '/utils/guide/guide.md'
+        },
+        {
+          text: '快速上手',
+          link: '/utils/guide/use.md'
+        },
+        {
+          text: '目录结构',
+          link: '/utils/guide/directory.md'
+        }
+      ]
     },
     {
       text: 'Public',

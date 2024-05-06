@@ -27,7 +27,7 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, './lib/public/main.ts'),
       name: 'AtomTools',
-      fileName: 'tools'
+      fileName: 'index'
     },
     rollupOptions: {
       output: {

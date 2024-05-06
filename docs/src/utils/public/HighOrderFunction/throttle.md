@@ -34,7 +34,7 @@ export default function HelloWorld() {
   const throttleFun =  throttle(function(){
     console.log('throttle');
   }, 1000)
-  
+
   const handleClick = () => throttleFun()
 
   return (
@@ -45,11 +45,12 @@ export default function HelloWorld() {
   )
 }
 ```
+
 ### 注意：
+
 :::danger
 节流函数注意事项类似防抖函数，但是节流函数的执行频率是固定的，而防抖函数的执行频率是可变的。具体可参考防抖函数
 :::
-
 
 ## 立即执行
 

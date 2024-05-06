@@ -30,24 +30,24 @@
   "bugs": {
     "email": "2188817393@qq.com"
   },
-  "main": "./dist/AtomTools/tools.js",
-  "module": "./dist//AtomTools/tools.js",
+  "main": "./dist/AtomTools/index.js",
+  "module": "./dist//AtomTools/index.js",
   "types": "./dist/types/public/main.d.ts",
   "exports": {
     ".": {
       "types": "./dist/types/public/main.d.ts",
-      "import": "./dist/AtomTools/tools.js",
-      "require": "./dist/AtomTools/tools.js"
+      "import": "./dist/AtomTools/index.js",
+      "require": "./dist/AtomTools/index.js"
     },
     "./vue": {
       "types": "./dist/types/special/Vue/main.d.ts",
-      "import": "./dist/AtomToolsVue/vue.js",
-      "require": "./dist/AtomToolsVue/vue.js"
+      "import": "./dist/AtomToolsVue/index.js",
+      "require": "./dist/AtomToolsVue/index.js"
     },
     "./wechat": {
       "types": "./dist/types/special/WeChat/main.d.ts",
-      "import": "./dist/AtomToolsWeChat/wechat.js",
-      "require": "./dist/AtomToolsWeChat/wechat.js"
+      "import": "./dist/AtomToolsWeChat/index.js",
+      "require": "./dist/AtomToolsWeChat/index.js"
     }
   },
   "scripts": {

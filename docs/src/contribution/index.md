@@ -23,9 +23,9 @@ git checkout -b feature-name // 分支名请以feature-开头
 
 4. **进行更改**：在 `lib/` 目录下进行您的更改。
 
-6. **测试功能**：请在`src/`目录下测试,确保您的更改符合预期，并运行测试以确保代码质量。
-  
-7. **提交更改**：将更改提交到您的分支。
+5. **测试功能**：请在`src/`目录下测试,确保您的更改符合预期，并运行测试以确保代码质量。
+
+6. **提交更改**：将更改提交到您的分支。
 
 ```bash
 git commit -am "Add some feature or fix a bug"
@@ -35,17 +35,17 @@ git commit -am "Add some feature or fix a bug"
 
 8. **发起 Pull Request**：在 GitHub 上，提交一个新的 Pull Request。
 
-9. 拉取请求流程如下图   
+9. 拉取请求流程如下图
 
-  [gitHub标准规范](https://github.com/lean-soft/devopshub-docs-g4e/blob/master/basic/07-pull-request/index.md)
+[gitHub标准规范](https://github.com/lean-soft/devopshub-docs-g4e/blob/master/basic/07-pull-request/index.md)
 
 #### 注意点：
 
-   ![拉取请求流程](../public/image/contribution.png)
+![拉取请求流程](../public/image/contribution.png)
 
 #### 示范：
 
-   ![示范](../public/image/contribution-really.png)
+![示范](../public/image/contribution-really.png)
 
 ## 联系我们
 

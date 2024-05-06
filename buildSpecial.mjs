@@ -21,7 +21,7 @@ const libraries = libMapRootPath.map((name) => {
   return {
     entry: resolve(__dirname, `./lib/special/${name}/main.ts`),
     name: `AtomTools${name}`,
-    filename: name.toLowerCase()
+    filename: 'index'
   }
 })
 
