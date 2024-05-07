@@ -9,3 +9,6 @@ export * from '@/public/String/index'
 export * from '@/public/Object/index'
 
 export type * from './types/global'
+
+// 兼容微信小程序
+export type * as wx from '@/special/WeChat/types/global'
