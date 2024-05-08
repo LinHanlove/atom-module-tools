@@ -44,8 +44,8 @@ libraries.forEach(async (lib) => {
       },
       rollupOptions: {
         output: {
-          // 确保格式是 UMD
-          format: 'umd',
+          // 确保格式是 cjs
+          format: 'cjs',
           name: lib.name,
           // 指定输出目录
           dir: resolve(__dirname, `dist/${lib.name}`)
