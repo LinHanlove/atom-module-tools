@@ -26,12 +26,7 @@ export declare namespace TYPE {
     callback?: (args?: any) => void
   }
 
-  interface ICopyText {
-    /** 要复制的文本 */
-    value: string
-    /** 回调函数 */
-    callback?: (args?: any) => void
-  }
+
 
   /**
    * @interface 全屏

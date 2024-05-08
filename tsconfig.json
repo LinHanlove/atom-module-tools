@@ -18,11 +18,13 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+
     /* 路径别名 */
     "baseUrl": "./",
     "paths": {
       "@/*": ["./lib/*"]
     },
+
     /* 类型编译 */
     "types": ["@vue/typescript", "@types/node"],
     "jsx": "preserve",

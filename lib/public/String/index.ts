@@ -32,3 +32,21 @@ export function toUpper(value: string, all = false) {
 export function toLower(value: string, all = false) {
   return all ? value.toLowerCase() : value.charAt(0).toLowerCase() + value.slice(1)
 }
+
+/**
+ * 对手机号进行脱敏处理，只显示前三位和后四位，其余部分用星号替代。
+ * @param {string | null | undefined} phoneNumber - 需要脱敏的手机号。
+ * @returns {string} 脱敏后的手机号字符串。
+ */
+export function maskPhoneNumber(phoneNumber: string | null | undefined): string {
+  if (!phoneNumber) throw new Error('phoneNumber is required');
+
+  const phoneStr: string = String(phoneNumber);
+  // 正则表达式匹配 11 位数字的手机号
+  const regex: RegExp = /^(\d{3})(\d{4})(\d{4})$/;
+
+  // 确保输入的是一个11位的手机号码
+  if (!regex.test(phoneStr)) throw new Error('Invalid phone number format');
+
+  return phoneStr.replace(regex, '$1****$3');
+}

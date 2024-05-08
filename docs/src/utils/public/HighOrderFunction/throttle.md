@@ -29,16 +29,28 @@ title: Throttle Function
 ```typescript
 import { throttle } from 'atom-tools'
 
-function doSomething() {
-  console.log('Function is executed')
+export default function HelloWorld() {
+
+  const throttleFun =  throttle(function(){
+    console.log('throttle');
+  }, 1000)
+
+  const handleClick = () => throttleFun()
+
+  return (
+    <div>
+      <h1>Hello, world!</h1>
+      <button onClick={handleClick}>节流</button>
+    </div>
+  )
 }
-
-// 使用 throttle 包装 doSomething，限制其执行频率为每 1000 毫秒一次
-const throttledDoSomething = throttle(doSomething, 1000)
-
-// 现在，你可以在事件处理器中使用 throttledDoSomething
-document.getElementById('someButton').addEventListener('click', throttledDoSomething)
 ```
+
+### 注意：
+
+:::danger
+节流函数注意事项类似防抖函数，但是节流函数的执行频率是固定的，而防抖函数的执行频率是可变的。具体可参考防抖函数
+:::
 
 ## 立即执行
 

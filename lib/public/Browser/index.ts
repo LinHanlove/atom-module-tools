@@ -5,23 +5,26 @@ import { TYPE } from '@/public/types/global'
  * @param callback 回调函数
  * @returns
  */
-export const copyText = async (params: TYPE.ICopyText) => {
-  try {
-    const { value, callback } = params
-    if (window.navigator.clipboard) {
-      window.navigator.clipboard.writeText(value)
-      return callback && callback()
+export const copyText = async (value: string) => {
+
+  return new Promise<string>((resolve, reject) => {
+    try {
+      if (window.navigator.clipboard) {
+        window.navigator.clipboard.writeText(value)
+      } else {
+        const textarea = document.createElement('textarea')
+        document.body.appendChild(textarea)
+        textarea.value = value
+        textarea.select()
+        document.execCommand('copy')
+        document.body.removeChild(textarea)
+      }
+      resolve(value)
+
+    } catch (error) {
+      reject(error)
     }
-    const textarea = document.createElement('textarea')
-    document.body.appendChild(textarea)
-    textarea.value = value
-    textarea.select()
-    document.execCommand('copy')
-    document.body.removeChild(textarea)
-    return callback && callback()
-  } catch (error) {
-    console.log(error)
-  }
+  })
 }
 
 /**
