@@ -14,19 +14,24 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
 /**
  * @Array 特殊构建库的根路径
- * 规定：必须由大写组成文件夹，其文件夹内必须统一由main.ts导出具体的模块
+ * 规定：必须由大写组成文件夹，其文件夹内必须统一由main.ts导出具体的模块['Vue', 'WeChat']
  */
-const libMapRootPath = ['Vue', 'WeChat']
-
-const libraries = libMapRootPath.map((name) => {
-  return {
-    entry: resolve(__dirname, `./lib/special/${name}/main.ts`),
-    name: `AtomTools${name}`,
-    filename: 'index'
+const libMap = [
+  {
+    entry: resolve(__dirname, `./lib/special/Vue/main.ts`),
+    name: `AtomToolsVue`,
+    filename: 'index',
+    format: 'umd'
+  },
+  {
+    entry: resolve(__dirname, `./lib/special/WeChat/main.ts`),
+    name: `AtomToolsWeChat`,
+    filename: 'index',
+    format: 'cjs'
   }
-})
+]
 
-libraries.forEach(async (lib) => {
+libMap.forEach(async (lib) => {
   const config = {
     configFile: false,
     base: './',
@@ -45,7 +50,7 @@ libraries.forEach(async (lib) => {
       rollupOptions: {
         output: {
           // 确保格式是 cjs
-          format: 'cjs',
+          format: lib.format,
           name: lib.name,
           // 指定输出目录
           dir: resolve(__dirname, `dist/${lib.name}`)
