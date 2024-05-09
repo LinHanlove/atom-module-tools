@@ -1,8 +1,8 @@
 /**
  * @function 保留小数
  */
-export function keepDecimal(num: number) {
-  return num.toFixed(2)
+export function keepDecimal(num: number, digit = 2) {
+  return num.toFixed(digit)
 }
 
 /**
