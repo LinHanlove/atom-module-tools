@@ -6,7 +6,7 @@
  * @param {number} duration - 延迟的时间，单位为毫秒。
  * @returns {Promise<void>} - 一个在延迟时间过后解析的 Promise 对象。
  */
-export function sleep(duration: number | undefined) {
+export const sleep = (duration: number | undefined) => {
   return new Promise((resolve) => {
     setTimeout(resolve, duration)
   })
@@ -20,7 +20,7 @@ export function sleep(duration: number | undefined) {
  * @param {*} value - 需要深度克隆的值。
  * @returns {*} 深度克隆后的值。
  */
-export function cloneDeep(value: unknown) {
+export const cloneDeep = (value: unknown) => {
   return JSON.parse(JSON.stringify(value))
 }
 
@@ -31,7 +31,7 @@ export function cloneDeep(value: unknown) {
  * @param {boolean} immediate - 可选，是否立即执行函数。默认为 false。
  * @returns {Function} - 节流后的函数。
  */
-export function throttle(func: Function, limit: number, immediate?: boolean): Function {
+export const throttle = (func: Function, limit: number, immediate?: boolean): Function => {
   if (typeof limit !== 'number' || limit <= 0) {
     throw new Error('throttle function expects a positive number as the limit')
   }
@@ -75,7 +75,7 @@ export function throttle(func: Function, limit: number, immediate?: boolean): Fu
  * @param {boolean} immediate - 可选，是否立即执行函数。默认为 false。
  * @returns {Function} - 防抖后的函数。
  */
-export function debounce(func: Function, wait: number, immediate?: boolean): Function {
+export const debounce = (func: Function, wait: number, immediate?: boolean): Function => {
   let timeout: NodeJS.Timeout | null
 
   return function (this: ThisParameterType<typeof func>, ...args: any[]) {

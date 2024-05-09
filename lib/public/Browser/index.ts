@@ -50,10 +50,14 @@ export const rgbGray = (rgb: string[] | string) => {
  * @param url
  * @returns 参数对象
  */
-export const getUrlParams = (url: string) => {
+export const getUrlParams = (url: string, key?: string) => {
   const params = {} as TYPE.anyType
   url.replace(/[?&]+([^=&]+)=([^&]*)/gi, (_, key, value) => (params[key] = value))
-  return params
+  if (!params.key) {
+    throw new Error(`Parameter ${key} not found in URL.`);
+  }
+
+  return key ? params.key : params
 }
 
 /**

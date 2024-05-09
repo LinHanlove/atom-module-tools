@@ -1,8 +1,8 @@
 /**
  * @function 保留小数
  */
-export function keepDecimal(num: number) {
-  return num.toFixed(2)
+export const keepDecimal = (num: number, digit = 2): number => {
+  return Number(num.toFixed(digit))
 }
 
 /**
@@ -16,7 +16,7 @@ export const fillZero = (num: number) => {
  * @function 生成随机字数字，该数字唯一
  * @param len {string} 所需生成字符串的长度
  */
-export function getRandomNumber(digit = 8): number {
+export const getRandomNumber = (digit = 8): number => {
   const $chars = '0123456789'
   const maxPos = $chars.length
   let str = ''

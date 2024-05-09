@@ -18,7 +18,7 @@ export const optional = <T>(value: T | null | undefined, emptyValue: T) => {
  * @param type 类型
  * @returns
  */
-export function is(value: unknown, type: string) {
+export const is = (value: unknown, type: string) => {
   return toString.call(value) === `[object ${toUpper(type)}]`
 }
 
@@ -27,7 +27,7 @@ export function is(value: unknown, type: string) {
  * @param value
  * @returns
  */
-export function isDef<T = unknown>(value?: T): value is T {
+export const isDef = <T = unknown>(value?: T): value is T => {
   return typeof value === 'undefined'
 }
 
@@ -36,7 +36,7 @@ export function isDef<T = unknown>(value?: T): value is T {
  * @param value
  * @returns
  */
-export function isObject(value: any): value is Record<any, any> {
+export const isObject = (value: any): value is Record<any, any> => {
   return value !== null && is(value, 'Object')
 }
 
@@ -46,7 +46,7 @@ export function isObject(value: any): value is Record<any, any> {
  * @param value 需要检查的值
  * @returns 如果值为空，则返回true，否则返回false
  */
-export function isEmpty<T = unknown>(value: T): value is T {
+export const isEmpty = <T = any>(value: T): value is T => {
   // 如果是数组或字符串，检查其长度是否为0
   if (isArray(value) || isString(value)) {
     return value.length === 0
@@ -86,7 +86,7 @@ export function isEmpty<T = unknown>(value: T): value is T {
  * @param value
  * @returns
  */
-export function isDate(value: unknown): value is Date {
+export const isDate = (value: unknown): value is Date => {
   return is(value, 'Date')
 }
 
@@ -95,7 +95,7 @@ export function isDate(value: unknown): value is Date {
  * @param value
  * @returns
  */
-export function isNaN(value: unknown) {
+export const isNaN = (value: unknown) => {
   return Object.is(value, NaN)
 }
 
@@ -104,7 +104,7 @@ export function isNaN(value: unknown) {
  * @param value
  * @returns
  */
-export function isNull(value: unknown): value is null {
+export const isNull = (value: unknown): value is null => {
   return value === null
 }
 
@@ -113,7 +113,7 @@ export function isNull(value: unknown): value is null {
  * @param value
  * @returns
  */
-export function isNullAndUnDef(value: unknown): value is null | undefined {
+export const isNullAndUnDef = (value: unknown): value is null | undefined => {
   return !isDef(value) && isNull(value)
 }
 
@@ -122,7 +122,7 @@ export function isNullAndUnDef(value: unknown): value is null | undefined {
  * @param value
  * @returns
  */
-export function isNullOrUnDef(value: unknown): value is null | undefined {
+export const isNullOrUnDef = (value: unknown): value is null | undefined => {
   return !isDef(value) || isNull(value)
 }
 
@@ -131,7 +131,7 @@ export function isNullOrUnDef(value: unknown): value is null | undefined {
  * @param value
  * @returns
  */
-export function isNumber(value: unknown): value is number {
+export const isNumber = (value: unknown): value is number => {
   return is(value, 'Number')
 }
 
@@ -140,7 +140,7 @@ export function isNumber(value: unknown): value is number {
  * @param value 需要判断的值
  * @returns 如果 value 是 Promise 对象，则返回 true，否则返回 false
  */
-export function isPromise<T = any>(value: unknown): value is Promise<T> {
+export const isPromise = <T = any>(value: unknown): value is Promise<T> => {
   return (
     is(value, 'Promise') && isObject(value) && isFunction(value.then) && isFunction(value.catch)
   )
@@ -151,7 +151,7 @@ export function isPromise<T = any>(value: unknown): value is Promise<T> {
  * @param value 需要判断的值
  * @returns 如果 value 是字符串，则返回 true，否则返回 false
  */
-export function isString(value: unknown): value is string {
+export const isString = (value: unknown): value is string => {
   return is(value, 'String')
 }
 
@@ -160,7 +160,7 @@ export function isString(value: unknown): value is string {
  * @param value 需要判断的值
  * @returns 如果 value 是函数，则返回 true，否则返回 false
  */
-export function isFunction(value: unknown): value is Function {
+export const isFunction = (value: unknown): value is Function => {
   return typeof value === 'function'
 }
 
@@ -169,7 +169,7 @@ export function isFunction(value: unknown): value is Function {
  * @param value 需要判断的值
  * @returns 如果 value 是布尔类型，则返回 true，否则返回 false
  */
-export function isBoolean(value: unknown): value is boolean {
+export const isBoolean = (value: unknown): value is boolean => {
   return is(value, 'Boolean')
 }
 
@@ -178,7 +178,7 @@ export function isBoolean(value: unknown): value is boolean {
  * @param value 需要判断的值
  * @returns 如果 value 是正则表达式，则返回 true，否则返回 false
  */
-export function isRegExp(value: unknown): value is RegExp {
+export const isRegExp = (value: unknown): value is RegExp => {
   return is(value, 'RegExp')
 }
 
@@ -187,7 +187,7 @@ export function isRegExp(value: unknown): value is RegExp {
  * @param value 需要判断的值
  * @returns 如果 value 是数组，则返回 true，否则返回 false
  */
-export function isArray(value: any): value is Array<any> {
+export const isArray = (value: any): value is Array<any> => {
   return value && Array.isArray(value)
 }
 
@@ -196,7 +196,7 @@ export function isArray(value: any): value is Array<any> {
  * @param value 需要判断的值（此处未使用，仅作为参数模板）
  * @returns 如果是浏览器环境，则返回 true，否则返回 false
  */
-export function isWindow(value: any): value is Window {
+export const isWindow = (value: any): value is Window => {
   return typeof window !== 'undefined' && is(value, 'Window')
 }
 
@@ -205,7 +205,7 @@ export function isWindow(value: any): value is Window {
  * @param value 需要判断的值
  * @returns 如果 value 是 HTML 元素，则返回 true，否则返回 false
  */
-export function isElement(value: unknown): value is Element {
+export const isElement = (value: unknown): value is Element => {
   return isObject(value) && !!value.tagName
 }
 
@@ -214,7 +214,7 @@ export function isElement(value: unknown): value is Element {
  * @param value 需要判断的值
  * @returns 如果 value 是 Map 类型，则返回 true，否则返回 false
  */
-export function isMap(value: unknown): value is Map<any, any> {
+export const isMap = (value: unknown): value is Map<any, any> => {
   return is(value, 'Map')
 }
 
@@ -235,7 +235,7 @@ export const isClient = !isServer
  * @param path 需要判断的字符串
  * @returns 如果 path 是有效的 URL 地址，则返回 true，否则返回 false
  */
-export function isUrl(path: string): boolean {
+export const isUrl = (path: string): boolean => {
   const reg =
     /(((^https?:(?:\/\/)?)(?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[\w]*))?)$/
   return reg.test(path)
@@ -246,7 +246,7 @@ export function isUrl(path: string): boolean {
  * @param value 需要判断的字符串
  * @returns 如果 value 是有效的手机号码，则返回 true，否则返回 false
  */
-export function isMobileNumber(value: string): boolean {
+export const isMobileNumber = (value: string): boolean => {
   const reg = /^1[3456789]\d{9}$/
   return reg.test(value)
 }
@@ -256,7 +256,7 @@ export function isMobileNumber(value: string): boolean {
  * @param value 需要判断的字符串
  * @returns 如果 value 是有效的座机号码，则返回 true，否则返回 false
  */
-export function isTelePhoneNumber(value: string): boolean {
+export const isTelePhoneNumber = (value: string): boolean => {
   const reg = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/
   return reg.test(value)
 }

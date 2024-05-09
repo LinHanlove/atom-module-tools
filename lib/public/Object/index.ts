@@ -6,7 +6,7 @@
  * @param keys 需要筛选出来的键的数组。
  * @returns 返回一个新对象，它只包含 `keys` 数组中指定的键及其对应的值。
  */
-export function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Partial<Pick<T, K>> {
+export const pick = <T extends object, K extends keyof T>(obj: T, keys: K[]): Partial<Pick<T, K>> => {
   return Object.fromEntries(
     Object.entries(obj).filter(([key]) => keys.includes(key as K) as boolean)
   ) as Partial<Pick<T, K>>

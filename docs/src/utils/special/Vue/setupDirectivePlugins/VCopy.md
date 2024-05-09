@@ -3,9 +3,9 @@ title: VCopy Directive
 ---
 
 :::warning
-## 安装与注册
-请在位于根目录下的`main.ts`文件导入`setupDirectivePlugins`,该对象将包含所有指令集合
+安装与注册
 
+请在位于根目录下的`main.ts`文件导入`setupDirectivePlugins`,该对象将包含所有指令集合
 ```ts
 import { setupDirectivePlugins } from 'atom-tool/vue';
 

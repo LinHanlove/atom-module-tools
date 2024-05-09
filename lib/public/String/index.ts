@@ -2,7 +2,7 @@
  * @function 生成随机字符串，该字符串唯一
  * @param digit {number} 所需生成字符串的长度
  */
-export function getRandomString(digit = 32) {
+export const getRandomString = (digit = 32) => {
   const timestampStr = new Date().getTime().toString() // 当前时间戳
   const $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678' // 默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1
   const maxPos = $chars.length
@@ -19,7 +19,7 @@ export function getRandomString(digit = 32) {
  * @param {boolean} [all=false] 是否转换整个字符串的大小写
  * @returns {string} 转换后的字符串
  */
-export function toUpper(value: string, all = false) {
+export const toUpper = (value: string, all = false) => {
   return all ? value.toUpperCase() : value.charAt(0).toUpperCase() + value.slice(1)
 }
 
@@ -29,7 +29,7 @@ export function toUpper(value: string, all = false) {
  * @param {boolean} [all=false] 是否转换整个字符串的大小写
  * @returns {string} 转换后的字符串
  */
-export function toLower(value: string, all = false) {
+export const toLower = (value: string, all = false) => {
   return all ? value.toLowerCase() : value.charAt(0).toLowerCase() + value.slice(1)
 }
 
@@ -38,7 +38,7 @@ export function toLower(value: string, all = false) {
  * @param {string | null | undefined} phoneNumber - 需要脱敏的手机号。
  * @returns {string} 脱敏后的手机号字符串。
  */
-export function maskPhoneNumber(phoneNumber: string | null | undefined): string {
+export const maskPhoneNumber = (phoneNumber: string | null | undefined): string => {
   if (!phoneNumber) throw new Error('phoneNumber is required');
 
   const phoneStr: string = String(phoneNumber);
