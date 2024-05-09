@@ -38,7 +38,7 @@ export const toDate = (date: string | number | Date | null | undefined): Date =>
  * @function 日期转年月日
  * @param value
  */
-export function formatDate(value: string | number | Date | null | undefined): string {
+export const formatDate = (value: string | number | Date | null | undefined): string => {
   const date = toDate(value)
   const year = date.getFullYear()
   const month = fillZero(date.getMonth() + 1) // getMonth() 返回的月份是从 0 开始的
@@ -49,7 +49,7 @@ export function formatDate(value: string | number | Date | null | undefined): st
 /**
  * @function 日期转年月
  */
-export function formatYearMonth(value: string | number | Date | null | undefined): string {
+export const formatYearMonth = (value: string | number | Date | null | undefined): string => {
   const date = toDate(value)
   const year = date.getFullYear()
   const month = fillZero(date.getMonth() + 1) // getMonth() 返回的月份是从 0 开始的
@@ -61,7 +61,7 @@ export function formatYearMonth(value: string | number | Date | null | undefined
  * @param value 可以是 Date 对象、日期字符串、日期数字或者 null/undefined
  * @returns 返回格式化的月日字符串，如 '08-15'
  */
-export function formatMonthDay(value: string | number | Date | null | undefined): string {
+export const formatMonthDay = (value: string | number | Date | null | undefined): string => {
   const date = toDate(value)
   const month = fillZero(date.getMonth() + 1) // getMonth() 返回的月份是从 0 开始的
   const day = fillZero(date.getDate())
@@ -73,7 +73,7 @@ export function formatMonthDay(value: string | number | Date | null | undefined)
  * @param value
  * @returns
  */
-export function formatDateGetYear(value: string | Date | number): string {
+export const formatDateGetYear = (value: string | Date | number): string => {
   if (typeof value === 'string') {
     // 如果是字符串，解析年份部分
     const yearPart = value.split('-')[0]

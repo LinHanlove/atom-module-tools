@@ -40,7 +40,7 @@ import { copyText } from 'atom-tools'
 
 // 按钮点击事件
 const clickBtn = () => {
-  copyText('这是一段文字', (res) => {
+  copyText('这是一段文字').then((res) => {
     console.log(res)
   })
 }
