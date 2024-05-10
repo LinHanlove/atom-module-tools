@@ -26,8 +26,6 @@ export declare namespace TYPE {
     callback?: (args?: any) => void
   }
 
-
-
   /**
    * @interface 全屏
    */
