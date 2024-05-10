@@ -39,14 +39,14 @@ export const toLower = (value: string, all = false) => {
  * @returns {string} 脱敏后的手机号字符串。
  */
 export const maskPhoneNumber = (phoneNumber: string | null | undefined): string => {
-  if (!phoneNumber) throw new Error('phoneNumber is required');
+  if (!phoneNumber) throw new Error('phoneNumber is required')
 
-  const phoneStr: string = String(phoneNumber);
+  const phoneStr: string = String(phoneNumber)
   // 正则表达式匹配 11 位数字的手机号
-  const regex: RegExp = /^(\d{3})(\d{4})(\d{4})$/;
+  const regex: RegExp = /^(\d{3})(\d{4})(\d{4})$/
 
   // 确保输入的是一个11位的手机号码
-  if (!regex.test(phoneStr)) throw new Error('Invalid phone number format');
+  if (!regex.test(phoneStr)) throw new Error('Invalid phone number format')
 
-  return phoneStr.replace(regex, '$1****$3');
+  return phoneStr.replace(regex, '$1****$3')
 }

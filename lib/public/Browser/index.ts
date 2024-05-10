@@ -6,7 +6,6 @@ import { TYPE } from '@/public/types/global'
  * @returns
  */
 export const copyText = async (value: string) => {
-
   return new Promise<string>((resolve, reject) => {
     try {
       if (window.navigator.clipboard) {
@@ -20,7 +19,6 @@ export const copyText = async (value: string) => {
         document.body.removeChild(textarea)
       }
       resolve(value)
-
     } catch (error) {
       reject(error)
     }
@@ -54,7 +52,7 @@ export const getUrlParams = (url: string, key?: string) => {
   const params = {} as TYPE.anyType
   url.replace(/[?&]+([^=&]+)=([^&]*)/gi, (_, key, value) => (params[key] = value))
   if (!params.key) {
-    throw new Error(`Parameter ${key} not found in URL.`);
+    throw new Error(`Parameter ${key} not found in URL.`)
   }
 
   return key ? params.key : params

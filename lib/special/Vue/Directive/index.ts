@@ -3,9 +3,9 @@ import { setVCopyDirective } from './vCopy'
 
 /**
  * 抛出注册指令方法，需在挂载之前执行
- * @param app 
+ * @param app
  */
 export function setupDirectivePlugins(app: App) {
-    // 注册指令
-    setVCopyDirective(app)
+  // 注册指令
+  setVCopyDirective(app)
 }
