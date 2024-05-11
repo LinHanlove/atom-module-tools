@@ -2,26 +2,13 @@
 title: VCopy Directive
 ---
 
-:::warning
-安装与注册
+# 复制指令
 
-请在位于根目录下的`main.ts`文件导入`setupDirectivePlugins`,该对象将包含所有指令集合
-
-```ts
-import { setupDirectivePlugins } from 'atom-tool/vue'
-
-setupDirectivePlugins(app)
-
-app.mount('#app')
-```
-
-:::
-
-# VCopy 自定义指令
+## VCopy
 
 ## 说明
 
-`VCopy` 是一个Vue自定义指令，用于在用户执行指定的事件操作时复制特定的文本到剪贴板。该指令支持自定义复制的文本内容、触发复制的事件类型，并且允许在复制操作完成后执行一个回调函数。
+`VCopy` 用于在用户执行指定的事件操作时复制特定的文本到剪贴板。该指令支持自定义复制的文本内容、触发复制的事件类型，并且允许在复制操作完成后执行一个回调函数。
 
 ## 参数
 

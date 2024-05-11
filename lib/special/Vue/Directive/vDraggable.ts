@@ -114,12 +114,18 @@ const vDraggable: Directive = {
             document.addEventListener('mousemove', mouseMove);
             document.addEventListener('mouseup', mouseUp);
 
+            // 添加鼠标移动和鼠标释放的监听器，并存储它们的引用
+            el._mouseMove = mouseMove;
+            el._mouseUp = mouseUp;
+
+
             // 阻止事件冒泡
             e.stopPropagation();
         };
 
         // 给元素添加鼠标按下监听器
         el.addEventListener('mousedown', mouseDown);
+
 
         // 检查元素是否贴边的辅助函数
         const checkEdgeTouching = (el: { getBoundingClientRect: () => any; }, parentEl: HTMLElement, disX: number, disY: number) => {
@@ -154,6 +160,17 @@ const vDraggable: Directive = {
             el.style.opacity = '1';
         }
     },
+    unmounted(el) {
+        // 使用存储的引用移除鼠标移动和鼠标释放的监听器
+        const mouseMove = el._mouseMove;
+        const mouseUp = el._mouseUp;
+        document.removeEventListener('mousemove', mouseMove);
+        document.removeEventListener('mouseup', mouseUp);
+
+        // 清除引用
+        delete el._mouseMove;
+        delete el._mouseUp;
+    }
 };
 
 export function setDraggableDirective(app: App) {

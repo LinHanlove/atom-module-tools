@@ -2,7 +2,6 @@ import type { Directive, App } from 'vue'
 import { copyText } from '@/public/Browser'
 
 // 复制指令
-// 复制指令
 const VCopy: Directive = {
   mounted(el, binding) {
     // 解构binding.value，设置默认值
