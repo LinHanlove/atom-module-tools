@@ -23,8 +23,14 @@ const vDraggable: Directive = {
                 touch-action: none;
             `;
 
+        // 是否正在被拖拽
+        let isDragging = false;
+
         // 鼠标按下事件处理函数
         const mouseDown = (e: MouseEvent) => {
+
+            // 拖拽状态
+            isDragging = true;
 
             addDragStyles(el)
 
@@ -40,6 +46,8 @@ const vDraggable: Directive = {
             // 鼠标移动事件处理函数
             const mouseMove = (e: MouseEvent) => {
 
+                if (!isDragging) return
+
                 // 计算鼠标在拖拽过程中的当前位置相对于元素初始拖拽位置的偏移量
                 let x = e.pageX - disX;
                 let y = e.pageY - disY;
@@ -53,38 +61,56 @@ const vDraggable: Directive = {
                         bottom: parentB
                     } = parentEl.getBoundingClientRect();
 
-                    // 边界条件：确保元素不会超出父元素的边界
-                    x = Math.max(parentL + disX, Math.min(parentR - el.offsetWidth, x));
-                    y = Math.max(parentT + disY, Math.min(parentB - el.offsetHeight, y));
+
+                    // 边界条件：确保元素的四个角都不会超出父元素的边界
+                    // 元素可以紧贴父元素的边缘，但不会超出
+                    x = Math.max(parentL, Math.min(x, parentR - el.offsetWidth));
+                    y = Math.max(parentT, Math.min(y, parentB - el.offsetHeight));
+
+                    // 是否贴边
+                    const isEdgeTouching = checkEdgeTouching(el, parentEl, disX, disY);
+
+                    if (isEdgeTouching) {
+                        // 元素贴边，给父元素加上虚线边框
+                        parentEl.style.border = '1px dashed #3498db';
+                    } else {
+                        // 元素没有贴边，移除父元素的边框
+                        parentEl.style.border = '';
+                    }
                 } else {
                     // 如果没有提供父元素ID，即拖拽区域是整个网页
                     // 获取元素最大可移动的坐标范围
-                    let maxX = document.body.clientWidth - el.offsetWidth;
-                    let maxY = document.body.clientHeight - el.offsetHeight;
+                    const maxX = document.body.clientWidth - el.offsetWidth;
+                    const maxY = document.body.clientHeight - el.offsetHeight;
 
                     // 边界条件：确保元素不会超出网页边界
-                    if (x < 0) x = 0;
-                    else if (x > maxX) x = maxX;
-
-                    if (y < 0) y = 0;
-                    else if (y > maxY) y = maxY;
+                    x = Math.max(0, Math.min(x, maxX));
+                    y = Math.max(0, Math.min(y, maxY));
                 }
 
                 // 更新元素的 left 和 top 属性
                 el.style.left = x + 'px';
                 el.style.top = y + 'px';
-
             };
 
             // 鼠标释放事件处理函数
             const mouseUp = () => {
+
+                // 拖拽结束
+                isDragging = false;
+
+                // 移除样式
                 removeDragStyles(el)
                 // 移除鼠标移动和鼠标释放的监听器
                 document.removeEventListener('mousemove', mouseMove);
                 document.removeEventListener('mouseup', mouseUp);
+
+                // 无论元素是否贴边，停止拖拽时都移除父元素的边框
+                if (parentId) parentEl.style.border = '';
+
             };
 
-            // 给文档添加鼠标移动和鼠标释放的监听器
+            // 添加鼠标移动和鼠标释放的监听器
             document.addEventListener('mousemove', mouseMove);
             document.addEventListener('mouseup', mouseUp);
 
@@ -94,6 +120,23 @@ const vDraggable: Directive = {
 
         // 给元素添加鼠标按下监听器
         el.addEventListener('mousedown', mouseDown);
+
+        // 检查元素是否贴边的辅助函数
+        const checkEdgeTouching = (el: { getBoundingClientRect: () => any; }, parentEl: HTMLElement, disX: number, disY: number) => {
+            const elRect = el.getBoundingClientRect();
+            const parentRect = parentEl.getBoundingClientRect();
+
+            // 检查元素的四个角是否在父元素边界内
+            const isTopEdgeTouching = elRect.top - disY <= parentRect.top;
+            const isBottomEdgeTouching = elRect.bottom + disY >= parentRect.bottom;
+            const isLeftEdgeTouching = elRect.left + disX <= parentRect.left;
+            const isRightEdgeTouching = elRect.right - disX >= parentRect.right;
+
+            return (
+                isTopEdgeTouching || isBottomEdgeTouching ||
+                isLeftEdgeTouching || isRightEdgeTouching
+            );
+        };
 
         // 拖拽时的样式
         const addDragStyles = (el: HTMLElement) => {
