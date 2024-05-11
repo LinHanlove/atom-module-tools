@@ -146,7 +146,7 @@ const vDraggable: Directive = {
             el.style.boxShadow = '5px 5px 15px rgba(0, 0, 0, 0.2)';
         }
 
-        // 拖拽结束移除样式
+        // 拖拽结束移除样式                  
         const removeDragStyles = (el: HTMLElement) => {
             el.style.border = '';
             el.style.boxShadow = '';
