@@ -1,7 +1,18 @@
 import type { Directive, App } from 'vue';
 
 const vDraggable: Directive = {
-    mounted(el) {
+    mounted(el, binding) {
+        // 如果提供了 binding.arg 作为父元素的 ID，则根据 ID 查找父元素
+        const parentId = binding.arg;
+
+        // 如果未提供父元素 ID，则拖拽区域是整个网页
+        // 如果提供父元素 ID 但是找不到对应的父元素，则抛出错误
+        const parentEl = parentId ? document.getElementById(parentId) : el.parentNode as HTMLElement;
+
+        if (!parentEl) {
+            console.error(`Parent element with id '${parentId}' not found.`);
+            return;
+        }
 
         // 初始化样式
         el.style = `
@@ -33,21 +44,36 @@ const vDraggable: Directive = {
                 let x = e.pageX - disX;
                 let y = e.pageY - disY;
 
-                // 获取元素最大可移动的坐标范围
-                // getComputedStyle --- 获取元素计算后的样式
-                let maxX = document.body.clientWidth - parseInt(window.getComputedStyle(el).width);
-                let maxY = document.body.clientHeight - parseInt(window.getComputedStyle(el).height);
+                // 如果提供了父元素ID，获取父元素边界并设置边界条件
+                if (parentId) {
+                    const {
+                        left: parentL,
+                        top: parentT,
+                        right: parentR,
+                        bottom: parentB
+                    } = parentEl.getBoundingClientRect();
 
-                // 边界条件
-                if (x < 0) x = 0;
-                else if (x > maxX) x = maxX;
+                    // 边界条件：确保元素不会超出父元素的边界
+                    x = Math.max(parentL + disX, Math.min(parentR - el.offsetWidth, x));
+                    y = Math.max(parentT + disY, Math.min(parentB - el.offsetHeight, y));
+                } else {
+                    // 如果没有提供父元素ID，即拖拽区域是整个网页
+                    // 获取元素最大可移动的坐标范围
+                    let maxX = document.body.clientWidth - el.offsetWidth;
+                    let maxY = document.body.clientHeight - el.offsetHeight;
 
-                if (y < 0) y = 0;
-                else if (y > maxY) y = maxY;
+                    // 边界条件：确保元素不会超出网页边界
+                    if (x < 0) x = 0;
+                    else if (x > maxX) x = maxX;
+
+                    if (y < 0) y = 0;
+                    else if (y > maxY) y = maxY;
+                }
 
                 // 更新元素的 left 和 top 属性
                 el.style.left = x + 'px';
                 el.style.top = y + 'px';
+
             };
 
             // 鼠标释放事件处理函数
@@ -69,13 +95,11 @@ const vDraggable: Directive = {
         // 给元素添加鼠标按下监听器
         el.addEventListener('mousedown', mouseDown);
 
-
-
         // 拖拽时的样式
         const addDragStyles = (el: HTMLElement) => {
             el.style.border = '1px dashed #3498db';
             el.style.borderRadius = '2px';
-            el.style.opacity = '0.8';
+            el.style.opacity = '0.6';
             el.style.boxShadow = '5px 5px 15px rgba(0, 0, 0, 0.2)';
         }
 
