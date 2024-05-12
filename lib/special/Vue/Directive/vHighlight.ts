@@ -14,7 +14,7 @@ const vHighlight: Directive = {
   }
 };
 
-function highlightText(el: HTMLElement, binding) {
+const highlightText = (el: HTMLElement, binding) => {
 
   const { keyword, style } = binding.value
 

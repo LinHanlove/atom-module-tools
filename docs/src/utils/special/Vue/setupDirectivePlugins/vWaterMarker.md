@@ -30,14 +30,14 @@ title: VWaterMarker Directive
 
 ## 使用
 
-在 Vue 模板中，您可以通过以下方式使用 `v-water-marker` 指令：
+在 Vue 模板中，您可以通过以下方式使用 `v-waterMarker` 指令：
 
 ```vue
 <template>
-  <div v-water-marker="{ text: '自定义水印文字', rotate: 45, size: 300 }">
+  <div v-waterMarker="{ text: '自定义水印文字', rotate: 45, size: 300 }">
     <!-- 这里是你的内容 -->
   </div>
 </template>
 ```
 
-在这个例子中，v-water-marker 指令将为绑定的 div 元素添加一个水印，水印文字为 "自定义水印文字"，旋转角度为 45 度，画布大小为 300x300 像素。
+在这个例子中，v-waterMarker 指令将为绑定的 div 元素添加一个水印，水印文字为 "自定义水印文字"，旋转角度为 45 度，画布大小为 300x300 像素。
