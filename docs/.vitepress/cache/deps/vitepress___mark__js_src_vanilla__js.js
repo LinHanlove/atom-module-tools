@@ -14,10 +14,10 @@ var DOMIterator = class _DOMIterator {
    * there's no internet connection)
    */
   constructor(ctx, iframes = true, exclude = [], iframesTimeout = 5e3) {
-    this.ctx = ctx
-    this.iframes = iframes
-    this.exclude = exclude
-    this.iframesTimeout = iframesTimeout
+    this.ctx = ctx;
+    this.iframes = iframes;
+    this.exclude = exclude;
+    this.iframesTimeout = iframesTimeout;
   }
   /**
    * Checks if the specified DOM element matches the selector
@@ -28,26 +28,19 @@ var DOMIterator = class _DOMIterator {
    * @access public
    */
   static matches(element, selector) {
-    const selectors = typeof selector === 'string' ? [selector] : selector,
-      fn =
-        element.matches ||
-        element.matchesSelector ||
-        element.msMatchesSelector ||
-        element.mozMatchesSelector ||
-        element.oMatchesSelector ||
-        element.webkitMatchesSelector
+    const selectors = typeof selector === "string" ? [selector] : selector, fn = element.matches || element.matchesSelector || element.msMatchesSelector || element.mozMatchesSelector || element.oMatchesSelector || element.webkitMatchesSelector;
     if (fn) {
-      let match = false
+      let match = false;
       selectors.every((sel) => {
         if (fn.call(element, sel)) {
-          match = true
-          return false
+          match = true;
+          return false;
         }
-        return true
-      })
-      return match
+        return true;
+      });
+      return match;
     } else {
-      return false
+      return false;
     }
   }
   /**
@@ -56,29 +49,29 @@ var DOMIterator = class _DOMIterator {
    * @access protected
    */
   getContexts() {
-    let ctx,
-      filteredCtx = []
-    if (typeof this.ctx === 'undefined' || !this.ctx) {
-      ctx = []
+    let ctx, filteredCtx = [];
+    if (typeof this.ctx === "undefined" || !this.ctx) {
+      ctx = [];
     } else if (NodeList.prototype.isPrototypeOf(this.ctx)) {
-      ctx = Array.prototype.slice.call(this.ctx)
+      ctx = Array.prototype.slice.call(this.ctx);
     } else if (Array.isArray(this.ctx)) {
-      ctx = this.ctx
-    } else if (typeof this.ctx === 'string') {
-      ctx = Array.prototype.slice.call(document.querySelectorAll(this.ctx))
+      ctx = this.ctx;
+    } else if (typeof this.ctx === "string") {
+      ctx = Array.prototype.slice.call(
+        document.querySelectorAll(this.ctx)
+      );
     } else {
-      ctx = [this.ctx]
+      ctx = [this.ctx];
     }
     ctx.forEach((ctx2) => {
-      const isDescendant =
-        filteredCtx.filter((contexts) => {
-          return contexts.contains(ctx2)
-        }).length > 0
+      const isDescendant = filteredCtx.filter((contexts) => {
+        return contexts.contains(ctx2);
+      }).length > 0;
       if (filteredCtx.indexOf(ctx2) === -1 && !isDescendant) {
-        filteredCtx.push(ctx2)
+        filteredCtx.push(ctx2);
       }
-    })
-    return filteredCtx
+    });
+    return filteredCtx;
   }
   /**
    * @callback DOMIterator~getIframeContentsSuccessCallback
@@ -92,19 +85,20 @@ var DOMIterator = class _DOMIterator {
    * @param {function} [errorFn]
    * @access protected
    */
-  getIframeContents(ifr, successFn, errorFn = () => {}) {
-    let doc
+  getIframeContents(ifr, successFn, errorFn = () => {
+  }) {
+    let doc;
     try {
-      const ifrWin = ifr.contentWindow
-      doc = ifrWin.document
+      const ifrWin = ifr.contentWindow;
+      doc = ifrWin.document;
       if (!ifrWin || !doc) {
-        throw new Error('iframe inaccessible')
+        throw new Error("iframe inaccessible");
       }
     } catch (e) {
-      errorFn()
+      errorFn();
     }
     if (doc) {
-      successFn(doc)
+      successFn(doc);
     }
   }
   /**
@@ -114,10 +108,8 @@ var DOMIterator = class _DOMIterator {
    * @access protected
    */
   isIframeBlank(ifr) {
-    const bl = 'about:blank',
-      src = ifr.getAttribute('src').trim(),
-      href = ifr.contentWindow.location.href
-    return href === bl && src !== bl && src
+    const bl = "about:blank", src = ifr.getAttribute("src").trim(), href = ifr.contentWindow.location.href;
+    return href === bl && src !== bl && src;
   }
   /**
    * Observes the onload event of an iframe and calls the success callback or
@@ -130,25 +122,24 @@ var DOMIterator = class _DOMIterator {
    * @access protected
    */
   observeIframeLoad(ifr, successFn, errorFn) {
-    let called = false,
-      tout = null
+    let called = false, tout = null;
     const listener = () => {
       if (called) {
-        return
+        return;
       }
-      called = true
-      clearTimeout(tout)
+      called = true;
+      clearTimeout(tout);
       try {
         if (!this.isIframeBlank(ifr)) {
-          ifr.removeEventListener('load', listener)
-          this.getIframeContents(ifr, successFn, errorFn)
+          ifr.removeEventListener("load", listener);
+          this.getIframeContents(ifr, successFn, errorFn);
         }
       } catch (e) {
-        errorFn()
+        errorFn();
       }
-    }
-    ifr.addEventListener('load', listener)
-    tout = setTimeout(listener, this.iframesTimeout)
+    };
+    ifr.addEventListener("load", listener);
+    tout = setTimeout(listener, this.iframesTimeout);
   }
   /**
    * Callback when the iframe is ready
@@ -171,17 +162,17 @@ var DOMIterator = class _DOMIterator {
    */
   onIframeReady(ifr, successFn, errorFn) {
     try {
-      if (ifr.contentWindow.document.readyState === 'complete') {
+      if (ifr.contentWindow.document.readyState === "complete") {
         if (this.isIframeBlank(ifr)) {
-          this.observeIframeLoad(ifr, successFn, errorFn)
+          this.observeIframeLoad(ifr, successFn, errorFn);
         } else {
-          this.getIframeContents(ifr, successFn, errorFn)
+          this.getIframeContents(ifr, successFn, errorFn);
         }
       } else {
-        this.observeIframeLoad(ifr, successFn, errorFn)
+        this.observeIframeLoad(ifr, successFn, errorFn);
       }
     } catch (e) {
-      errorFn()
+      errorFn();
     }
   }
   /**
@@ -195,24 +186,19 @@ var DOMIterator = class _DOMIterator {
    * @param {DOMIterator~waitForIframesDoneCallback} done - Done callback
    */
   waitForIframes(ctx, done) {
-    let eachCalled = 0
-    this.forEachIframe(
-      ctx,
-      () => true,
-      (ifr) => {
-        eachCalled++
-        this.waitForIframes(ifr.querySelector('html'), () => {
-          if (!--eachCalled) {
-            done()
-          }
-        })
-      },
-      (handled) => {
-        if (!handled) {
-          done()
+    let eachCalled = 0;
+    this.forEachIframe(ctx, () => true, (ifr) => {
+      eachCalled++;
+      this.waitForIframes(ifr.querySelector("html"), () => {
+        if (!--eachCalled) {
+          done();
         }
+      });
+    }, (handled) => {
+      if (!handled) {
+        done();
       }
-    )
+    });
   }
   /**
    * Callback allowing to filter an iframe. Must return true when the element
@@ -241,36 +227,31 @@ var DOMIterator = class _DOMIterator {
    * @param {DOMIterator~forEachIframeEndCallback} [end] - End callback
    * @access protected
    */
-  forEachIframe(ctx, filter, each, end = () => {}) {
-    let ifr = ctx.querySelectorAll('iframe'),
-      open = ifr.length,
-      handled = 0
-    ifr = Array.prototype.slice.call(ifr)
+  forEachIframe(ctx, filter, each, end = () => {
+  }) {
+    let ifr = ctx.querySelectorAll("iframe"), open = ifr.length, handled = 0;
+    ifr = Array.prototype.slice.call(ifr);
     const checkEnd = () => {
       if (--open <= 0) {
-        end(handled)
+        end(handled);
       }
-    }
+    };
     if (!open) {
-      checkEnd()
+      checkEnd();
     }
     ifr.forEach((ifr2) => {
       if (_DOMIterator.matches(ifr2, this.exclude)) {
-        checkEnd()
+        checkEnd();
       } else {
-        this.onIframeReady(
-          ifr2,
-          (con) => {
-            if (filter(ifr2)) {
-              handled++
-              each(con)
-            }
-            checkEnd()
-          },
-          checkEnd
-        )
+        this.onIframeReady(ifr2, (con) => {
+          if (filter(ifr2)) {
+            handled++;
+            each(con);
+          }
+          checkEnd();
+        }, checkEnd);
       }
-    })
+    });
   }
   /**
    * Creates a NodeIterator on the specified context
@@ -282,7 +263,7 @@ var DOMIterator = class _DOMIterator {
    * @access protected
    */
   createIterator(ctx, whatToShow, filter) {
-    return document.createNodeIterator(ctx, whatToShow, filter, false)
+    return document.createNodeIterator(ctx, whatToShow, filter, false);
   }
   /**
    * Creates an instance of DOMIterator in an iframe
@@ -291,7 +272,7 @@ var DOMIterator = class _DOMIterator {
    * @access protected
    */
   createInstanceOnIframe(contents) {
-    return new _DOMIterator(contents.querySelector('html'), this.iframes)
+    return new _DOMIterator(contents.querySelector("html"), this.iframes);
   }
   /**
    * Checks if an iframe occurs between two nodes, more specifically if an
@@ -304,20 +285,18 @@ var DOMIterator = class _DOMIterator {
    * @access protected
    */
   compareNodeIframe(node, prevNode, ifr) {
-    const compCurr = node.compareDocumentPosition(ifr),
-      prev = Node.DOCUMENT_POSITION_PRECEDING
+    const compCurr = node.compareDocumentPosition(ifr), prev = Node.DOCUMENT_POSITION_PRECEDING;
     if (compCurr & prev) {
       if (prevNode !== null) {
-        const compPrev = prevNode.compareDocumentPosition(ifr),
-          after = Node.DOCUMENT_POSITION_FOLLOWING
+        const compPrev = prevNode.compareDocumentPosition(ifr), after = Node.DOCUMENT_POSITION_FOLLOWING;
         if (compPrev & after) {
-          return true
+          return true;
         }
       } else {
-        return true
+        return true;
       }
     }
-    return false
+    return false;
   }
   /**
    * @typedef {DOMIterator~getIteratorNodeReturn}
@@ -333,17 +312,17 @@ var DOMIterator = class _DOMIterator {
    * @access protected
    */
   getIteratorNode(itr) {
-    const prevNode = itr.previousNode()
-    let node
+    const prevNode = itr.previousNode();
+    let node;
     if (prevNode === null) {
-      node = itr.nextNode()
+      node = itr.nextNode();
     } else {
-      node = itr.nextNode() && itr.nextNode()
+      node = itr.nextNode() && itr.nextNode();
     }
     return {
       prevNode,
       node
-    }
+    };
   }
   /**
    * An array containing objects. The object key "val" contains an iframe
@@ -372,32 +351,31 @@ var DOMIterator = class _DOMIterator {
    * @access protected
    */
   checkIframeFilter(node, prevNode, currIfr, ifr) {
-    let key = false,
-      handled = false
+    let key = false, handled = false;
     ifr.forEach((ifrDict, i) => {
       if (ifrDict.val === currIfr) {
-        key = i
-        handled = ifrDict.handled
+        key = i;
+        handled = ifrDict.handled;
       }
-    })
+    });
     if (this.compareNodeIframe(node, prevNode, currIfr)) {
       if (key === false && !handled) {
         ifr.push({
           val: currIfr,
           handled: true
-        })
+        });
       } else if (key !== false && !handled) {
-        ifr[key].handled = true
+        ifr[key].handled = true;
       }
-      return true
+      return true;
     }
     if (key === false) {
       ifr.push({
         val: currIfr,
         handled: false
-      })
+      });
     }
-    return false
+    return false;
   }
   /**
    * Creates an iterator on all open iframes in the specified array and calls
@@ -412,10 +390,14 @@ var DOMIterator = class _DOMIterator {
     ifr.forEach((ifrDict) => {
       if (!ifrDict.handled) {
         this.getIframeContents(ifrDict.val, (con) => {
-          this.createInstanceOnIframe(con).forEachNode(whatToShow, eCb, fCb)
-        })
+          this.createInstanceOnIframe(con).forEachNode(
+            whatToShow,
+            eCb,
+            fCb
+          );
+        });
       }
-    })
+    });
   }
   /**
    * Iterates through all nodes in the specified context and handles iframe
@@ -428,40 +410,35 @@ var DOMIterator = class _DOMIterator {
    * @access protected
    */
   iterateThroughNodes(whatToShow, ctx, eachCb, filterCb, doneCb) {
-    const itr = this.createIterator(ctx, whatToShow, filterCb)
-    let ifr = [],
-      elements = [],
-      node,
-      prevNode,
-      retrieveNodes = () => {
-        ;({ prevNode, node } = this.getIteratorNode(itr))
-        return node
-      }
+    const itr = this.createIterator(ctx, whatToShow, filterCb);
+    let ifr = [], elements = [], node, prevNode, retrieveNodes = () => {
+      ({
+        prevNode,
+        node
+      } = this.getIteratorNode(itr));
+      return node;
+    };
     while (retrieveNodes()) {
       if (this.iframes) {
-        this.forEachIframe(
-          ctx,
-          (currIfr) => {
-            return this.checkIframeFilter(node, prevNode, currIfr, ifr)
-          },
-          (con) => {
-            this.createInstanceOnIframe(con).forEachNode(
-              whatToShow,
-              (ifrNode) => elements.push(ifrNode),
-              filterCb
-            )
-          }
-        )
+        this.forEachIframe(ctx, (currIfr) => {
+          return this.checkIframeFilter(node, prevNode, currIfr, ifr);
+        }, (con) => {
+          this.createInstanceOnIframe(con).forEachNode(
+            whatToShow,
+            (ifrNode) => elements.push(ifrNode),
+            filterCb
+          );
+        });
       }
-      elements.push(node)
+      elements.push(node);
     }
     elements.forEach((node2) => {
-      eachCb(node2)
-    })
+      eachCb(node2);
+    });
     if (this.iframes) {
-      this.handleOpenIframes(ifr, whatToShow, eachCb, filterCb)
+      this.handleOpenIframes(ifr, whatToShow, eachCb, filterCb);
     }
-    doneCb()
+    doneCb();
   }
   /**
    * Callback for each node
@@ -481,26 +458,27 @@ var DOMIterator = class _DOMIterator {
    * @param {DOMIterator~forEachNodeEndCallback} done - End callback
    * @access public
    */
-  forEachNode(whatToShow, each, filter, done = () => {}) {
-    const contexts = this.getContexts()
-    let open = contexts.length
+  forEachNode(whatToShow, each, filter, done = () => {
+  }) {
+    const contexts = this.getContexts();
+    let open = contexts.length;
     if (!open) {
-      done()
+      done();
     }
     contexts.forEach((ctx) => {
       const ready = () => {
         this.iterateThroughNodes(whatToShow, ctx, each, filter, () => {
           if (--open <= 0) {
-            done()
+            done();
           }
-        })
-      }
+        });
+      };
       if (this.iframes) {
-        this.waitForIframes(ctx, ready)
+        this.waitForIframes(ctx, ready);
       } else {
-        ready()
+        ready();
       }
-    })
+    });
   }
   /**
    * Callback to filter nodes. Can return e.g. NodeFilter.FILTER_ACCEPT or
@@ -514,7 +492,7 @@ var DOMIterator = class _DOMIterator {
    * @see {@link http://tinyurl.com/zfqqkx2}
    * @type {number}
    */
-}
+};
 
 // node_modules/.pnpm/mark.js@8.11.1/node_modules/mark.js/src/lib/mark.js
 var Mark = class {
@@ -524,11 +502,11 @@ var Mark = class {
    * element, an array of DOM elements, a NodeList or a selector
    */
   constructor(ctx) {
-    this.ctx = ctx
-    this.ie = false
-    const ua = window.navigator.userAgent
-    if (ua.indexOf('MSIE') > -1 || ua.indexOf('Trident') > -1) {
-      this.ie = true
+    this.ctx = ctx;
+    this.ie = false;
+    const ua = window.navigator.userAgent;
+    if (ua.indexOf("MSIE") > -1 || ua.indexOf("Trident") > -1) {
+      this.ie = true;
     }
   }
   /**
@@ -540,36 +518,35 @@ var Mark = class {
    * @access protected
    */
   set opt(val) {
-    this._opt = Object.assign(
-      {},
-      {
-        element: '',
-        className: '',
-        exclude: [],
-        iframes: false,
-        iframesTimeout: 5e3,
-        separateWordSearch: true,
-        diacritics: true,
-        synonyms: {},
-        accuracy: 'partially',
-        acrossElements: false,
-        caseSensitive: false,
-        ignoreJoiners: false,
-        ignoreGroups: 0,
-        ignorePunctuation: [],
-        wildcards: 'disabled',
-        each: () => {},
-        noMatch: () => {},
-        filter: () => true,
-        done: () => {},
-        debug: false,
-        log: window.console
+    this._opt = Object.assign({}, {
+      "element": "",
+      "className": "",
+      "exclude": [],
+      "iframes": false,
+      "iframesTimeout": 5e3,
+      "separateWordSearch": true,
+      "diacritics": true,
+      "synonyms": {},
+      "accuracy": "partially",
+      "acrossElements": false,
+      "caseSensitive": false,
+      "ignoreJoiners": false,
+      "ignoreGroups": 0,
+      "ignorePunctuation": [],
+      "wildcards": "disabled",
+      "each": () => {
       },
-      val
-    )
+      "noMatch": () => {
+      },
+      "filter": () => true,
+      "done": () => {
+      },
+      "debug": false,
+      "log": window.console
+    }, val);
   }
   get opt() {
-    return this._opt
+    return this._opt;
   }
   /**
    * An instance of DOMIterator
@@ -577,7 +554,12 @@ var Mark = class {
    * @access protected
    */
   get iterator() {
-    return new DOMIterator(this.ctx, this.opt.iframes, this.opt.exclude, this.opt.iframesTimeout)
+    return new DOMIterator(
+      this.ctx,
+      this.opt.iframes,
+      this.opt.exclude,
+      this.opt.iframesTimeout
+    );
   }
   /**
    * Logs a message if log is enabled
@@ -586,13 +568,13 @@ var Mark = class {
    * <code>error</code>, <code>debug</code>
    * @access protected
    */
-  log(msg, level = 'debug') {
-    const log = this.opt.log
+  log(msg, level = "debug") {
+    const log = this.opt.log;
     if (!this.opt.debug) {
-      return
+      return;
     }
-    if (typeof log === 'object' && typeof log[level] === 'function') {
-      log[level](`mark.js: ${msg}`)
+    if (typeof log === "object" && typeof log[level] === "function") {
+      log[level](`mark.js: ${msg}`);
     }
   }
   /**
@@ -602,7 +584,7 @@ var Mark = class {
    * @access protected
    */
   escapeStr(str) {
-    return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')
+    return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
   }
   /**
    * Creates a regular expression string to match the specified search
@@ -612,28 +594,28 @@ var Mark = class {
    * @access protected
    */
   createRegExp(str) {
-    if (this.opt.wildcards !== 'disabled') {
-      str = this.setupWildcardsRegExp(str)
+    if (this.opt.wildcards !== "disabled") {
+      str = this.setupWildcardsRegExp(str);
     }
-    str = this.escapeStr(str)
+    str = this.escapeStr(str);
     if (Object.keys(this.opt.synonyms).length) {
-      str = this.createSynonymsRegExp(str)
+      str = this.createSynonymsRegExp(str);
     }
     if (this.opt.ignoreJoiners || this.opt.ignorePunctuation.length) {
-      str = this.setupIgnoreJoinersRegExp(str)
+      str = this.setupIgnoreJoinersRegExp(str);
     }
     if (this.opt.diacritics) {
-      str = this.createDiacriticsRegExp(str)
+      str = this.createDiacriticsRegExp(str);
     }
-    str = this.createMergedBlanksRegExp(str)
+    str = this.createMergedBlanksRegExp(str);
     if (this.opt.ignoreJoiners || this.opt.ignorePunctuation.length) {
-      str = this.createJoinersRegExp(str)
+      str = this.createJoinersRegExp(str);
     }
-    if (this.opt.wildcards !== 'disabled') {
-      str = this.createWildcardsRegExp(str)
+    if (this.opt.wildcards !== "disabled") {
+      str = this.createWildcardsRegExp(str);
     }
-    str = this.createAccuracyRegExp(str)
-    return str
+    str = this.createAccuracyRegExp(str);
+    return str;
   }
   /**
    * Creates a regular expression string to match the defined synonyms
@@ -642,31 +624,22 @@ var Mark = class {
    * @access protected
    */
   createSynonymsRegExp(str) {
-    const syn = this.opt.synonyms,
-      sens = this.opt.caseSensitive ? '' : 'i',
-      joinerPlaceholder = this.opt.ignoreJoiners || this.opt.ignorePunctuation.length ? '\0' : ''
+    const syn = this.opt.synonyms, sens = this.opt.caseSensitive ? "" : "i", joinerPlaceholder = this.opt.ignoreJoiners || this.opt.ignorePunctuation.length ? "\0" : "";
     for (let index in syn) {
       if (syn.hasOwnProperty(index)) {
-        const value = syn[index],
-          k1 =
-            this.opt.wildcards !== 'disabled'
-              ? this.setupWildcardsRegExp(index)
-              : this.escapeStr(index),
-          k2 =
-            this.opt.wildcards !== 'disabled'
-              ? this.setupWildcardsRegExp(value)
-              : this.escapeStr(value)
-        if (k1 !== '' && k2 !== '') {
+        const value = syn[index], k1 = this.opt.wildcards !== "disabled" ? this.setupWildcardsRegExp(index) : this.escapeStr(index), k2 = this.opt.wildcards !== "disabled" ? this.setupWildcardsRegExp(value) : this.escapeStr(value);
+        if (k1 !== "" && k2 !== "") {
           str = str.replace(
-            new RegExp(`(${this.escapeStr(k1)}|${this.escapeStr(k2)})`, `gm${sens}`),
-            joinerPlaceholder +
-              `(${this.processSynomyms(k1)}|${this.processSynomyms(k2)})` +
-              joinerPlaceholder
-          )
+            new RegExp(
+              `(${this.escapeStr(k1)}|${this.escapeStr(k2)})`,
+              `gm${sens}`
+            ),
+            joinerPlaceholder + `(${this.processSynomyms(k1)}|${this.processSynomyms(k2)})` + joinerPlaceholder
+          );
         }
       }
     }
-    return str
+    return str;
   }
   /**
    * Setup synonyms to work with ignoreJoiners and or ignorePunctuation
@@ -675,9 +648,9 @@ var Mark = class {
    */
   processSynomyms(str) {
     if (this.opt.ignoreJoiners || this.opt.ignorePunctuation.length) {
-      str = this.setupIgnoreJoinersRegExp(str)
+      str = this.setupIgnoreJoinersRegExp(str);
     }
-    return str
+    return str;
   }
   /**
    * Sets up the regular expression string to allow later insertion of
@@ -688,11 +661,11 @@ var Mark = class {
    */
   setupWildcardsRegExp(str) {
     str = str.replace(/(?:\\)*\?/g, (val) => {
-      return val.charAt(0) === '\\' ? '?' : ''
-    })
+      return val.charAt(0) === "\\" ? "?" : "";
+    });
     return str.replace(/(?:\\)*\*/g, (val) => {
-      return val.charAt(0) === '\\' ? '*' : ''
-    })
+      return val.charAt(0) === "\\" ? "*" : "";
+    });
   }
   /**
    * Sets up the regular expression string to allow later insertion of
@@ -702,10 +675,8 @@ var Mark = class {
    * @access protected
    */
   createWildcardsRegExp(str) {
-    let spaces = this.opt.wildcards === 'withSpaces'
-    return str
-      .replace(/\u0001/g, spaces ? '[\\S\\s]?' : '\\S?')
-      .replace(/\u0002/g, spaces ? '[\\S\\s]*?' : '\\S*')
+    let spaces = this.opt.wildcards === "withSpaces";
+    return str.replace(/\u0001/g, spaces ? "[\\S\\s]?" : "\\S?").replace(/\u0002/g, spaces ? "[\\S\\s]*?" : "\\S*");
   }
   /**
    * Sets up the regular expression string to allow later insertion of
@@ -716,13 +687,13 @@ var Mark = class {
    */
   setupIgnoreJoinersRegExp(str) {
     return str.replace(/[^(|)\\]/g, (val, indx, original) => {
-      let nextChar = original.charAt(indx + 1)
-      if (/[(|)\\]/.test(nextChar) || nextChar === '') {
-        return val
+      let nextChar = original.charAt(indx + 1);
+      if (/[(|)\\]/.test(nextChar) || nextChar === "") {
+        return val;
       } else {
-        return val + '\0'
+        return val + "\0";
       }
-    })
+    });
   }
   /**
    * Creates a regular expression string to allow ignoring of designated
@@ -734,15 +705,15 @@ var Mark = class {
    * @access protected
    */
   createJoinersRegExp(str) {
-    let joiner = []
-    const ignorePunctuation = this.opt.ignorePunctuation
+    let joiner = [];
+    const ignorePunctuation = this.opt.ignorePunctuation;
     if (Array.isArray(ignorePunctuation) && ignorePunctuation.length) {
-      joiner.push(this.escapeStr(ignorePunctuation.join('')))
+      joiner.push(this.escapeStr(ignorePunctuation.join("")));
     }
     if (this.opt.ignoreJoiners) {
-      joiner.push('\\u00ad\\u200b\\u200c\\u200d')
+      joiner.push("\\u00ad\\u200b\\u200c\\u200d");
     }
-    return joiner.length ? str.split(/\u0000+/).join(`[${joiner.join('')}]*`) : str
+    return joiner.length ? str.split(/\u0000+/).join(`[${joiner.join("")}]*`) : str;
   }
   /**
    * Creates a regular expression string to match diacritics
@@ -751,68 +722,68 @@ var Mark = class {
    * @access protected
    */
   createDiacriticsRegExp(str) {
-    const sens = this.opt.caseSensitive ? '' : 'i',
-      dct = this.opt.caseSensitive
-        ? [
-            'aàáảãạăằắẳẵặâầấẩẫậäåāą',
-            'AÀÁẢÃẠĂẰẮẲẴẶÂẦẤẨẪẬÄÅĀĄ',
-            'cçćč',
-            'CÇĆČ',
-            'dđď',
-            'DĐĎ',
-            'eèéẻẽẹêềếểễệëěēę',
-            'EÈÉẺẼẸÊỀẾỂỄỆËĚĒĘ',
-            'iìíỉĩịîïī',
-            'IÌÍỈĨỊÎÏĪ',
-            'lł',
-            'LŁ',
-            'nñňń',
-            'NÑŇŃ',
-            'oòóỏõọôồốổỗộơởỡớờợöøō',
-            'OÒÓỎÕỌÔỒỐỔỖỘƠỞỠỚỜỢÖØŌ',
-            'rř',
-            'RŘ',
-            'sšśșş',
-            'SŠŚȘŞ',
-            'tťțţ',
-            'TŤȚŢ',
-            'uùúủũụưừứửữựûüůū',
-            'UÙÚỦŨỤƯỪỨỬỮỰÛÜŮŪ',
-            'yýỳỷỹỵÿ',
-            'YÝỲỶỸỴŸ',
-            'zžżź',
-            'ZŽŻŹ'
-          ]
-        : [
-            'aàáảãạăằắẳẵặâầấẩẫậäåāąAÀÁẢÃẠĂẰẮẲẴẶÂẦẤẨẪẬÄÅĀĄ',
-            'cçćčCÇĆČ',
-            'dđďDĐĎ',
-            'eèéẻẽẹêềếểễệëěēęEÈÉẺẼẸÊỀẾỂỄỆËĚĒĘ',
-            'iìíỉĩịîïīIÌÍỈĨỊÎÏĪ',
-            'lłLŁ',
-            'nñňńNÑŇŃ',
-            'oòóỏõọôồốổỗộơởỡớờợöøōOÒÓỎÕỌÔỒỐỔỖỘƠỞỠỚỜỢÖØŌ',
-            'rřRŘ',
-            'sšśșşSŠŚȘŞ',
-            'tťțţTŤȚŢ',
-            'uùúủũụưừứửữựûüůūUÙÚỦŨỤƯỪỨỬỮỰÛÜŮŪ',
-            'yýỳỷỹỵÿYÝỲỶỸỴŸ',
-            'zžżźZŽŻŹ'
-          ]
-    let handled = []
-    str.split('').forEach((ch) => {
+    const sens = this.opt.caseSensitive ? "" : "i", dct = this.opt.caseSensitive ? [
+      "aàáảãạăằắẳẵặâầấẩẫậäåāą",
+      "AÀÁẢÃẠĂẰẮẲẴẶÂẦẤẨẪẬÄÅĀĄ",
+      "cçćč",
+      "CÇĆČ",
+      "dđď",
+      "DĐĎ",
+      "eèéẻẽẹêềếểễệëěēę",
+      "EÈÉẺẼẸÊỀẾỂỄỆËĚĒĘ",
+      "iìíỉĩịîïī",
+      "IÌÍỈĨỊÎÏĪ",
+      "lł",
+      "LŁ",
+      "nñňń",
+      "NÑŇŃ",
+      "oòóỏõọôồốổỗộơởỡớờợöøō",
+      "OÒÓỎÕỌÔỒỐỔỖỘƠỞỠỚỜỢÖØŌ",
+      "rř",
+      "RŘ",
+      "sšśșş",
+      "SŠŚȘŞ",
+      "tťțţ",
+      "TŤȚŢ",
+      "uùúủũụưừứửữựûüůū",
+      "UÙÚỦŨỤƯỪỨỬỮỰÛÜŮŪ",
+      "yýỳỷỹỵÿ",
+      "YÝỲỶỸỴŸ",
+      "zžżź",
+      "ZŽŻŹ"
+    ] : [
+      "aàáảãạăằắẳẵặâầấẩẫậäåāąAÀÁẢÃẠĂẰẮẲẴẶÂẦẤẨẪẬÄÅĀĄ",
+      "cçćčCÇĆČ",
+      "dđďDĐĎ",
+      "eèéẻẽẹêềếểễệëěēęEÈÉẺẼẸÊỀẾỂỄỆËĚĒĘ",
+      "iìíỉĩịîïīIÌÍỈĨỊÎÏĪ",
+      "lłLŁ",
+      "nñňńNÑŇŃ",
+      "oòóỏõọôồốổỗộơởỡớờợöøōOÒÓỎÕỌÔỒỐỔỖỘƠỞỠỚỜỢÖØŌ",
+      "rřRŘ",
+      "sšśșşSŠŚȘŞ",
+      "tťțţTŤȚŢ",
+      "uùúủũụưừứửữựûüůūUÙÚỦŨỤƯỪỨỬỮỰÛÜŮŪ",
+      "yýỳỷỹỵÿYÝỲỶỸỴŸ",
+      "zžżźZŽŻŹ"
+    ];
+    let handled = [];
+    str.split("").forEach((ch) => {
       dct.every((dct2) => {
         if (dct2.indexOf(ch) !== -1) {
           if (handled.indexOf(dct2) > -1) {
-            return false
+            return false;
           }
-          str = str.replace(new RegExp(`[${dct2}]`, `gm${sens}`), `[${dct2}]`)
-          handled.push(dct2)
+          str = str.replace(
+            new RegExp(`[${dct2}]`, `gm${sens}`),
+            `[${dct2}]`
+          );
+          handled.push(dct2);
         }
-        return true
-      })
-    })
-    return str
+        return true;
+      });
+    });
+    return str;
   }
   /**
    * Creates a regular expression string that merges whitespace characters
@@ -823,7 +794,7 @@ var Mark = class {
    * @access protected
    */
   createMergedBlanksRegExp(str) {
-    return str.replace(/[\s]+/gim, '[\\s]+')
+    return str.replace(/[\s]+/gmi, "[\\s]+");
   }
   /**
    * Creates a regular expression string to match the specified string with
@@ -836,23 +807,20 @@ var Mark = class {
    * @access protected
    */
   createAccuracyRegExp(str) {
-    const chars = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~¡¿'
-    let acc = this.opt.accuracy,
-      val = typeof acc === 'string' ? acc : acc.value,
-      ls = typeof acc === 'string' ? [] : acc.limiters,
-      lsJoin = ''
+    const chars = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~¡¿";
+    let acc = this.opt.accuracy, val = typeof acc === "string" ? acc : acc.value, ls = typeof acc === "string" ? [] : acc.limiters, lsJoin = "";
     ls.forEach((limiter) => {
-      lsJoin += `|${this.escapeStr(limiter)}`
-    })
+      lsJoin += `|${this.escapeStr(limiter)}`;
+    });
     switch (val) {
-      case 'partially':
+      case "partially":
       default:
-        return `()(${str})`
-      case 'complementary':
-        lsJoin = '\\s' + (lsJoin ? lsJoin : this.escapeStr(chars))
-        return `()([^${lsJoin}]*${str}[^${lsJoin}]*)`
-      case 'exactly':
-        return `(^|\\s${lsJoin})(${str})(?=$|\\s${lsJoin})`
+        return `()(${str})`;
+      case "complementary":
+        lsJoin = "\\s" + (lsJoin ? lsJoin : this.escapeStr(chars));
+        return `()([^${lsJoin}]*${str}[^${lsJoin}]*)`;
+      case "exactly":
+        return `(^|\\s${lsJoin})(${str})(?=$|\\s${lsJoin})`;
     }
   }
   /**
@@ -869,27 +837,27 @@ var Mark = class {
    * @access protected
    */
   getSeparatedKeywords(sv) {
-    let stack = []
+    let stack = [];
     sv.forEach((kw) => {
       if (!this.opt.separateWordSearch) {
         if (kw.trim() && stack.indexOf(kw) === -1) {
-          stack.push(kw)
+          stack.push(kw);
         }
       } else {
-        kw.split(' ').forEach((kwSplitted) => {
+        kw.split(" ").forEach((kwSplitted) => {
           if (kwSplitted.trim() && stack.indexOf(kwSplitted) === -1) {
-            stack.push(kwSplitted)
+            stack.push(kwSplitted);
           }
-        })
+        });
       }
-    })
+    });
     return {
       // sort because of https://git.io/v6USg
-      keywords: stack.sort((a, b) => {
-        return b.length - a.length
+      "keywords": stack.sort((a, b) => {
+        return b.length - a.length;
       }),
-      length: stack.length
-    }
+      "length": stack.length
+    };
   }
   /**
    * Check if a value is a number
@@ -899,7 +867,7 @@ var Mark = class {
    * @access protected
    */
   isNumeric(value) {
-    return Number(parseFloat(value)) == value
+    return Number(parseFloat(value)) == value;
   }
   /**
    * @typedef Mark~rangeObject
@@ -923,27 +891,25 @@ var Mark = class {
    * @access protected
    */
   checkRanges(array) {
-    if (!Array.isArray(array) || Object.prototype.toString.call(array[0]) !== '[object Object]') {
-      this.log('markRanges() will only accept an array of objects')
-      this.opt.noMatch(array)
-      return []
+    if (!Array.isArray(array) || Object.prototype.toString.call(array[0]) !== "[object Object]") {
+      this.log("markRanges() will only accept an array of objects");
+      this.opt.noMatch(array);
+      return [];
     }
-    const stack = []
-    let last = 0
-    array
-      .sort((a, b) => {
-        return a.start - b.start
-      })
-      .forEach((item) => {
-        let { start, end, valid } = this.callNoMatchOnInvalidRanges(item, last)
-        if (valid) {
-          item.start = start
-          item.length = end - start
-          stack.push(item)
-          last = end
-        }
-      })
-    return stack
+    const stack = [];
+    let last = 0;
+    array.sort((a, b) => {
+      return a.start - b.start;
+    }).forEach((item) => {
+      let { start, end, valid } = this.callNoMatchOnInvalidRanges(item, last);
+      if (valid) {
+        item.start = start;
+        item.length = end - start;
+        stack.push(item);
+        last = end;
+      }
+    });
+    return stack;
   }
   /**
    * @typedef Mark~validObject
@@ -955,41 +921,36 @@ var Mark = class {
    * calculated end range is valid
    */
   /**
-   * Initial validation of ranges for markRanges. Preliminary checks are done
-   * to ensure the start and length values exist and are not zero or non-
-   * numeric
-   * @param {Mark~rangeObject} range - the current range object
-   * @param {number} last - last index of range
-   * @return {Mark~validObject}
-   * @access protected
-   */
+    * Initial validation of ranges for markRanges. Preliminary checks are done
+    * to ensure the start and length values exist and are not zero or non-
+    * numeric
+    * @param {Mark~rangeObject} range - the current range object
+    * @param {number} last - last index of range
+    * @return {Mark~validObject}
+    * @access protected
+    */
   callNoMatchOnInvalidRanges(range, last) {
-    let start,
-      end,
-      valid = false
-    if (range && typeof range.start !== 'undefined') {
-      start = parseInt(range.start, 10)
-      end = start + parseInt(range.length, 10)
-      if (
-        this.isNumeric(range.start) &&
-        this.isNumeric(range.length) &&
-        end - last > 0 &&
-        end - start > 0
-      ) {
-        valid = true
+    let start, end, valid = false;
+    if (range && typeof range.start !== "undefined") {
+      start = parseInt(range.start, 10);
+      end = start + parseInt(range.length, 10);
+      if (this.isNumeric(range.start) && this.isNumeric(range.length) && end - last > 0 && end - start > 0) {
+        valid = true;
       } else {
-        this.log(`Ignoring invalid or overlapping range: ${JSON.stringify(range)}`)
-        this.opt.noMatch(range)
+        this.log(
+          `Ignoring invalid or overlapping range: ${JSON.stringify(range)}`
+        );
+        this.opt.noMatch(range);
       }
     } else {
-      this.log(`Ignoring invalid range: ${JSON.stringify(range)}`)
-      this.opt.noMatch(range)
+      this.log(`Ignoring invalid range: ${JSON.stringify(range)}`);
+      this.opt.noMatch(range);
     }
     return {
       start,
       end,
       valid
-    }
+    };
   }
   /**
    * Check valid range for markRanges. Check ranges with access to the context
@@ -1003,31 +964,27 @@ var Mark = class {
    * @access protected
    */
   checkWhitespaceRanges(range, originalLength, string) {
-    let end,
-      valid = true,
-      max = string.length,
-      offset = originalLength - max,
-      start = parseInt(range.start, 10) - offset
-    start = start > max ? max : start
-    end = start + parseInt(range.length, 10)
+    let end, valid = true, max = string.length, offset = originalLength - max, start = parseInt(range.start, 10) - offset;
+    start = start > max ? max : start;
+    end = start + parseInt(range.length, 10);
     if (end > max) {
-      end = max
-      this.log(`End range automatically set to the max value of ${max}`)
+      end = max;
+      this.log(`End range automatically set to the max value of ${max}`);
     }
     if (start < 0 || end - start < 0 || start > max || end > max) {
-      valid = false
-      this.log(`Invalid range: ${JSON.stringify(range)}`)
-      this.opt.noMatch(range)
-    } else if (string.substring(start, end).replace(/\s+/g, '') === '') {
-      valid = false
-      this.log('Skipping whitespace only range: ' + JSON.stringify(range))
-      this.opt.noMatch(range)
+      valid = false;
+      this.log(`Invalid range: ${JSON.stringify(range)}`);
+      this.opt.noMatch(range);
+    } else if (string.substring(start, end).replace(/\s+/g, "") === "") {
+      valid = false;
+      this.log("Skipping whitespace only range: " + JSON.stringify(range));
+      this.opt.noMatch(range);
     }
     return {
       start,
       end,
       valid
-    }
+    };
   }
   /**
    * @typedef Mark~getTextNodesDict
@@ -1053,31 +1010,25 @@ var Mark = class {
    * @access protected
    */
   getTextNodes(cb) {
-    let val = '',
-      nodes = []
-    this.iterator.forEachNode(
-      NodeFilter.SHOW_TEXT,
-      (node) => {
-        nodes.push({
-          start: val.length,
-          end: (val += node.textContent).length,
-          node
-        })
-      },
-      (node) => {
-        if (this.matchesExclude(node.parentNode)) {
-          return NodeFilter.FILTER_REJECT
-        } else {
-          return NodeFilter.FILTER_ACCEPT
-        }
-      },
-      () => {
-        cb({
-          value: val,
-          nodes
-        })
+    let val = "", nodes = [];
+    this.iterator.forEachNode(NodeFilter.SHOW_TEXT, (node) => {
+      nodes.push({
+        start: val.length,
+        end: (val += node.textContent).length,
+        node
+      });
+    }, (node) => {
+      if (this.matchesExclude(node.parentNode)) {
+        return NodeFilter.FILTER_REJECT;
+      } else {
+        return NodeFilter.FILTER_ACCEPT;
       }
-    )
+    }, () => {
+      cb({
+        value: val,
+        nodes
+      });
+    });
   }
   /**
    * Checks if an element matches any of the specified exclude selectors. Also
@@ -1088,17 +1039,14 @@ var Mark = class {
    * @access protected
    */
   matchesExclude(el) {
-    return DOMIterator.matches(
-      el,
-      this.opt.exclude.concat([
-        // ignores the elements itself, not their childrens (selector *)
-        'script',
-        'style',
-        'title',
-        'head',
-        'html'
-      ])
-    )
+    return DOMIterator.matches(el, this.opt.exclude.concat([
+      // ignores the elements itself, not their childrens (selector *)
+      "script",
+      "style",
+      "title",
+      "head",
+      "html"
+    ]));
   }
   /**
    * Wraps the instance element and class around matches that fit the start
@@ -1111,17 +1059,15 @@ var Mark = class {
    * @access protected
    */
   wrapRangeInTextNode(node, start, end) {
-    const hEl = !this.opt.element ? 'mark' : this.opt.element,
-      startNode = node.splitText(start),
-      ret = startNode.splitText(end - start)
-    let repl = document.createElement(hEl)
-    repl.setAttribute('data-markjs', 'true')
+    const hEl = !this.opt.element ? "mark" : this.opt.element, startNode = node.splitText(start), ret = startNode.splitText(end - start);
+    let repl = document.createElement(hEl);
+    repl.setAttribute("data-markjs", "true");
     if (this.opt.className) {
-      repl.setAttribute('class', this.opt.className)
+      repl.setAttribute("class", this.opt.className);
     }
-    repl.textContent = startNode.textContent
-    startNode.parentNode.replaceChild(repl, startNode)
-    return ret
+    repl.textContent = startNode.textContent;
+    startNode.parentNode.replaceChild(repl, startNode);
+    return ret;
   }
   /**
    * @typedef Mark~wrapRangeInMappedTextNodeDict
@@ -1159,35 +1105,32 @@ var Mark = class {
    */
   wrapRangeInMappedTextNode(dict, start, end, filterCb, eachCb) {
     dict.nodes.every((n, i) => {
-      const sibl = dict.nodes[i + 1]
-      if (typeof sibl === 'undefined' || sibl.start > start) {
+      const sibl = dict.nodes[i + 1];
+      if (typeof sibl === "undefined" || sibl.start > start) {
         if (!filterCb(n.node)) {
-          return false
+          return false;
         }
-        const s = start - n.start,
-          e = (end > n.end ? n.end : end) - n.start,
-          startStr = dict.value.substr(0, n.start),
-          endStr = dict.value.substr(e + n.start)
-        n.node = this.wrapRangeInTextNode(n.node, s, e)
-        dict.value = startStr + endStr
+        const s = start - n.start, e = (end > n.end ? n.end : end) - n.start, startStr = dict.value.substr(0, n.start), endStr = dict.value.substr(e + n.start);
+        n.node = this.wrapRangeInTextNode(n.node, s, e);
+        dict.value = startStr + endStr;
         dict.nodes.forEach((k, j) => {
           if (j >= i) {
             if (dict.nodes[j].start > 0 && j !== i) {
-              dict.nodes[j].start -= e
+              dict.nodes[j].start -= e;
             }
-            dict.nodes[j].end -= e
+            dict.nodes[j].end -= e;
           }
-        })
-        end -= e
-        eachCb(n.node.previousSibling, n.start)
+        });
+        end -= e;
+        eachCb(n.node.previousSibling, n.start);
         if (end > n.end) {
-          start = n.end
+          start = n.end;
         } else {
-          return false
+          return false;
         }
       }
-      return true
-    })
+      return true;
+    });
   }
   /**
    * Filter callback before each wrapping
@@ -1216,28 +1159,32 @@ var Mark = class {
    * @access protected
    */
   wrapMatches(regex, ignoreGroups, filterCb, eachCb, endCb) {
-    const matchIdx = ignoreGroups === 0 ? 0 : ignoreGroups + 1
+    const matchIdx = ignoreGroups === 0 ? 0 : ignoreGroups + 1;
     this.getTextNodes((dict) => {
       dict.nodes.forEach((node) => {
-        node = node.node
-        let match
-        while ((match = regex.exec(node.textContent)) !== null && match[matchIdx] !== '') {
+        node = node.node;
+        let match;
+        while ((match = regex.exec(node.textContent)) !== null && match[matchIdx] !== "") {
           if (!filterCb(match[matchIdx], node)) {
-            continue
+            continue;
           }
-          let pos = match.index
+          let pos = match.index;
           if (matchIdx !== 0) {
             for (let i = 1; i < matchIdx; i++) {
-              pos += match[i].length
+              pos += match[i].length;
             }
           }
-          node = this.wrapRangeInTextNode(node, pos, pos + match[matchIdx].length)
-          eachCb(node.previousSibling)
-          regex.lastIndex = 0
+          node = this.wrapRangeInTextNode(
+            node,
+            pos,
+            pos + match[matchIdx].length
+          );
+          eachCb(node.previousSibling);
+          regex.lastIndex = 0;
         }
-      })
-      endCb()
-    })
+      });
+      endCb();
+    });
   }
   /**
    * Callback for each wrapped element
@@ -1266,32 +1213,26 @@ var Mark = class {
    * @access protected
    */
   wrapMatchesAcrossElements(regex, ignoreGroups, filterCb, eachCb, endCb) {
-    const matchIdx = ignoreGroups === 0 ? 0 : ignoreGroups + 1
+    const matchIdx = ignoreGroups === 0 ? 0 : ignoreGroups + 1;
     this.getTextNodes((dict) => {
-      let match
-      while ((match = regex.exec(dict.value)) !== null && match[matchIdx] !== '') {
-        let start = match.index
+      let match;
+      while ((match = regex.exec(dict.value)) !== null && match[matchIdx] !== "") {
+        let start = match.index;
         if (matchIdx !== 0) {
           for (let i = 1; i < matchIdx; i++) {
-            start += match[i].length
+            start += match[i].length;
           }
         }
-        const end = start + match[matchIdx].length
-        this.wrapRangeInMappedTextNode(
-          dict,
-          start,
-          end,
-          (node) => {
-            return filterCb(match[matchIdx], node)
-          },
-          (node, lastIndex) => {
-            regex.lastIndex = lastIndex
-            eachCb(node)
-          }
-        )
+        const end = start + match[matchIdx].length;
+        this.wrapRangeInMappedTextNode(dict, start, end, (node) => {
+          return filterCb(match[matchIdx], node);
+        }, (node, lastIndex) => {
+          regex.lastIndex = lastIndex;
+          eachCb(node);
+        });
       }
-      endCb()
-    })
+      endCb();
+    });
   }
   /**
    * Callback for each wrapped element
@@ -1323,25 +1264,28 @@ var Mark = class {
    */
   wrapRangeFromIndex(ranges, filterCb, eachCb, endCb) {
     this.getTextNodes((dict) => {
-      const originalLength = dict.value.length
+      const originalLength = dict.value.length;
       ranges.forEach((range, counter) => {
-        let { start, end, valid } = this.checkWhitespaceRanges(range, originalLength, dict.value)
+        let { start, end, valid } = this.checkWhitespaceRanges(
+          range,
+          originalLength,
+          dict.value
+        );
         if (valid) {
-          this.wrapRangeInMappedTextNode(
-            dict,
-            start,
-            end,
-            (node) => {
-              return filterCb(node, range, dict.value.substring(start, end), counter)
-            },
-            (node) => {
-              eachCb(node, range)
-            }
-          )
+          this.wrapRangeInMappedTextNode(dict, start, end, (node) => {
+            return filterCb(
+              node,
+              range,
+              dict.value.substring(start, end),
+              counter
+            );
+          }, (node) => {
+            eachCb(node, range);
+          });
         }
-      })
-      endCb()
-    })
+      });
+      endCb();
+    });
   }
   /**
    * Unwraps the specified DOM node with its content (text nodes or HTML)
@@ -1351,16 +1295,16 @@ var Mark = class {
    * @access protected
    */
   unwrapMatches(node) {
-    const parent = node.parentNode
-    let docFrag = document.createDocumentFragment()
+    const parent = node.parentNode;
+    let docFrag = document.createDocumentFragment();
     while (node.firstChild) {
-      docFrag.appendChild(node.removeChild(node.firstChild))
+      docFrag.appendChild(node.removeChild(node.firstChild));
     }
-    parent.replaceChild(docFrag, node)
+    parent.replaceChild(docFrag, node);
     if (!this.ie) {
-      parent.normalize()
+      parent.normalize();
     } else {
-      this.normalizeTextNode(parent)
+      this.normalizeTextNode(parent);
     }
   }
   /**
@@ -1373,17 +1317,17 @@ var Mark = class {
    */
   normalizeTextNode(node) {
     if (!node) {
-      return
+      return;
     }
     if (node.nodeType === 3) {
       while (node.nextSibling && node.nextSibling.nodeType === 3) {
-        node.nodeValue += node.nextSibling.nodeValue
-        node.parentNode.removeChild(node.nextSibling)
+        node.nodeValue += node.nextSibling.nodeValue;
+        node.parentNode.removeChild(node.nextSibling);
       }
     } else {
-      this.normalizeTextNode(node.firstChild)
+      this.normalizeTextNode(node.firstChild);
     }
-    this.normalizeTextNode(node.nextSibling)
+    this.normalizeTextNode(node.nextSibling);
   }
   /**
    * Callback when finished
@@ -1436,31 +1380,24 @@ var Mark = class {
    * @access public
    */
   markRegExp(regexp, opt) {
-    this.opt = opt
-    this.log(`Searching with expression "${regexp}"`)
-    let totalMatches = 0,
-      fn = 'wrapMatches'
+    this.opt = opt;
+    this.log(`Searching with expression "${regexp}"`);
+    let totalMatches = 0, fn = "wrapMatches";
     const eachCb = (element) => {
-      totalMatches++
-      this.opt.each(element)
-    }
+      totalMatches++;
+      this.opt.each(element);
+    };
     if (this.opt.acrossElements) {
-      fn = 'wrapMatchesAcrossElements'
+      fn = "wrapMatchesAcrossElements";
     }
-    this[fn](
-      regexp,
-      this.opt.ignoreGroups,
-      (match, node) => {
-        return this.opt.filter(node, match, totalMatches)
-      },
-      eachCb,
-      () => {
-        if (totalMatches === 0) {
-          this.opt.noMatch(regexp)
-        }
-        this.opt.done(totalMatches)
+    this[fn](regexp, this.opt.ignoreGroups, (match, node) => {
+      return this.opt.filter(node, match, totalMatches);
+    }, eachCb, () => {
+      if (totalMatches === 0) {
+        this.opt.noMatch(regexp);
       }
-    )
+      this.opt.done(totalMatches);
+    });
   }
   /**
    * Callback for each marked element
@@ -1579,47 +1516,38 @@ var Mark = class {
    * @access public
    */
   mark(sv, opt) {
-    this.opt = opt
-    let totalMatches = 0,
-      fn = 'wrapMatches'
-    const { keywords: kwArr, length: kwArrLen } = this.getSeparatedKeywords(
-        typeof sv === 'string' ? [sv] : sv
-      ),
-      sens = this.opt.caseSensitive ? '' : 'i',
-      handler = (kw) => {
-        let regex = new RegExp(this.createRegExp(kw), `gm${sens}`),
-          matches = 0
-        this.log(`Searching with expression "${regex}"`)
-        this[fn](
-          regex,
-          1,
-          (term, node) => {
-            return this.opt.filter(node, kw, totalMatches, matches)
-          },
-          (element) => {
-            matches++
-            totalMatches++
-            this.opt.each(element)
-          },
-          () => {
-            if (matches === 0) {
-              this.opt.noMatch(kw)
-            }
-            if (kwArr[kwArrLen - 1] === kw) {
-              this.opt.done(totalMatches)
-            } else {
-              handler(kwArr[kwArr.indexOf(kw) + 1])
-            }
-          }
-        )
-      }
+    this.opt = opt;
+    let totalMatches = 0, fn = "wrapMatches";
+    const {
+      keywords: kwArr,
+      length: kwArrLen
+    } = this.getSeparatedKeywords(typeof sv === "string" ? [sv] : sv), sens = this.opt.caseSensitive ? "" : "i", handler = (kw) => {
+      let regex = new RegExp(this.createRegExp(kw), `gm${sens}`), matches = 0;
+      this.log(`Searching with expression "${regex}"`);
+      this[fn](regex, 1, (term, node) => {
+        return this.opt.filter(node, kw, totalMatches, matches);
+      }, (element) => {
+        matches++;
+        totalMatches++;
+        this.opt.each(element);
+      }, () => {
+        if (matches === 0) {
+          this.opt.noMatch(kw);
+        }
+        if (kwArr[kwArrLen - 1] === kw) {
+          this.opt.done(totalMatches);
+        } else {
+          handler(kwArr[kwArr.indexOf(kw) + 1]);
+        }
+      });
+    };
     if (this.opt.acrossElements) {
-      fn = 'wrapMatchesAcrossElements'
+      fn = "wrapMatchesAcrossElements";
     }
     if (kwArrLen === 0) {
-      this.opt.done(totalMatches)
+      this.opt.done(totalMatches);
     } else {
-      handler(kwArr[0])
+      handler(kwArr[0]);
     }
   }
   /**
@@ -1660,26 +1588,27 @@ var Mark = class {
    * @access public
    */
   markRanges(rawRanges, opt) {
-    this.opt = opt
-    let totalMatches = 0,
-      ranges = this.checkRanges(rawRanges)
+    this.opt = opt;
+    let totalMatches = 0, ranges = this.checkRanges(rawRanges);
     if (ranges && ranges.length) {
-      this.log('Starting to mark with the following ranges: ' + JSON.stringify(ranges))
+      this.log(
+        "Starting to mark with the following ranges: " + JSON.stringify(ranges)
+      );
       this.wrapRangeFromIndex(
         ranges,
         (node, range, match, counter) => {
-          return this.opt.filter(node, range, match, counter)
+          return this.opt.filter(node, range, match, counter);
         },
         (element, range) => {
-          totalMatches++
-          this.opt.each(element, range)
+          totalMatches++;
+          this.opt.each(element, range);
         },
         () => {
-          this.opt.done(totalMatches)
+          this.opt.done(totalMatches);
         }
-      )
+      );
     } else {
-      this.opt.done(totalMatches)
+      this.opt.done(totalMatches);
     }
   }
   /**
@@ -1689,52 +1618,48 @@ var Mark = class {
    * @access public
    */
   unmark(opt) {
-    this.opt = opt
-    let sel = this.opt.element ? this.opt.element : '*'
-    sel += '[data-markjs]'
+    this.opt = opt;
+    let sel = this.opt.element ? this.opt.element : "*";
+    sel += "[data-markjs]";
     if (this.opt.className) {
-      sel += `.${this.opt.className}`
+      sel += `.${this.opt.className}`;
     }
-    this.log(`Removal selector "${sel}"`)
-    this.iterator.forEachNode(
-      NodeFilter.SHOW_ELEMENT,
-      (node) => {
-        this.unwrapMatches(node)
-      },
-      (node) => {
-        const matchesSel = DOMIterator.matches(node, sel),
-          matchesExclude = this.matchesExclude(node)
-        if (!matchesSel || matchesExclude) {
-          return NodeFilter.FILTER_REJECT
-        } else {
-          return NodeFilter.FILTER_ACCEPT
-        }
-      },
-      this.opt.done
-    )
+    this.log(`Removal selector "${sel}"`);
+    this.iterator.forEachNode(NodeFilter.SHOW_ELEMENT, (node) => {
+      this.unwrapMatches(node);
+    }, (node) => {
+      const matchesSel = DOMIterator.matches(node, sel), matchesExclude = this.matchesExclude(node);
+      if (!matchesSel || matchesExclude) {
+        return NodeFilter.FILTER_REJECT;
+      } else {
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, this.opt.done);
   }
-}
+};
 
 // node_modules/.pnpm/mark.js@8.11.1/node_modules/mark.js/src/vanilla.js
 function Mark2(ctx) {
-  const instance = new Mark(ctx)
+  const instance = new Mark(ctx);
   this.mark = (sv, opt) => {
-    instance.mark(sv, opt)
-    return this
-  }
+    instance.mark(sv, opt);
+    return this;
+  };
   this.markRegExp = (sv, opt) => {
-    instance.markRegExp(sv, opt)
-    return this
-  }
+    instance.markRegExp(sv, opt);
+    return this;
+  };
   this.markRanges = (sv, opt) => {
-    instance.markRanges(sv, opt)
-    return this
-  }
+    instance.markRanges(sv, opt);
+    return this;
+  };
   this.unmark = (opt) => {
-    instance.unmark(opt)
-    return this
-  }
-  return this
+    instance.unmark(opt);
+    return this;
+  };
+  return this;
 }
-export { Mark2 as default }
+export {
+  Mark2 as default
+};
 //# sourceMappingURL=vitepress___mark__js_src_vanilla__js.js.map

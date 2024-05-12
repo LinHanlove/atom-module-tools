@@ -6,13 +6,8 @@
   --vp-home-hero-name-color: transparent;
   /* 主页标题文字的颜色  */
   --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #bd34fe 30%, var(--base-color));
-
   /* 主页左侧背景添加渐变光圈 */
-  --vp-home-hero-image-background-image: linear-gradient(
-    -45deg,
-    #bd34fe 50%,
-    var(--base-color) 50%
-  );
+  --vp-home-hero-image-background-image: linear-gradient(25deg, #8765ba, #888bc6, #83afd1, #77d4dc);
   --vp-home-hero-image-filter: blur(100px);
 
   /* 主题基色 */

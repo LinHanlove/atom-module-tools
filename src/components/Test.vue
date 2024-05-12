@@ -2,9 +2,30 @@
 const dragAudioPlayerCallback = (res: string) => {
   console.log(res)
 }
+const handleClick = () => {
+  console.log('点击触发啦~~~');
+  
+}
+
+const handleInput = () => {
+  console.log('输入框触发啦~~~');
+  
+}
 </script>
 <template>
-  <div v-copy="{ content: 'hahah', type: 'dblclick', callback: dragAudioPlayerCallback }">
-    后面准备编写自定义指令 所以集成了tsx 和 vue 配置多入口
+  <div id="parent-a" v-waterMarker style="width: 500px;height: 500px;background-color: teal;">
+    <div v-draggable:parent-a v-copy="{ content: 'copy指令', type: 'dblclick', callback: dragAudioPlayerCallback }">
+      拖拽我~~
+    </div>
+  <button  v-debounce:click="{callback: handleClick, wait: 1000}">
+    点击我
+  </button>
+  <input type="text" v-debounce:input="{callback: handleInput, wait: 1000}"/>
+
+  <div v-highlight="{ keyword: 'Vue', style: { 'color': 'red' } }">
+    学习使用 Vue.js 是一件非常有趣的事情。
+    <div>Vue</div>
   </div>
+  </div>
+
 </template>

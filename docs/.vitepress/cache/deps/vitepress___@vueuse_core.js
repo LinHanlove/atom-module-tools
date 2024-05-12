@@ -273,8 +273,8 @@ import {
   watchTriggerable,
   watchWithFilter,
   whenever
-} from './chunk-IOZC355F.js'
-import './chunk-XVMVVWGL.js'
+} from "./chunk-6PWVQM6B.js";
+import "./chunk-XVMVVWGL.js";
 export {
   DefaultMagicKeysAliasMap,
   StorageSerializers,
@@ -563,5 +563,5 @@ export {
   watchTriggerable,
   watchWithFilter,
   whenever
-}
+};
 //# sourceMappingURL=vitepress___@vueuse_core.js.map
