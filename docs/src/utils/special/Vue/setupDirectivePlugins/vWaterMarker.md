@@ -1,14 +1,14 @@
 ---
-title: VWaterMarker Directive
+title: v-waterMarker Directive
 ---
 
 # 自定义指令
 
-## VWaterMarker
+## v-waterMarker
 
 ## 说明
 
-`VWaterMarker` 用于在元素上添加水印效果。该指令会在元素的背景中添加一个旋转和半透明的文字效果，以实现水印的视觉表现。
+`v-waterMarker` 用于在元素上添加水印效果。该指令会在元素的背景中添加一个旋转和半透明的文字效果，以实现水印的视觉表现。
 
 ## 参数
 

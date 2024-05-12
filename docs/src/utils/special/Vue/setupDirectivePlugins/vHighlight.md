@@ -1,14 +1,14 @@
 ---
-title: VHighlight Directive
+title: v-highlight Directive
 ---
 
 # 高亮指令
 
-## VHighlight
+## v-highlight
 
 ## 说明
 
-`VHighlight` 用于在页面元素中高亮显示特定的文本。该指令支持自定义高亮的文本内容、高亮样式。
+`v-highlight` 用于在页面元素中高亮显示特定的文本。该指令支持自定义高亮的文本内容、高亮样式。
 
 ## 参数
 
