@@ -6,7 +6,7 @@ title: v-copy Directive
 
 ## v-copy
 
-## 说明
+## 说明 
 
 `v-copy` 用于在用户执行指定的事件操作时复制特定的文本到剪贴板。该指令支持自定义复制的文本内容、触发复制的事件类型，并且允许在复制操作完成后执行一个回调函数。
 
@@ -40,7 +40,7 @@ title: v-copy Directive
 
 <script setup>
 const handleCopy = (res) => {
-  alert(res) // 显示Hello, World!
+  alert(res) // 显示:Hello, World!
 }
 </script>
 ```
@@ -54,7 +54,7 @@ const handleCopy = (res) => {
 
 <script setup>
 const handleCopy = (res) => {
-  alert(res) // 点击复制这段文本
+  alert(res) // 显示:点击复制这段文本
 }
 </script>
 ```
