@@ -12,10 +12,10 @@ title: v-highlight Directive
 
 ## 参数
 
-| 参数    | 说明                   | 类型     | 默认值   |
-| ------- | ---------------------- | -------- | -------- |
-| keyword | 需要高亮的文本(`必需`) | `string` | `无`     |
-| style   | 高亮显示的样式(`可选`) | `object` | `{}`     |
+| 参数    | 说明                   | 类型     | 默认值 |
+| ------- | ---------------------- | -------- | ------ |
+| keyword | 需要高亮的文本(`必需`) | `string` | `无`   |
+| style   | 高亮显示的样式(`可选`) | `object` | `{}`   |
 
 ## 返回值
 
@@ -39,6 +39,7 @@ title: v-highlight Directive
 ```
 
 ## 组件更新时重新高亮
+
 ```vue
 <template>
   <div v-highlight="{ keyword: textToHighlight }">
@@ -47,8 +48,8 @@ title: v-highlight Directive
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-const textToHighlight = ref('atom');
+const textToHighlight = ref('atom')
 </script>
 ```

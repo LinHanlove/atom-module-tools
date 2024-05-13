@@ -1,4 +1,3 @@
-
 ## 安装与注册自定义指令
 
 :::danger
@@ -9,15 +8,15 @@
 2. 导入 `setupDirectivePlugins` 函数，该函数负责加载和注册所有的自定义指令集合。
 
 ```typescript
-import { setupDirectivePlugins } from '@atom-tool/vue';
+import { setupDirectivePlugins } from '@atom-tool/vue'
 
-const app = createApp(App);
+const app = createApp(App)
 
 // 使用 setupDirectivePlugins 函数注册所有自定义指令
-setupDirectivePlugins(app);
+setupDirectivePlugins(app)
 
 // 挂载 Vue 应用到 DOM 元素
-app.mount('#app');
+app.mount('#app')
 ```
 
 3. 一旦完成上述步骤，您的 Vue 应用将会自动注册所有通过 setupDirectivePlugins 注册的自定义指令，使您能够在模板中无障碍地使用它们。

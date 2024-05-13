@@ -12,9 +12,9 @@ title: VCopy Directive
 
 ## 参数
 
-| 参数 | 说明                | 类型     | 默认值          |
-| ---- | ------------------- | -------- | --------------- |
-| arg  | 父元素的 ID（可选） | `string` | --- |
+| 参数 | 说明                | 类型     | 默认值 |
+| ---- | ------------------- | -------- | ------ |
+| arg  | 父元素的 ID（可选） | `string` | ---    |
 
 ## 返回值
 
@@ -31,9 +31,7 @@ title: VCopy Directive
 ```vue
 <template>
   <div id="parentId" style="width: 500px; height: 500px; background-color: teal;">
-    <div v-draggable:parentId>
-      拖拽我
-    </div>
+    <div v-draggable:parentId>拖拽我</div>
   </div>
 </template>
 ```
@@ -42,8 +40,6 @@ title: VCopy Directive
 
 ```vue
 <template>
-  <div v-draggable>
-    拖拽我
-  </div>
+  <div v-draggable>拖拽我</div>
 </template>
 ```

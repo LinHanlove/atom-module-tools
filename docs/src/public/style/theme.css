@@ -4,8 +4,6 @@
 @tailwind utilities;
 
 :root {
-
-  
   --base-color: #008080;
 
   /* 通过配置 自定义颜色 */
