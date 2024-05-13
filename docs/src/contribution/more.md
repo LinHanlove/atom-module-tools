@@ -2,9 +2,6 @@
 title
 ---
 
-
-
-
 <script setup>
 import { ref } from 'vue'
 import chineseMarkdown from './moreDetails/CH.md';

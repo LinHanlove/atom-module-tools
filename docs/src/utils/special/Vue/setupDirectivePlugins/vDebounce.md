@@ -31,14 +31,12 @@ title: v-debounce Directive
 
 ```vue
 <template>
-  <button v-debounce:click="{callback: handleClick, wait: 1000}">
-    点击我
-  </button>
+  <button v-debounce:click="{ callback: handleClick, wait: 1000 }">点击我</button>
 </template>
 
 <script setup>
 const handleClick = () => {
-  console.log('点击触发啦~~~');
+  console.log('点击触发啦~~~')
 }
 </script>
 ```
@@ -46,14 +44,15 @@ const handleClick = () => {
 在这个例子中，v-debounce:click 为按钮的点击事件添加了防抖逻辑。当用户点击按钮时，只有在最后一次点击后等待了1000毫秒（1秒）没有再次点击，才会执行 handleClick 回调函数。
 
 此外，v-debounce 指令也可以应用于其他类型的事件，如输入框的输入事件，只需将指令的事件名改为对应的事件即可：
+
 ```vue
 <template>
-  <input type="text" v-debounce:input="{callback: handleInput, wait: 1000}" />
+  <input type="text" v-debounce:input="{ callback: handleInput, wait: 1000 }" />
 </template>
 
 <script setup>
 const handleInput = () => {
-  console.log('输入框触发啦~~~');
+  console.log('输入框触发啦~~~')
 }
 </script>
 ```

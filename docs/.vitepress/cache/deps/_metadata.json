@@ -1,49 +1,43 @@
 {
-  "hash": "6f53dbbc",
+  "hash": "be0a6df5",
   "configHash": "0937caa0",
-  "lockfileHash": "68e23add",
-  "browserHash": "f907f3ef",
+  "lockfileHash": "6ccb41ac",
+  "browserHash": "a7b5d8e7",
   "optimized": {
     "vue": {
       "src": "../../../../node_modules/.pnpm/vue@3.4.26_typescript@5.4.5/node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "69dde979",
+      "fileHash": "c27a0178",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../../node_modules/.pnpm/@vue+devtools-api@7.1.3_vue@3.4.26/node_modules/@vue/devtools-api/dist/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "f0dbd51c",
+      "fileHash": "8bef8861",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
       "src": "../../../../node_modules/.pnpm/@vueuse+core@10.9.0_vue@3.4.26/node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "3ae41269",
+      "fileHash": "e0f0ef4b",
       "needsInterop": false
     },
     "vitepress > @vueuse/integrations/useFocusTrap": {
       "src": "../../../../node_modules/.pnpm/@vueuse+integrations@10.9.0_focus-trap@7.5.4_qrcode@1.5.3_vue@3.4.26/node_modules/@vueuse/integrations/useFocusTrap.mjs",
       "file": "vitepress___@vueuse_integrations_useFocusTrap.js",
-      "fileHash": "5e2df204",
+      "fileHash": "dff74dd7",
       "needsInterop": false
     },
     "vitepress > mark.js/src/vanilla.js": {
       "src": "../../../../node_modules/.pnpm/mark.js@8.11.1/node_modules/mark.js/src/vanilla.js",
       "file": "vitepress___mark__js_src_vanilla__js.js",
-      "fileHash": "8bd61d0b",
+      "fileHash": "e1cbfb27",
       "needsInterop": false
     },
     "vitepress > minisearch": {
       "src": "../../../../node_modules/.pnpm/minisearch@6.3.0/node_modules/minisearch/dist/es/index.js",
       "file": "vitepress___minisearch.js",
-      "fileHash": "e73645dd",
-      "needsInterop": false
-    },
-    "marked": {
-      "src": "../../../../node_modules/.pnpm/marked@12.0.2/node_modules/marked/lib/marked.esm.js",
-      "file": "marked.js",
-      "fileHash": "855ead5e",
+      "fileHash": "0581f621",
       "needsInterop": false
     }
   },
@@ -53,9 +47,6 @@
     },
     "chunk-XVMVVWGL": {
       "file": "chunk-XVMVVWGL.js"
-    },
-    "chunk-CSA734CT": {
-      "file": "chunk-CSA734CT.js"
     }
   }
 }

@@ -2,7 +2,7 @@
 title: v-waterMarker Directive
 ---
 
-# 自定义指令
+# 水印指令
 
 ## v-waterMarker
 
