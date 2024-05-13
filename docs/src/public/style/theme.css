@@ -1,5 +1,11 @@
 /* 该文件配置网站的文字  图标 等等 一系列dom元素的样式文件 */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
+
+  
   --base-color: #008080;
 
   /* 通过配置 自定义颜色 */
