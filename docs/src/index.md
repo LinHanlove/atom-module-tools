@@ -13,7 +13,7 @@ hero:
       link: /utils/guide/guide
     - theme: alt
       text: 示例
-      link: /utils/public/use
+      link: /utils/guide/use
 
 features:
   - title: 🚀 Simplicity First
