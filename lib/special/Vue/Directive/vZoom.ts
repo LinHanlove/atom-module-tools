@@ -1,4 +1,4 @@
-import type { Directive, App, DirectiveBinding } from 'vue';
+import type { Directive, App } from 'vue';
 
 interface ZoomOptions {
   minScale?: number;
