@@ -7,6 +7,7 @@ import { setHighlightDirective } from './vHighlight'
 import { setVOutsideClickDirective } from './vOutsideClick'
 import { setVResizeDirective } from './vResize'
 import { setVObserveVisibilityDirective } from './vObserveVisibility'
+import { setVZoomDirective } from './vZoom'
 
 /**
  * 抛出注册指令方法，需在挂载之前执行
@@ -22,4 +23,5 @@ export function setupDirectivePlugins(app: App) {
   setVOutsideClickDirective(app)
   setVResizeDirective(app)
   setVObserveVisibilityDirective(app)
+  setVZoomDirective(app)
 }

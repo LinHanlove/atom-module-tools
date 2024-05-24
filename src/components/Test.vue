@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import {getUrlParams } from '@/public/main'
 const dragAudioPlayerCallback = (res: string) => {
   console.log(res)
 }
@@ -32,13 +33,17 @@ const visibilityOptions = {
     threshold: 0.5 // 可以修改为一个数组或一个值
   }
 }
+
+
+// 解析地址栏参数
+const getUrlParamsFun = () => {
+  console.log(getUrlParams('https://account-devops.aliyun.com/logout?a=1&b=99','b'));
+  
+}
 </script>
 <template>
   <div id="parent-a" v-waterMarker style="width: 500px; height: 500px; background-color: teal">
-    <div
-      v-draggable:parent-a
-      v-copy="{ content: 'copy指令', type: 'dblclick', callback: dragAudioPlayerCallback }"
-    >
+    <div v-draggable:parent-a v-copy="{ content: 'copy指令', type: 'dblclick', callback: dragAudioPlayerCallback }">
       拖拽我~~
     </div>
 
@@ -53,8 +58,14 @@ const visibilityOptions = {
 
     <button v-outside-click="handleOutsideClick">在外面点击我</button>
 
-    <div class="w-full h-[800px]" v-resize="handleResize">观察我的大小变化！</div>
+    <img v-zoom="{ minScale: 0.5, maxScale: 3, step: 0.2 }" src="https://via.placeholder.com/150" alt="可缩放的图片" />
+
+
+    <div class="w-[200px] h-[800px]" v-resize="handleResize">观察我的大小变化！</div>
 
     <div v-observe-visibility="visibilityOptions" class="visibility-target">我是否在视口中？</div>
+
+    <div @click="getUrlParamsFun">解析地址栏参数</div>
+
   </div>
 </template>
