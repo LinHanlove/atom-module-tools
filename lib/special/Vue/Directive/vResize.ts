@@ -23,7 +23,7 @@ const vResize: Directive = {
     // 保存 ResizeObserver 实例的引用，以便后续可以停止观察
     el.resizeObserver = resizeObserver
   },
-  unmounted(el) {
+  unmounted(el: { resizeObserver: any }) {
     // 获取之前保存的 ResizeObserver 实例
     const resizeObserver = el.resizeObserver
 

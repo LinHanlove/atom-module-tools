@@ -51,11 +51,11 @@ export const rgbGray = (rgb: string[] | string) => {
 export const getUrlParams = (url: string, key?: string) => {
   const params = {} as TYPE.anyType
   url.replace(/[?&]+([^=&]+)=([^&]*)/gi, (_, key, value) => (params[key] = value))
-  if (!params.key) {
+  if (key && !params[key]) {
     throw new Error(`Parameter ${key} not found in URL.`)
   }
 
-  return key ? params.key : params
+  return key ? params[key] : params
 }
 
 /**
