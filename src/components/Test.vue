@@ -58,14 +58,21 @@ const getUrlParamsFun = () => {
 
     <button v-outside-click="handleOutsideClick">在外面点击我</button>
 
-    <img v-zoom="{ minScale: 0.5, maxScale: 3, step: 0.2 }" src="https://via.placeholder.com/150" alt="可缩放的图片" />
-
 
     <div class="w-[200px] h-[800px]" v-resize="handleResize">观察我的大小变化！</div>
 
-    <div v-observe-visibility="visibilityOptions" class="visibility-target">我是否在视口中？</div>
 
     <div @click="getUrlParamsFun">解析地址栏参数</div>
+
+    <!-- ---------------- -->
+
+
+    <div v-observe-visibility="visibilityOptions" class="visibility-target">我是否在视口中？</div>
+
+
+    <img v-zoom="{ minScale: 0.5, maxScale: 3, step: 0.2 }" src="https://via.placeholder.com/150" alt="可缩放的图片" />
+
+
 
   </div>
 </template>
