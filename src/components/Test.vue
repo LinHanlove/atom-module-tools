@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import {getUrlParams } from '@/public/main'
+import { log } from '@/public/PrettyLog'
+
+
 const dragAudioPlayerCallback = (res: string) => {
   console.log(res)
 }
@@ -12,7 +15,17 @@ const handleInput = () => {
 }
 
 const handleOutsideClick = (e: any) => {
-  console.log('点击人家啦', e)
+  console.log(e,'-----------');
+  
+  // console.log('点击人家啦', e)
+  log.error('打印错误信息')
+  log.info('打印信息','hahha','jajja ')
+  log.success(e)
+  log.success([1, 2, 3, { a: 2 }])
+
+  log.info('点击外面触发啦~~~','-----------');
+  
+
 }
 
 // 定义回调函数，它将在尺寸变化时被调用
