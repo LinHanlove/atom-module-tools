@@ -15,17 +15,28 @@ const handleInput = () => {
 }
 
 const handleOutsideClick = (e: any) => {
-  console.log(e,'-----------');
-  
-  // console.log('点击人家啦', e)
-  log.error('打印错误信息')
-  log.info('打印信息','hahha','jajja ')
-  log.success(e)
-  log.success([1, 2, 3, { a: 2 }])
+  log.warning('--------------------------------打印字符----------------------------------------')
+  log.info('这是一条信息日志');
+  log.error('这是一条错误日志');
+  log.warning('这是一条警告日志');
+  log.success('这是一条成功日志');
+  log.warning('--------------------------------打印多参数--------------------------------------')
 
-  log.info('点击外面触发啦~~~','-----------');
-  
+  log.info('打印信息', 'atom', 'tools');
+  log.error('打印错误', 'atom', 'tools');
+  log.warning('打印警告', 'atom', 'tools');
+  log.success('打印成功', 'atom', 'tools');
+  log.warning('--------------------------------打印含有引用类型的多参数-------------------------')
 
+  log.success('打印成功', e, ['atom', 'tools'])
+  log.success('打印成功', {
+    name: 'atom',
+    type:'tools'
+  })
+  log.success('打印成功',()=>{
+    console.log('123');
+  })
+  
 }
 
 // 定义回调函数，它将在尺寸变化时被调用

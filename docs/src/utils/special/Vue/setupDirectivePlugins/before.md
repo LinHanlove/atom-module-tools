@@ -8,7 +8,7 @@
 2. 导入 `setupDirectivePlugins` 函数，该函数负责加载和注册所有的自定义指令集合。
 
 ```typescript
-import { setupDirectivePlugins } from '@atom-tool/vue'
+import { setupDirectivePlugins } from 'atom-tool/vue'
 
 const app = createApp(App)
 

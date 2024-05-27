@@ -84,5 +84,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "pnpm": "^9.1.3"
   }
 }
