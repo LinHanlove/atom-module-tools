@@ -7,5 +7,6 @@ export * from '@/public/TypeCheck/index'
 export * from '@/public/Number/index'
 export * from '@/public/String/index'
 export * from '@/public/Object/index'
+export * from '@/public/PrettyLog/index'
 
 export type * from './types/global'

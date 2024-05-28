@@ -55,9 +55,10 @@
     "dev": "vite",
     "build:special": "node buildSpecial.mjs",
     "build:tools": "vite build",
+    "extract-commit": "node extract-commit.mjs",
     "prettier": " prettier --write .  ",
-    "build": "pnpm prettier && pnpm build:tools && pnpm build:special && tsc",
-    "docs:dev": "vitepress dev docs",
+    "build": "pnpm prettier  && pnpm build:tools && pnpm build:special && tsc",
+    "docs:dev": "pnpm extract-commit && vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
   },

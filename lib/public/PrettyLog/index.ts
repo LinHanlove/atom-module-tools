@@ -36,14 +36,15 @@ const prettyLog = () => {
         // 否则输出带有标题和颜色的log
 
         if (args.some(i => !isString(i))) {
-            // 打印标题
-            console.log(`%c ${title} %c Type is a ${typeof args}, The details are as follows 👇`,
+            // 分组打印
+            console.group(`%c ${title} %c Type is a ${typeof args}, The details are as follows 👇`,
                 `background:${color}; border:1px solid ${color}; padding: 2px; border-radius: 4px 0 0 4px; color: white;`,
-                `border:1px solid ${color}; padding: 2px; border-radius: 0 4px 4px 0; color: ${color};`
-            );
+                `border:1px solid ${color}; padding: 2px; border-radius: 0 4px 4px 0; color: ${color};`)
             args.forEach(item => {
                 console.log(item);
             })
+            console.groupEnd()
+
         } else {
             console.log(
                 `%c ${title} %c ${args.join(',')}`,

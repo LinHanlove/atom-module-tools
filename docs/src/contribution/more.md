@@ -11,6 +11,7 @@ const active = ref('chinese')
 
 const handleChange = (language) => {
     active.value = language
+    console.log(commitHistory)
 }
 </script>
 
@@ -27,6 +28,7 @@ const handleChange = (language) => {
     >
       English
     </button>
+ 
   </div>
   <div v-if="active === 'chinese'">
   <chineseMarkdown/>
