@@ -32,8 +32,10 @@ async function extractCommitInfo() {
     const commitMessagesRaw = execSync('git log --pretty=%B').toString();
 
    // 执行 Git 命令获取所有提交的时间
-const commitTime = execSync('git log --pretty=%ad --date=format:"%Y-%m-%d %H:%M:%S"').toString().trim().split('\n');
-
+    const commitTime = execSync('git log --pretty=%ad --date=format:"%Y-%m-%d %H:%M:%S"').toString().trim().split('\n');
+    
+const commitHash = execSync('git log --pretty=format:"%h"').toString().trim().split('\n');
+    
     // 使用正则表达式按两个换行符分割 message
     const commitMessages = commitMessagesRaw.split(/\n\n/).map(msg => msg.trim());
 
@@ -41,7 +43,7 @@ const commitTime = execSync('git log --pretty=%ad --date=format:"%Y-%m-%d %H:%M:
     const newCommitEntries = commitMessages.map((i,idx) => 
     {
       return `{ 
-          hash: "${execSync('git rev-parse --short HEAD').toString().trim()}",
+          hash: ${JSON.stringify(commitHash[idx])},
           message:${JSON.stringify(i)},
           commitTime:${JSON.stringify(commitTime[idx])}
         }`
