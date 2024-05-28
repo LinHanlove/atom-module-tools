@@ -26,4 +26,24 @@
     width: 300px;
     height: 300px;
   }
+
+  ::-webkit-scrollbar {
+    background-color: rgba(73, 177, 245, 0.2);
+    width: 4px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--vp-c-brand-1);
+    background-image: linear-gradient(
+      45deg,
+      hsla(0, 0%, 100%, 0.4) 25%,
+      transparent 0,
+      transparent 50%,
+      hsla(0, 0%, 100%, 0.4) 0,
+      hsla(0, 0%, 100%, 0.4) 75%,
+      transparent 0,
+      transparent
+    );
+    border-radius: 1em;
+  }
 }
