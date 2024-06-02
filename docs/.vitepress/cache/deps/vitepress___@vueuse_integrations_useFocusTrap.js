@@ -1,363 +1,277 @@
-import { tryOnScopeDispose, unrefElement } from './chunk-P6MQ6B53.js'
-import { ref, watch } from './chunk-XVMVVWGL.js'
+import {
+  tryOnScopeDispose,
+  unrefElement
+} from "./chunk-P6MQ6B53.js";
+import {
+  ref,
+  watch
+} from "./chunk-XVMVVWGL.js";
 
 // node_modules/.pnpm/tabbable@6.2.0/node_modules/tabbable/dist/index.esm.js
-var candidateSelectors = [
-  'input:not([inert])',
-  'select:not([inert])',
-  'textarea:not([inert])',
-  'a[href]:not([inert])',
-  'button:not([inert])',
-  '[tabindex]:not(slot):not([inert])',
-  'audio[controls]:not([inert])',
-  'video[controls]:not([inert])',
-  '[contenteditable]:not([contenteditable="false"]):not([inert])',
-  'details>summary:first-of-type:not([inert])',
-  'details:not([inert])'
-]
-var candidateSelector = candidateSelectors.join(',')
-var NoElement = typeof Element === 'undefined'
-var matches = NoElement
-  ? function () {}
-  : Element.prototype.matches ||
-    Element.prototype.msMatchesSelector ||
-    Element.prototype.webkitMatchesSelector
-var getRootNode =
-  !NoElement && Element.prototype.getRootNode
-    ? function (element) {
-        var _element$getRootNode
-        return element === null || element === void 0
-          ? void 0
-          : (_element$getRootNode = element.getRootNode) === null || _element$getRootNode === void 0
-            ? void 0
-            : _element$getRootNode.call(element)
-      }
-    : function (element) {
-        return element === null || element === void 0 ? void 0 : element.ownerDocument
-      }
+var candidateSelectors = ["input:not([inert])", "select:not([inert])", "textarea:not([inert])", "a[href]:not([inert])", "button:not([inert])", "[tabindex]:not(slot):not([inert])", "audio[controls]:not([inert])", "video[controls]:not([inert])", '[contenteditable]:not([contenteditable="false"]):not([inert])', "details>summary:first-of-type:not([inert])", "details:not([inert])"];
+var candidateSelector = candidateSelectors.join(",");
+var NoElement = typeof Element === "undefined";
+var matches = NoElement ? function() {
+} : Element.prototype.matches || Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
+var getRootNode = !NoElement && Element.prototype.getRootNode ? function(element) {
+  var _element$getRootNode;
+  return element === null || element === void 0 ? void 0 : (_element$getRootNode = element.getRootNode) === null || _element$getRootNode === void 0 ? void 0 : _element$getRootNode.call(element);
+} : function(element) {
+  return element === null || element === void 0 ? void 0 : element.ownerDocument;
+};
 var isInert = function isInert2(node, lookUp) {
-  var _node$getAttribute
+  var _node$getAttribute;
   if (lookUp === void 0) {
-    lookUp = true
+    lookUp = true;
   }
-  var inertAtt =
-    node === null || node === void 0
-      ? void 0
-      : (_node$getAttribute = node.getAttribute) === null || _node$getAttribute === void 0
-        ? void 0
-        : _node$getAttribute.call(node, 'inert')
-  var inert = inertAtt === '' || inertAtt === 'true'
-  var result = inert || (lookUp && node && isInert2(node.parentNode))
-  return result
-}
+  var inertAtt = node === null || node === void 0 ? void 0 : (_node$getAttribute = node.getAttribute) === null || _node$getAttribute === void 0 ? void 0 : _node$getAttribute.call(node, "inert");
+  var inert = inertAtt === "" || inertAtt === "true";
+  var result = inert || lookUp && node && isInert2(node.parentNode);
+  return result;
+};
 var isContentEditable = function isContentEditable2(node) {
-  var _node$getAttribute2
-  var attValue =
-    node === null || node === void 0
-      ? void 0
-      : (_node$getAttribute2 = node.getAttribute) === null || _node$getAttribute2 === void 0
-        ? void 0
-        : _node$getAttribute2.call(node, 'contenteditable')
-  return attValue === '' || attValue === 'true'
-}
+  var _node$getAttribute2;
+  var attValue = node === null || node === void 0 ? void 0 : (_node$getAttribute2 = node.getAttribute) === null || _node$getAttribute2 === void 0 ? void 0 : _node$getAttribute2.call(node, "contenteditable");
+  return attValue === "" || attValue === "true";
+};
 var getCandidates = function getCandidates2(el, includeContainer, filter) {
   if (isInert(el)) {
-    return []
+    return [];
   }
-  var candidates = Array.prototype.slice.apply(el.querySelectorAll(candidateSelector))
+  var candidates = Array.prototype.slice.apply(el.querySelectorAll(candidateSelector));
   if (includeContainer && matches.call(el, candidateSelector)) {
-    candidates.unshift(el)
+    candidates.unshift(el);
   }
-  candidates = candidates.filter(filter)
-  return candidates
-}
-var getCandidatesIteratively = function getCandidatesIteratively2(
-  elements,
-  includeContainer,
-  options
-) {
-  var candidates = []
-  var elementsToCheck = Array.from(elements)
+  candidates = candidates.filter(filter);
+  return candidates;
+};
+var getCandidatesIteratively = function getCandidatesIteratively2(elements, includeContainer, options) {
+  var candidates = [];
+  var elementsToCheck = Array.from(elements);
   while (elementsToCheck.length) {
-    var element = elementsToCheck.shift()
+    var element = elementsToCheck.shift();
     if (isInert(element, false)) {
-      continue
+      continue;
     }
-    if (element.tagName === 'SLOT') {
-      var assigned = element.assignedElements()
-      var content = assigned.length ? assigned : element.children
-      var nestedCandidates = getCandidatesIteratively2(content, true, options)
+    if (element.tagName === "SLOT") {
+      var assigned = element.assignedElements();
+      var content = assigned.length ? assigned : element.children;
+      var nestedCandidates = getCandidatesIteratively2(content, true, options);
       if (options.flatten) {
-        candidates.push.apply(candidates, nestedCandidates)
+        candidates.push.apply(candidates, nestedCandidates);
       } else {
         candidates.push({
           scopeParent: element,
           candidates: nestedCandidates
-        })
+        });
       }
     } else {
-      var validCandidate = matches.call(element, candidateSelector)
-      if (
-        validCandidate &&
-        options.filter(element) &&
-        (includeContainer || !elements.includes(element))
-      ) {
-        candidates.push(element)
+      var validCandidate = matches.call(element, candidateSelector);
+      if (validCandidate && options.filter(element) && (includeContainer || !elements.includes(element))) {
+        candidates.push(element);
       }
-      var shadowRoot =
-        element.shadowRoot || // check for an undisclosed shadow
-        (typeof options.getShadowRoot === 'function' && options.getShadowRoot(element))
-      var validShadowRoot =
-        !isInert(shadowRoot, false) &&
-        (!options.shadowRootFilter || options.shadowRootFilter(element))
+      var shadowRoot = element.shadowRoot || // check for an undisclosed shadow
+      typeof options.getShadowRoot === "function" && options.getShadowRoot(element);
+      var validShadowRoot = !isInert(shadowRoot, false) && (!options.shadowRootFilter || options.shadowRootFilter(element));
       if (shadowRoot && validShadowRoot) {
-        var _nestedCandidates = getCandidatesIteratively2(
-          shadowRoot === true ? element.children : shadowRoot.children,
-          true,
-          options
-        )
+        var _nestedCandidates = getCandidatesIteratively2(shadowRoot === true ? element.children : shadowRoot.children, true, options);
         if (options.flatten) {
-          candidates.push.apply(candidates, _nestedCandidates)
+          candidates.push.apply(candidates, _nestedCandidates);
         } else {
           candidates.push({
             scopeParent: element,
             candidates: _nestedCandidates
-          })
+          });
         }
       } else {
-        elementsToCheck.unshift.apply(elementsToCheck, element.children)
+        elementsToCheck.unshift.apply(elementsToCheck, element.children);
       }
     }
   }
-  return candidates
-}
+  return candidates;
+};
 var hasTabIndex = function hasTabIndex2(node) {
-  return !isNaN(parseInt(node.getAttribute('tabindex'), 10))
-}
+  return !isNaN(parseInt(node.getAttribute("tabindex"), 10));
+};
 var getTabIndex = function getTabIndex2(node) {
   if (!node) {
-    throw new Error('No node provided')
+    throw new Error("No node provided");
   }
   if (node.tabIndex < 0) {
-    if (
-      (/^(AUDIO|VIDEO|DETAILS)$/.test(node.tagName) || isContentEditable(node)) &&
-      !hasTabIndex(node)
-    ) {
-      return 0
+    if ((/^(AUDIO|VIDEO|DETAILS)$/.test(node.tagName) || isContentEditable(node)) && !hasTabIndex(node)) {
+      return 0;
     }
   }
-  return node.tabIndex
-}
+  return node.tabIndex;
+};
 var getSortOrderTabIndex = function getSortOrderTabIndex2(node, isScope) {
-  var tabIndex = getTabIndex(node)
+  var tabIndex = getTabIndex(node);
   if (tabIndex < 0 && isScope && !hasTabIndex(node)) {
-    return 0
+    return 0;
   }
-  return tabIndex
-}
+  return tabIndex;
+};
 var sortOrderedTabbables = function sortOrderedTabbables2(a, b) {
-  return a.tabIndex === b.tabIndex ? a.documentOrder - b.documentOrder : a.tabIndex - b.tabIndex
-}
+  return a.tabIndex === b.tabIndex ? a.documentOrder - b.documentOrder : a.tabIndex - b.tabIndex;
+};
 var isInput = function isInput2(node) {
-  return node.tagName === 'INPUT'
-}
+  return node.tagName === "INPUT";
+};
 var isHiddenInput = function isHiddenInput2(node) {
-  return isInput(node) && node.type === 'hidden'
-}
+  return isInput(node) && node.type === "hidden";
+};
 var isDetailsWithSummary = function isDetailsWithSummary2(node) {
-  var r =
-    node.tagName === 'DETAILS' &&
-    Array.prototype.slice.apply(node.children).some(function (child) {
-      return child.tagName === 'SUMMARY'
-    })
-  return r
-}
+  var r = node.tagName === "DETAILS" && Array.prototype.slice.apply(node.children).some(function(child) {
+    return child.tagName === "SUMMARY";
+  });
+  return r;
+};
 var getCheckedRadio = function getCheckedRadio2(nodes, form) {
   for (var i = 0; i < nodes.length; i++) {
     if (nodes[i].checked && nodes[i].form === form) {
-      return nodes[i]
+      return nodes[i];
     }
   }
-}
+};
 var isTabbableRadio = function isTabbableRadio2(node) {
   if (!node.name) {
-    return true
+    return true;
   }
-  var radioScope = node.form || getRootNode(node)
+  var radioScope = node.form || getRootNode(node);
   var queryRadios = function queryRadios2(name) {
-    return radioScope.querySelectorAll('input[type="radio"][name="' + name + '"]')
-  }
-  var radioSet
-  if (
-    typeof window !== 'undefined' &&
-    typeof window.CSS !== 'undefined' &&
-    typeof window.CSS.escape === 'function'
-  ) {
-    radioSet = queryRadios(window.CSS.escape(node.name))
+    return radioScope.querySelectorAll('input[type="radio"][name="' + name + '"]');
+  };
+  var radioSet;
+  if (typeof window !== "undefined" && typeof window.CSS !== "undefined" && typeof window.CSS.escape === "function") {
+    radioSet = queryRadios(window.CSS.escape(node.name));
   } else {
     try {
-      radioSet = queryRadios(node.name)
+      radioSet = queryRadios(node.name);
     } catch (err) {
-      console.error(
-        'Looks like you have a radio button with a name attribute containing invalid CSS selector characters and need the CSS.escape polyfill: %s',
-        err.message
-      )
-      return false
+      console.error("Looks like you have a radio button with a name attribute containing invalid CSS selector characters and need the CSS.escape polyfill: %s", err.message);
+      return false;
     }
   }
-  var checked = getCheckedRadio(radioSet, node.form)
-  return !checked || checked === node
-}
+  var checked = getCheckedRadio(radioSet, node.form);
+  return !checked || checked === node;
+};
 var isRadio = function isRadio2(node) {
-  return isInput(node) && node.type === 'radio'
-}
+  return isInput(node) && node.type === "radio";
+};
 var isNonTabbableRadio = function isNonTabbableRadio2(node) {
-  return isRadio(node) && !isTabbableRadio(node)
-}
+  return isRadio(node) && !isTabbableRadio(node);
+};
 var isNodeAttached = function isNodeAttached2(node) {
-  var _nodeRoot
-  var nodeRoot = node && getRootNode(node)
-  var nodeRootHost =
-    (_nodeRoot = nodeRoot) === null || _nodeRoot === void 0 ? void 0 : _nodeRoot.host
-  var attached = false
+  var _nodeRoot;
+  var nodeRoot = node && getRootNode(node);
+  var nodeRootHost = (_nodeRoot = nodeRoot) === null || _nodeRoot === void 0 ? void 0 : _nodeRoot.host;
+  var attached = false;
   if (nodeRoot && nodeRoot !== node) {
-    var _nodeRootHost, _nodeRootHost$ownerDo, _node$ownerDocument
-    attached = !!(
-      ((_nodeRootHost = nodeRootHost) !== null &&
-        _nodeRootHost !== void 0 &&
-        (_nodeRootHost$ownerDo = _nodeRootHost.ownerDocument) !== null &&
-        _nodeRootHost$ownerDo !== void 0 &&
-        _nodeRootHost$ownerDo.contains(nodeRootHost)) ||
-      (node !== null &&
-        node !== void 0 &&
-        (_node$ownerDocument = node.ownerDocument) !== null &&
-        _node$ownerDocument !== void 0 &&
-        _node$ownerDocument.contains(node))
-    )
+    var _nodeRootHost, _nodeRootHost$ownerDo, _node$ownerDocument;
+    attached = !!((_nodeRootHost = nodeRootHost) !== null && _nodeRootHost !== void 0 && (_nodeRootHost$ownerDo = _nodeRootHost.ownerDocument) !== null && _nodeRootHost$ownerDo !== void 0 && _nodeRootHost$ownerDo.contains(nodeRootHost) || node !== null && node !== void 0 && (_node$ownerDocument = node.ownerDocument) !== null && _node$ownerDocument !== void 0 && _node$ownerDocument.contains(node));
     while (!attached && nodeRootHost) {
-      var _nodeRoot2, _nodeRootHost2, _nodeRootHost2$ownerD
-      nodeRoot = getRootNode(nodeRootHost)
-      nodeRootHost =
-        (_nodeRoot2 = nodeRoot) === null || _nodeRoot2 === void 0 ? void 0 : _nodeRoot2.host
-      attached = !!(
-        (_nodeRootHost2 = nodeRootHost) !== null &&
-        _nodeRootHost2 !== void 0 &&
-        (_nodeRootHost2$ownerD = _nodeRootHost2.ownerDocument) !== null &&
-        _nodeRootHost2$ownerD !== void 0 &&
-        _nodeRootHost2$ownerD.contains(nodeRootHost)
-      )
+      var _nodeRoot2, _nodeRootHost2, _nodeRootHost2$ownerD;
+      nodeRoot = getRootNode(nodeRootHost);
+      nodeRootHost = (_nodeRoot2 = nodeRoot) === null || _nodeRoot2 === void 0 ? void 0 : _nodeRoot2.host;
+      attached = !!((_nodeRootHost2 = nodeRootHost) !== null && _nodeRootHost2 !== void 0 && (_nodeRootHost2$ownerD = _nodeRootHost2.ownerDocument) !== null && _nodeRootHost2$ownerD !== void 0 && _nodeRootHost2$ownerD.contains(nodeRootHost));
     }
   }
-  return attached
-}
+  return attached;
+};
 var isZeroArea = function isZeroArea2(node) {
-  var _node$getBoundingClie = node.getBoundingClientRect(),
-    width = _node$getBoundingClie.width,
-    height = _node$getBoundingClie.height
-  return width === 0 && height === 0
-}
+  var _node$getBoundingClie = node.getBoundingClientRect(), width = _node$getBoundingClie.width, height = _node$getBoundingClie.height;
+  return width === 0 && height === 0;
+};
 var isHidden = function isHidden2(node, _ref) {
-  var displayCheck = _ref.displayCheck,
-    getShadowRoot = _ref.getShadowRoot
-  if (getComputedStyle(node).visibility === 'hidden') {
-    return true
+  var displayCheck = _ref.displayCheck, getShadowRoot = _ref.getShadowRoot;
+  if (getComputedStyle(node).visibility === "hidden") {
+    return true;
   }
-  var isDirectSummary = matches.call(node, 'details>summary:first-of-type')
-  var nodeUnderDetails = isDirectSummary ? node.parentElement : node
-  if (matches.call(nodeUnderDetails, 'details:not([open]) *')) {
-    return true
+  var isDirectSummary = matches.call(node, "details>summary:first-of-type");
+  var nodeUnderDetails = isDirectSummary ? node.parentElement : node;
+  if (matches.call(nodeUnderDetails, "details:not([open]) *")) {
+    return true;
   }
-  if (!displayCheck || displayCheck === 'full' || displayCheck === 'legacy-full') {
-    if (typeof getShadowRoot === 'function') {
-      var originalNode = node
+  if (!displayCheck || displayCheck === "full" || displayCheck === "legacy-full") {
+    if (typeof getShadowRoot === "function") {
+      var originalNode = node;
       while (node) {
-        var parentElement = node.parentElement
-        var rootNode = getRootNode(node)
+        var parentElement = node.parentElement;
+        var rootNode = getRootNode(node);
         if (parentElement && !parentElement.shadowRoot && getShadowRoot(parentElement) === true) {
-          return isZeroArea(node)
+          return isZeroArea(node);
         } else if (node.assignedSlot) {
-          node = node.assignedSlot
+          node = node.assignedSlot;
         } else if (!parentElement && rootNode !== node.ownerDocument) {
-          node = rootNode.host
+          node = rootNode.host;
         } else {
-          node = parentElement
+          node = parentElement;
         }
       }
-      node = originalNode
+      node = originalNode;
     }
     if (isNodeAttached(node)) {
-      return !node.getClientRects().length
+      return !node.getClientRects().length;
     }
-    if (displayCheck !== 'legacy-full') {
-      return true
+    if (displayCheck !== "legacy-full") {
+      return true;
     }
-  } else if (displayCheck === 'non-zero-area') {
-    return isZeroArea(node)
+  } else if (displayCheck === "non-zero-area") {
+    return isZeroArea(node);
   }
-  return false
-}
+  return false;
+};
 var isDisabledFromFieldset = function isDisabledFromFieldset2(node) {
   if (/^(INPUT|BUTTON|SELECT|TEXTAREA)$/.test(node.tagName)) {
-    var parentNode = node.parentElement
+    var parentNode = node.parentElement;
     while (parentNode) {
-      if (parentNode.tagName === 'FIELDSET' && parentNode.disabled) {
+      if (parentNode.tagName === "FIELDSET" && parentNode.disabled) {
         for (var i = 0; i < parentNode.children.length; i++) {
-          var child = parentNode.children.item(i)
-          if (child.tagName === 'LEGEND') {
-            return matches.call(parentNode, 'fieldset[disabled] *') ? true : !child.contains(node)
+          var child = parentNode.children.item(i);
+          if (child.tagName === "LEGEND") {
+            return matches.call(parentNode, "fieldset[disabled] *") ? true : !child.contains(node);
           }
         }
-        return true
+        return true;
       }
-      parentNode = parentNode.parentElement
+      parentNode = parentNode.parentElement;
     }
   }
-  return false
-}
+  return false;
+};
 var isNodeMatchingSelectorFocusable = function isNodeMatchingSelectorFocusable2(options, node) {
-  if (
-    node.disabled || // we must do an inert look up to filter out any elements inside an inert ancestor
-    //  because we're limited in the type of selectors we can use in JSDom (see related
-    //  note related to `candidateSelectors`)
-    isInert(node) ||
-    isHiddenInput(node) ||
-    isHidden(node, options) || // For a details element with a summary, the summary element gets the focus
-    isDetailsWithSummary(node) ||
-    isDisabledFromFieldset(node)
-  ) {
-    return false
+  if (node.disabled || // we must do an inert look up to filter out any elements inside an inert ancestor
+  //  because we're limited in the type of selectors we can use in JSDom (see related
+  //  note related to `candidateSelectors`)
+  isInert(node) || isHiddenInput(node) || isHidden(node, options) || // For a details element with a summary, the summary element gets the focus
+  isDetailsWithSummary(node) || isDisabledFromFieldset(node)) {
+    return false;
   }
-  return true
-}
+  return true;
+};
 var isNodeMatchingSelectorTabbable = function isNodeMatchingSelectorTabbable2(options, node) {
-  if (
-    isNonTabbableRadio(node) ||
-    getTabIndex(node) < 0 ||
-    !isNodeMatchingSelectorFocusable(options, node)
-  ) {
-    return false
+  if (isNonTabbableRadio(node) || getTabIndex(node) < 0 || !isNodeMatchingSelectorFocusable(options, node)) {
+    return false;
   }
-  return true
-}
+  return true;
+};
 var isValidShadowRootTabbable = function isValidShadowRootTabbable2(shadowHostNode) {
-  var tabIndex = parseInt(shadowHostNode.getAttribute('tabindex'), 10)
+  var tabIndex = parseInt(shadowHostNode.getAttribute("tabindex"), 10);
   if (isNaN(tabIndex) || tabIndex >= 0) {
-    return true
+    return true;
   }
-  return false
-}
+  return false;
+};
 var sortByOrder = function sortByOrder2(candidates) {
-  var regularTabbables = []
-  var orderedTabbables = []
-  candidates.forEach(function (item, i) {
-    var isScope = !!item.scopeParent
-    var element = isScope ? item.scopeParent : item
-    var candidateTabindex = getSortOrderTabIndex(element, isScope)
-    var elements = isScope ? sortByOrder2(item.candidates) : element
+  var regularTabbables = [];
+  var orderedTabbables = [];
+  candidates.forEach(function(item, i) {
+    var isScope = !!item.scopeParent;
+    var element = isScope ? item.scopeParent : item;
+    var candidateTabindex = getSortOrderTabIndex(element, isScope);
+    var elements = isScope ? sortByOrder2(item.candidates) : element;
     if (candidateTabindex === 0) {
-      isScope
-        ? regularTabbables.push.apply(regularTabbables, elements)
-        : regularTabbables.push(element)
+      isScope ? regularTabbables.push.apply(regularTabbables, elements) : regularTabbables.push(element);
     } else {
       orderedTabbables.push({
         documentOrder: i,
@@ -365,226 +279,192 @@ var sortByOrder = function sortByOrder2(candidates) {
         item,
         isScope,
         content: elements
-      })
+      });
     }
-  })
-  return orderedTabbables
-    .sort(sortOrderedTabbables)
-    .reduce(function (acc, sortable) {
-      sortable.isScope ? acc.push.apply(acc, sortable.content) : acc.push(sortable.content)
-      return acc
-    }, [])
-    .concat(regularTabbables)
-}
+  });
+  return orderedTabbables.sort(sortOrderedTabbables).reduce(function(acc, sortable) {
+    sortable.isScope ? acc.push.apply(acc, sortable.content) : acc.push(sortable.content);
+    return acc;
+  }, []).concat(regularTabbables);
+};
 var tabbable = function tabbable2(container, options) {
-  options = options || {}
-  var candidates
+  options = options || {};
+  var candidates;
   if (options.getShadowRoot) {
     candidates = getCandidatesIteratively([container], options.includeContainer, {
       filter: isNodeMatchingSelectorTabbable.bind(null, options),
       flatten: false,
       getShadowRoot: options.getShadowRoot,
       shadowRootFilter: isValidShadowRootTabbable
-    })
+    });
   } else {
-    candidates = getCandidates(
-      container,
-      options.includeContainer,
-      isNodeMatchingSelectorTabbable.bind(null, options)
-    )
+    candidates = getCandidates(container, options.includeContainer, isNodeMatchingSelectorTabbable.bind(null, options));
   }
-  return sortByOrder(candidates)
-}
+  return sortByOrder(candidates);
+};
 var focusable = function focusable2(container, options) {
-  options = options || {}
-  var candidates
+  options = options || {};
+  var candidates;
   if (options.getShadowRoot) {
     candidates = getCandidatesIteratively([container], options.includeContainer, {
       filter: isNodeMatchingSelectorFocusable.bind(null, options),
       flatten: true,
       getShadowRoot: options.getShadowRoot
-    })
+    });
   } else {
-    candidates = getCandidates(
-      container,
-      options.includeContainer,
-      isNodeMatchingSelectorFocusable.bind(null, options)
-    )
+    candidates = getCandidates(container, options.includeContainer, isNodeMatchingSelectorFocusable.bind(null, options));
   }
-  return candidates
-}
+  return candidates;
+};
 var isTabbable = function isTabbable2(node, options) {
-  options = options || {}
+  options = options || {};
   if (!node) {
-    throw new Error('No node provided')
+    throw new Error("No node provided");
   }
   if (matches.call(node, candidateSelector) === false) {
-    return false
+    return false;
   }
-  return isNodeMatchingSelectorTabbable(options, node)
-}
-var focusableCandidateSelector = candidateSelectors.concat('iframe').join(',')
+  return isNodeMatchingSelectorTabbable(options, node);
+};
+var focusableCandidateSelector = candidateSelectors.concat("iframe").join(",");
 var isFocusable = function isFocusable2(node, options) {
-  options = options || {}
+  options = options || {};
   if (!node) {
-    throw new Error('No node provided')
+    throw new Error("No node provided");
   }
   if (matches.call(node, focusableCandidateSelector) === false) {
-    return false
+    return false;
   }
-  return isNodeMatchingSelectorFocusable(options, node)
-}
+  return isNodeMatchingSelectorFocusable(options, node);
+};
 
 // node_modules/.pnpm/focus-trap@7.5.4/node_modules/focus-trap/dist/focus-trap.esm.js
 function ownKeys(e, r) {
-  var t = Object.keys(e)
+  var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
-    var o = Object.getOwnPropertySymbols(e)
-    r &&
-      (o = o.filter(function (r2) {
-        return Object.getOwnPropertyDescriptor(e, r2).enumerable
-      })),
-      t.push.apply(t, o)
+    var o = Object.getOwnPropertySymbols(e);
+    r && (o = o.filter(function(r2) {
+      return Object.getOwnPropertyDescriptor(e, r2).enumerable;
+    })), t.push.apply(t, o);
   }
-  return t
+  return t;
 }
 function _objectSpread2(e) {
   for (var r = 1; r < arguments.length; r++) {
-    var t = null != arguments[r] ? arguments[r] : {}
-    r % 2
-      ? ownKeys(Object(t), true).forEach(function (r2) {
-          _defineProperty(e, r2, t[r2])
-        })
-      : Object.getOwnPropertyDescriptors
-        ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t))
-        : ownKeys(Object(t)).forEach(function (r2) {
-            Object.defineProperty(e, r2, Object.getOwnPropertyDescriptor(t, r2))
-          })
+    var t = null != arguments[r] ? arguments[r] : {};
+    r % 2 ? ownKeys(Object(t), true).forEach(function(r2) {
+      _defineProperty(e, r2, t[r2]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r2) {
+      Object.defineProperty(e, r2, Object.getOwnPropertyDescriptor(t, r2));
+    });
   }
-  return e
+  return e;
 }
 function _defineProperty(obj, key, value) {
-  key = _toPropertyKey(key)
+  key = _toPropertyKey(key);
   if (key in obj) {
     Object.defineProperty(obj, key, {
       value,
       enumerable: true,
       configurable: true,
       writable: true
-    })
+    });
   } else {
-    obj[key] = value
+    obj[key] = value;
   }
-  return obj
+  return obj;
 }
 function _toPrimitive(input, hint) {
-  if (typeof input !== 'object' || input === null) return input
-  var prim = input[Symbol.toPrimitive]
+  if (typeof input !== "object" || input === null)
+    return input;
+  var prim = input[Symbol.toPrimitive];
   if (prim !== void 0) {
-    var res = prim.call(input, hint || 'default')
-    if (typeof res !== 'object') return res
-    throw new TypeError('@@toPrimitive must return a primitive value.')
+    var res = prim.call(input, hint || "default");
+    if (typeof res !== "object")
+      return res;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
   }
-  return (hint === 'string' ? String : Number)(input)
+  return (hint === "string" ? String : Number)(input);
 }
 function _toPropertyKey(arg) {
-  var key = _toPrimitive(arg, 'string')
-  return typeof key === 'symbol' ? key : String(key)
+  var key = _toPrimitive(arg, "string");
+  return typeof key === "symbol" ? key : String(key);
 }
 var activeFocusTraps = {
   activateTrap: function activateTrap(trapStack, trap) {
     if (trapStack.length > 0) {
-      var activeTrap = trapStack[trapStack.length - 1]
+      var activeTrap = trapStack[trapStack.length - 1];
       if (activeTrap !== trap) {
-        activeTrap.pause()
+        activeTrap.pause();
       }
     }
-    var trapIndex = trapStack.indexOf(trap)
+    var trapIndex = trapStack.indexOf(trap);
     if (trapIndex === -1) {
-      trapStack.push(trap)
+      trapStack.push(trap);
     } else {
-      trapStack.splice(trapIndex, 1)
-      trapStack.push(trap)
+      trapStack.splice(trapIndex, 1);
+      trapStack.push(trap);
     }
   },
   deactivateTrap: function deactivateTrap(trapStack, trap) {
-    var trapIndex = trapStack.indexOf(trap)
+    var trapIndex = trapStack.indexOf(trap);
     if (trapIndex !== -1) {
-      trapStack.splice(trapIndex, 1)
+      trapStack.splice(trapIndex, 1);
     }
     if (trapStack.length > 0) {
-      trapStack[trapStack.length - 1].unpause()
+      trapStack[trapStack.length - 1].unpause();
     }
   }
-}
+};
 var isSelectableInput = function isSelectableInput2(node) {
-  return node.tagName && node.tagName.toLowerCase() === 'input' && typeof node.select === 'function'
-}
+  return node.tagName && node.tagName.toLowerCase() === "input" && typeof node.select === "function";
+};
 var isEscapeEvent = function isEscapeEvent2(e) {
-  return (
-    (e === null || e === void 0 ? void 0 : e.key) === 'Escape' ||
-    (e === null || e === void 0 ? void 0 : e.key) === 'Esc' ||
-    (e === null || e === void 0 ? void 0 : e.keyCode) === 27
-  )
-}
+  return (e === null || e === void 0 ? void 0 : e.key) === "Escape" || (e === null || e === void 0 ? void 0 : e.key) === "Esc" || (e === null || e === void 0 ? void 0 : e.keyCode) === 27;
+};
 var isTabEvent = function isTabEvent2(e) {
-  return (
-    (e === null || e === void 0 ? void 0 : e.key) === 'Tab' ||
-    (e === null || e === void 0 ? void 0 : e.keyCode) === 9
-  )
-}
+  return (e === null || e === void 0 ? void 0 : e.key) === "Tab" || (e === null || e === void 0 ? void 0 : e.keyCode) === 9;
+};
 var isKeyForward = function isKeyForward2(e) {
-  return isTabEvent(e) && !e.shiftKey
-}
+  return isTabEvent(e) && !e.shiftKey;
+};
 var isKeyBackward = function isKeyBackward2(e) {
-  return isTabEvent(e) && e.shiftKey
-}
+  return isTabEvent(e) && e.shiftKey;
+};
 var delay = function delay2(fn) {
-  return setTimeout(fn, 0)
-}
+  return setTimeout(fn, 0);
+};
 var findIndex = function findIndex2(arr, fn) {
-  var idx = -1
-  arr.every(function (value, i) {
+  var idx = -1;
+  arr.every(function(value, i) {
     if (fn(value)) {
-      idx = i
-      return false
+      idx = i;
+      return false;
     }
-    return true
-  })
-  return idx
-}
+    return true;
+  });
+  return idx;
+};
 var valueOrHandler = function valueOrHandler2(value) {
-  for (
-    var _len = arguments.length, params = new Array(_len > 1 ? _len - 1 : 0), _key = 1;
-    _key < _len;
-    _key++
-  ) {
-    params[_key - 1] = arguments[_key]
+  for (var _len = arguments.length, params = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    params[_key - 1] = arguments[_key];
   }
-  return typeof value === 'function' ? value.apply(void 0, params) : value
-}
+  return typeof value === "function" ? value.apply(void 0, params) : value;
+};
 var getActualTarget = function getActualTarget2(event) {
-  return event.target.shadowRoot && typeof event.composedPath === 'function'
-    ? event.composedPath()[0]
-    : event.target
-}
-var internalTrapStack = []
+  return event.target.shadowRoot && typeof event.composedPath === "function" ? event.composedPath()[0] : event.target;
+};
+var internalTrapStack = [];
 var createFocusTrap = function createFocusTrap2(elements, userOptions) {
-  var doc =
-    (userOptions === null || userOptions === void 0 ? void 0 : userOptions.document) || document
-  var trapStack =
-    (userOptions === null || userOptions === void 0 ? void 0 : userOptions.trapStack) ||
-    internalTrapStack
-  var config = _objectSpread2(
-    {
-      returnFocusOnDeactivate: true,
-      escapeDeactivates: true,
-      delayInitialFocus: true,
-      isKeyForward,
-      isKeyBackward
-    },
-    userOptions
-  )
+  var doc = (userOptions === null || userOptions === void 0 ? void 0 : userOptions.document) || document;
+  var trapStack = (userOptions === null || userOptions === void 0 ? void 0 : userOptions.trapStack) || internalTrapStack;
+  var config = _objectSpread2({
+    returnFocusOnDeactivate: true,
+    escapeDeactivates: true,
+    delayInitialFocus: true,
+    isKeyForward,
+    isKeyBackward
+  }, userOptions);
   var state = {
     // containers given to createFocusTrap()
     // @type {Array<HTMLElement>}
@@ -621,105 +501,84 @@ var createFocusTrap = function createFocusTrap2(elements, userOptions) {
     delayInitialFocusTimer: void 0,
     // the most recent KeyboardEvent for the configured nav key (typically [SHIFT+]TAB), if any
     recentNavEvent: void 0
-  }
-  var trap
+  };
+  var trap;
   var getOption = function getOption2(configOverrideOptions, optionName, configOptionName) {
-    return configOverrideOptions && configOverrideOptions[optionName] !== void 0
-      ? configOverrideOptions[optionName]
-      : config[configOptionName || optionName]
-  }
+    return configOverrideOptions && configOverrideOptions[optionName] !== void 0 ? configOverrideOptions[optionName] : config[configOptionName || optionName];
+  };
   var findContainerIndex = function findContainerIndex2(element, event) {
-    var composedPath =
-      typeof (event === null || event === void 0 ? void 0 : event.composedPath) === 'function'
-        ? event.composedPath()
-        : void 0
-    return state.containerGroups.findIndex(function (_ref) {
-      var container = _ref.container,
-        tabbableNodes = _ref.tabbableNodes
-      return (
-        container.contains(element) || // fall back to explicit tabbable search which will take into consideration any
-        //  web components if the `tabbableOptions.getShadowRoot` option was used for
-        //  the trap, enabling shadow DOM support in tabbable (`Node.contains()` doesn't
-        //  look inside web components even if open)
-        (composedPath === null || composedPath === void 0
-          ? void 0
-          : composedPath.includes(container)) ||
-        tabbableNodes.find(function (node) {
-          return node === element
-        })
-      )
-    })
-  }
+    var composedPath = typeof (event === null || event === void 0 ? void 0 : event.composedPath) === "function" ? event.composedPath() : void 0;
+    return state.containerGroups.findIndex(function(_ref) {
+      var container = _ref.container, tabbableNodes = _ref.tabbableNodes;
+      return container.contains(element) || // fall back to explicit tabbable search which will take into consideration any
+      //  web components if the `tabbableOptions.getShadowRoot` option was used for
+      //  the trap, enabling shadow DOM support in tabbable (`Node.contains()` doesn't
+      //  look inside web components even if open)
+      (composedPath === null || composedPath === void 0 ? void 0 : composedPath.includes(container)) || tabbableNodes.find(function(node) {
+        return node === element;
+      });
+    });
+  };
   var getNodeForOption = function getNodeForOption2(optionName) {
-    var optionValue = config[optionName]
-    if (typeof optionValue === 'function') {
-      for (
-        var _len2 = arguments.length, params = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1;
-        _key2 < _len2;
-        _key2++
-      ) {
-        params[_key2 - 1] = arguments[_key2]
+    var optionValue = config[optionName];
+    if (typeof optionValue === "function") {
+      for (var _len2 = arguments.length, params = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+        params[_key2 - 1] = arguments[_key2];
       }
-      optionValue = optionValue.apply(void 0, params)
+      optionValue = optionValue.apply(void 0, params);
     }
     if (optionValue === true) {
-      optionValue = void 0
+      optionValue = void 0;
     }
     if (!optionValue) {
       if (optionValue === void 0 || optionValue === false) {
-        return optionValue
+        return optionValue;
       }
-      throw new Error(
-        '`'.concat(optionName, '` was specified but was not a node, or did not return a node')
-      )
+      throw new Error("`".concat(optionName, "` was specified but was not a node, or did not return a node"));
     }
-    var node = optionValue
-    if (typeof optionValue === 'string') {
-      node = doc.querySelector(optionValue)
+    var node = optionValue;
+    if (typeof optionValue === "string") {
+      node = doc.querySelector(optionValue);
       if (!node) {
-        throw new Error('`'.concat(optionName, '` as selector refers to no known node'))
+        throw new Error("`".concat(optionName, "` as selector refers to no known node"));
       }
     }
-    return node
-  }
+    return node;
+  };
   var getInitialFocusNode = function getInitialFocusNode2() {
-    var node = getNodeForOption('initialFocus')
+    var node = getNodeForOption("initialFocus");
     if (node === false) {
-      return false
+      return false;
     }
     if (node === void 0 || !isFocusable(node, config.tabbableOptions)) {
       if (findContainerIndex(doc.activeElement) >= 0) {
-        node = doc.activeElement
+        node = doc.activeElement;
       } else {
-        var firstTabbableGroup = state.tabbableGroups[0]
-        var firstTabbableNode = firstTabbableGroup && firstTabbableGroup.firstTabbableNode
-        node = firstTabbableNode || getNodeForOption('fallbackFocus')
+        var firstTabbableGroup = state.tabbableGroups[0];
+        var firstTabbableNode = firstTabbableGroup && firstTabbableGroup.firstTabbableNode;
+        node = firstTabbableNode || getNodeForOption("fallbackFocus");
       }
     }
     if (!node) {
-      throw new Error('Your focus-trap needs to have at least one focusable element')
+      throw new Error("Your focus-trap needs to have at least one focusable element");
     }
-    return node
-  }
+    return node;
+  };
   var updateTabbableNodes = function updateTabbableNodes2() {
-    state.containerGroups = state.containers.map(function (container) {
-      var tabbableNodes = tabbable(container, config.tabbableOptions)
-      var focusableNodes = focusable(container, config.tabbableOptions)
-      var firstTabbableNode = tabbableNodes.length > 0 ? tabbableNodes[0] : void 0
-      var lastTabbableNode =
-        tabbableNodes.length > 0 ? tabbableNodes[tabbableNodes.length - 1] : void 0
-      var firstDomTabbableNode = focusableNodes.find(function (node) {
-        return isTabbable(node)
-      })
-      var lastDomTabbableNode = focusableNodes
-        .slice()
-        .reverse()
-        .find(function (node) {
-          return isTabbable(node)
-        })
-      var posTabIndexesFound = !!tabbableNodes.find(function (node) {
-        return getTabIndex(node) > 0
-      })
+    state.containerGroups = state.containers.map(function(container) {
+      var tabbableNodes = tabbable(container, config.tabbableOptions);
+      var focusableNodes = focusable(container, config.tabbableOptions);
+      var firstTabbableNode = tabbableNodes.length > 0 ? tabbableNodes[0] : void 0;
+      var lastTabbableNode = tabbableNodes.length > 0 ? tabbableNodes[tabbableNodes.length - 1] : void 0;
+      var firstDomTabbableNode = focusableNodes.find(function(node) {
+        return isTabbable(node);
+      });
+      var lastDomTabbableNode = focusableNodes.slice().reverse().find(function(node) {
+        return isTabbable(node);
+      });
+      var posTabIndexesFound = !!tabbableNodes.find(function(node) {
+        return getTabIndex(node) > 0;
+      });
       return {
         container,
         tabbableNodes,
@@ -750,154 +609,121 @@ var createFocusTrap = function createFocusTrap2(elements, userOptions) {
          * @returns {HTMLElement|undefined} The next tabbable node, if any.
          */
         nextTabbableNode: function nextTabbableNode(node) {
-          var forward = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : true
-          var nodeIdx = tabbableNodes.indexOf(node)
+          var forward = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : true;
+          var nodeIdx = tabbableNodes.indexOf(node);
           if (nodeIdx < 0) {
             if (forward) {
-              return focusableNodes.slice(focusableNodes.indexOf(node) + 1).find(function (el) {
-                return isTabbable(el)
-              })
+              return focusableNodes.slice(focusableNodes.indexOf(node) + 1).find(function(el) {
+                return isTabbable(el);
+              });
             }
-            return focusableNodes
-              .slice(0, focusableNodes.indexOf(node))
-              .reverse()
-              .find(function (el) {
-                return isTabbable(el)
-              })
+            return focusableNodes.slice(0, focusableNodes.indexOf(node)).reverse().find(function(el) {
+              return isTabbable(el);
+            });
           }
-          return tabbableNodes[nodeIdx + (forward ? 1 : -1)]
+          return tabbableNodes[nodeIdx + (forward ? 1 : -1)];
         }
-      }
-    })
-    state.tabbableGroups = state.containerGroups.filter(function (group) {
-      return group.tabbableNodes.length > 0
-    })
-    if (state.tabbableGroups.length <= 0 && !getNodeForOption('fallbackFocus')) {
-      throw new Error(
-        'Your focus-trap must have at least one container with at least one tabbable node in it at all times'
-      )
+      };
+    });
+    state.tabbableGroups = state.containerGroups.filter(function(group) {
+      return group.tabbableNodes.length > 0;
+    });
+    if (state.tabbableGroups.length <= 0 && !getNodeForOption("fallbackFocus")) {
+      throw new Error("Your focus-trap must have at least one container with at least one tabbable node in it at all times");
     }
-    if (
-      state.containerGroups.find(function (g) {
-        return g.posTabIndexesFound
-      }) &&
-      state.containerGroups.length > 1
-    ) {
-      throw new Error(
-        "At least one node with a positive tabindex was found in one of your focus-trap's multiple containers. Positive tabindexes are only supported in single-container focus-traps."
-      )
+    if (state.containerGroups.find(function(g) {
+      return g.posTabIndexesFound;
+    }) && state.containerGroups.length > 1) {
+      throw new Error("At least one node with a positive tabindex was found in one of your focus-trap's multiple containers. Positive tabindexes are only supported in single-container focus-traps.");
     }
-  }
+  };
   var getActiveElement = function getActiveElement2(el) {
-    var activeElement = el.activeElement
+    var activeElement = el.activeElement;
     if (!activeElement) {
-      return
+      return;
     }
     if (activeElement.shadowRoot && activeElement.shadowRoot.activeElement !== null) {
-      return getActiveElement2(activeElement.shadowRoot)
+      return getActiveElement2(activeElement.shadowRoot);
     }
-    return activeElement
-  }
+    return activeElement;
+  };
   var tryFocus = function tryFocus2(node) {
     if (node === false) {
-      return
+      return;
     }
     if (node === getActiveElement(document)) {
-      return
+      return;
     }
     if (!node || !node.focus) {
-      tryFocus2(getInitialFocusNode())
-      return
+      tryFocus2(getInitialFocusNode());
+      return;
     }
     node.focus({
       preventScroll: !!config.preventScroll
-    })
-    state.mostRecentlyFocusedNode = node
+    });
+    state.mostRecentlyFocusedNode = node;
     if (isSelectableInput(node)) {
-      node.select()
+      node.select();
     }
-  }
+  };
   var getReturnFocusNode = function getReturnFocusNode2(previousActiveElement) {
-    var node = getNodeForOption('setReturnFocus', previousActiveElement)
-    return node ? node : node === false ? false : previousActiveElement
-  }
+    var node = getNodeForOption("setReturnFocus", previousActiveElement);
+    return node ? node : node === false ? false : previousActiveElement;
+  };
   var findNextNavNode = function findNextNavNode2(_ref2) {
-    var target = _ref2.target,
-      event = _ref2.event,
-      _ref2$isBackward = _ref2.isBackward,
-      isBackward = _ref2$isBackward === void 0 ? false : _ref2$isBackward
-    target = target || getActualTarget(event)
-    updateTabbableNodes()
-    var destinationNode = null
+    var target = _ref2.target, event = _ref2.event, _ref2$isBackward = _ref2.isBackward, isBackward = _ref2$isBackward === void 0 ? false : _ref2$isBackward;
+    target = target || getActualTarget(event);
+    updateTabbableNodes();
+    var destinationNode = null;
     if (state.tabbableGroups.length > 0) {
-      var containerIndex = findContainerIndex(target, event)
-      var containerGroup = containerIndex >= 0 ? state.containerGroups[containerIndex] : void 0
+      var containerIndex = findContainerIndex(target, event);
+      var containerGroup = containerIndex >= 0 ? state.containerGroups[containerIndex] : void 0;
       if (containerIndex < 0) {
         if (isBackward) {
-          destinationNode = state.tabbableGroups[state.tabbableGroups.length - 1].lastTabbableNode
+          destinationNode = state.tabbableGroups[state.tabbableGroups.length - 1].lastTabbableNode;
         } else {
-          destinationNode = state.tabbableGroups[0].firstTabbableNode
+          destinationNode = state.tabbableGroups[0].firstTabbableNode;
         }
       } else if (isBackward) {
-        var startOfGroupIndex = findIndex(state.tabbableGroups, function (_ref3) {
-          var firstTabbableNode = _ref3.firstTabbableNode
-          return target === firstTabbableNode
-        })
-        if (
-          startOfGroupIndex < 0 &&
-          (containerGroup.container === target ||
-            (isFocusable(target, config.tabbableOptions) &&
-              !isTabbable(target, config.tabbableOptions) &&
-              !containerGroup.nextTabbableNode(target, false)))
-        ) {
-          startOfGroupIndex = containerIndex
+        var startOfGroupIndex = findIndex(state.tabbableGroups, function(_ref3) {
+          var firstTabbableNode = _ref3.firstTabbableNode;
+          return target === firstTabbableNode;
+        });
+        if (startOfGroupIndex < 0 && (containerGroup.container === target || isFocusable(target, config.tabbableOptions) && !isTabbable(target, config.tabbableOptions) && !containerGroup.nextTabbableNode(target, false))) {
+          startOfGroupIndex = containerIndex;
         }
         if (startOfGroupIndex >= 0) {
-          var destinationGroupIndex =
-            startOfGroupIndex === 0 ? state.tabbableGroups.length - 1 : startOfGroupIndex - 1
-          var destinationGroup = state.tabbableGroups[destinationGroupIndex]
-          destinationNode =
-            getTabIndex(target) >= 0
-              ? destinationGroup.lastTabbableNode
-              : destinationGroup.lastDomTabbableNode
+          var destinationGroupIndex = startOfGroupIndex === 0 ? state.tabbableGroups.length - 1 : startOfGroupIndex - 1;
+          var destinationGroup = state.tabbableGroups[destinationGroupIndex];
+          destinationNode = getTabIndex(target) >= 0 ? destinationGroup.lastTabbableNode : destinationGroup.lastDomTabbableNode;
         } else if (!isTabEvent(event)) {
-          destinationNode = containerGroup.nextTabbableNode(target, false)
+          destinationNode = containerGroup.nextTabbableNode(target, false);
         }
       } else {
-        var lastOfGroupIndex = findIndex(state.tabbableGroups, function (_ref4) {
-          var lastTabbableNode = _ref4.lastTabbableNode
-          return target === lastTabbableNode
-        })
-        if (
-          lastOfGroupIndex < 0 &&
-          (containerGroup.container === target ||
-            (isFocusable(target, config.tabbableOptions) &&
-              !isTabbable(target, config.tabbableOptions) &&
-              !containerGroup.nextTabbableNode(target)))
-        ) {
-          lastOfGroupIndex = containerIndex
+        var lastOfGroupIndex = findIndex(state.tabbableGroups, function(_ref4) {
+          var lastTabbableNode = _ref4.lastTabbableNode;
+          return target === lastTabbableNode;
+        });
+        if (lastOfGroupIndex < 0 && (containerGroup.container === target || isFocusable(target, config.tabbableOptions) && !isTabbable(target, config.tabbableOptions) && !containerGroup.nextTabbableNode(target))) {
+          lastOfGroupIndex = containerIndex;
         }
         if (lastOfGroupIndex >= 0) {
-          var _destinationGroupIndex =
-            lastOfGroupIndex === state.tabbableGroups.length - 1 ? 0 : lastOfGroupIndex + 1
-          var _destinationGroup = state.tabbableGroups[_destinationGroupIndex]
-          destinationNode =
-            getTabIndex(target) >= 0
-              ? _destinationGroup.firstTabbableNode
-              : _destinationGroup.firstDomTabbableNode
+          var _destinationGroupIndex = lastOfGroupIndex === state.tabbableGroups.length - 1 ? 0 : lastOfGroupIndex + 1;
+          var _destinationGroup = state.tabbableGroups[_destinationGroupIndex];
+          destinationNode = getTabIndex(target) >= 0 ? _destinationGroup.firstTabbableNode : _destinationGroup.firstDomTabbableNode;
         } else if (!isTabEvent(event)) {
-          destinationNode = containerGroup.nextTabbableNode(target)
+          destinationNode = containerGroup.nextTabbableNode(target);
         }
       }
     } else {
-      destinationNode = getNodeForOption('fallbackFocus')
+      destinationNode = getNodeForOption("fallbackFocus");
     }
-    return destinationNode
-  }
+    return destinationNode;
+  };
   var checkPointerDown = function checkPointerDown2(e) {
-    var target = getActualTarget(e)
+    var target = getActualTarget(e);
     if (findContainerIndex(target, e) >= 0) {
-      return
+      return;
     }
     if (valueOrHandler(config.clickOutsideDeactivates, e)) {
       trap.deactivate({
@@ -908,60 +734,58 @@ var createFocusTrap = function createFocusTrap2(elements, userOptions) {
         //  on activation (or the configured `setReturnFocus` node), whether the
         //  outside click was on a focusable node or not
         returnFocus: config.returnFocusOnDeactivate
-      })
-      return
+      });
+      return;
     }
     if (valueOrHandler(config.allowOutsideClick, e)) {
-      return
+      return;
     }
-    e.preventDefault()
-  }
+    e.preventDefault();
+  };
   var checkFocusIn = function checkFocusIn2(event) {
-    var target = getActualTarget(event)
-    var targetContained = findContainerIndex(target, event) >= 0
+    var target = getActualTarget(event);
+    var targetContained = findContainerIndex(target, event) >= 0;
     if (targetContained || target instanceof Document) {
       if (targetContained) {
-        state.mostRecentlyFocusedNode = target
+        state.mostRecentlyFocusedNode = target;
       }
     } else {
-      event.stopImmediatePropagation()
-      var nextNode
-      var navAcrossContainers = true
+      event.stopImmediatePropagation();
+      var nextNode;
+      var navAcrossContainers = true;
       if (state.mostRecentlyFocusedNode) {
         if (getTabIndex(state.mostRecentlyFocusedNode) > 0) {
-          var mruContainerIdx = findContainerIndex(state.mostRecentlyFocusedNode)
-          var tabbableNodes = state.containerGroups[mruContainerIdx].tabbableNodes
+          var mruContainerIdx = findContainerIndex(state.mostRecentlyFocusedNode);
+          var tabbableNodes = state.containerGroups[mruContainerIdx].tabbableNodes;
           if (tabbableNodes.length > 0) {
-            var mruTabIdx = tabbableNodes.findIndex(function (node) {
-              return node === state.mostRecentlyFocusedNode
-            })
+            var mruTabIdx = tabbableNodes.findIndex(function(node) {
+              return node === state.mostRecentlyFocusedNode;
+            });
             if (mruTabIdx >= 0) {
               if (config.isKeyForward(state.recentNavEvent)) {
                 if (mruTabIdx + 1 < tabbableNodes.length) {
-                  nextNode = tabbableNodes[mruTabIdx + 1]
-                  navAcrossContainers = false
+                  nextNode = tabbableNodes[mruTabIdx + 1];
+                  navAcrossContainers = false;
                 }
               } else {
                 if (mruTabIdx - 1 >= 0) {
-                  nextNode = tabbableNodes[mruTabIdx - 1]
-                  navAcrossContainers = false
+                  nextNode = tabbableNodes[mruTabIdx - 1];
+                  navAcrossContainers = false;
                 }
               }
             }
           }
         } else {
-          if (
-            !state.containerGroups.some(function (g) {
-              return g.tabbableNodes.some(function (n) {
-                return getTabIndex(n) > 0
-              })
-            })
-          ) {
-            navAcrossContainers = false
+          if (!state.containerGroups.some(function(g) {
+            return g.tabbableNodes.some(function(n) {
+              return getTabIndex(n) > 0;
+            });
+          })) {
+            navAcrossContainers = false;
           }
         }
       } else {
-        navAcrossContainers = false
+        navAcrossContainers = false;
       }
       if (navAcrossContainers) {
         nextNode = findNextNavNode({
@@ -969,284 +793,277 @@ var createFocusTrap = function createFocusTrap2(elements, userOptions) {
           //  outside the trap causing the focus escape we're trying to fix)
           target: state.mostRecentlyFocusedNode,
           isBackward: config.isKeyBackward(state.recentNavEvent)
-        })
+        });
       }
       if (nextNode) {
-        tryFocus(nextNode)
+        tryFocus(nextNode);
       } else {
-        tryFocus(state.mostRecentlyFocusedNode || getInitialFocusNode())
+        tryFocus(state.mostRecentlyFocusedNode || getInitialFocusNode());
       }
     }
-    state.recentNavEvent = void 0
-  }
+    state.recentNavEvent = void 0;
+  };
   var checkKeyNav = function checkKeyNav2(event) {
-    var isBackward = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : false
-    state.recentNavEvent = event
+    var isBackward = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : false;
+    state.recentNavEvent = event;
     var destinationNode = findNextNavNode({
       event,
       isBackward
-    })
+    });
     if (destinationNode) {
       if (isTabEvent(event)) {
-        event.preventDefault()
+        event.preventDefault();
       }
-      tryFocus(destinationNode)
+      tryFocus(destinationNode);
     }
-  }
+  };
   var checkKey = function checkKey2(event) {
     if (isEscapeEvent(event) && valueOrHandler(config.escapeDeactivates, event) !== false) {
-      event.preventDefault()
-      trap.deactivate()
-      return
+      event.preventDefault();
+      trap.deactivate();
+      return;
     }
     if (config.isKeyForward(event) || config.isKeyBackward(event)) {
-      checkKeyNav(event, config.isKeyBackward(event))
+      checkKeyNav(event, config.isKeyBackward(event));
     }
-  }
+  };
   var checkClick = function checkClick2(e) {
-    var target = getActualTarget(e)
+    var target = getActualTarget(e);
     if (findContainerIndex(target, e) >= 0) {
-      return
+      return;
     }
     if (valueOrHandler(config.clickOutsideDeactivates, e)) {
-      return
+      return;
     }
     if (valueOrHandler(config.allowOutsideClick, e)) {
-      return
+      return;
     }
-    e.preventDefault()
-    e.stopImmediatePropagation()
-  }
+    e.preventDefault();
+    e.stopImmediatePropagation();
+  };
   var addListeners = function addListeners2() {
     if (!state.active) {
-      return
+      return;
     }
-    activeFocusTraps.activateTrap(trapStack, trap)
-    state.delayInitialFocusTimer = config.delayInitialFocus
-      ? delay(function () {
-          tryFocus(getInitialFocusNode())
-        })
-      : tryFocus(getInitialFocusNode())
-    doc.addEventListener('focusin', checkFocusIn, true)
-    doc.addEventListener('mousedown', checkPointerDown, {
+    activeFocusTraps.activateTrap(trapStack, trap);
+    state.delayInitialFocusTimer = config.delayInitialFocus ? delay(function() {
+      tryFocus(getInitialFocusNode());
+    }) : tryFocus(getInitialFocusNode());
+    doc.addEventListener("focusin", checkFocusIn, true);
+    doc.addEventListener("mousedown", checkPointerDown, {
       capture: true,
       passive: false
-    })
-    doc.addEventListener('touchstart', checkPointerDown, {
+    });
+    doc.addEventListener("touchstart", checkPointerDown, {
       capture: true,
       passive: false
-    })
-    doc.addEventListener('click', checkClick, {
+    });
+    doc.addEventListener("click", checkClick, {
       capture: true,
       passive: false
-    })
-    doc.addEventListener('keydown', checkKey, {
+    });
+    doc.addEventListener("keydown", checkKey, {
       capture: true,
       passive: false
-    })
-    return trap
-  }
+    });
+    return trap;
+  };
   var removeListeners = function removeListeners2() {
     if (!state.active) {
-      return
+      return;
     }
-    doc.removeEventListener('focusin', checkFocusIn, true)
-    doc.removeEventListener('mousedown', checkPointerDown, true)
-    doc.removeEventListener('touchstart', checkPointerDown, true)
-    doc.removeEventListener('click', checkClick, true)
-    doc.removeEventListener('keydown', checkKey, true)
-    return trap
-  }
+    doc.removeEventListener("focusin", checkFocusIn, true);
+    doc.removeEventListener("mousedown", checkPointerDown, true);
+    doc.removeEventListener("touchstart", checkPointerDown, true);
+    doc.removeEventListener("click", checkClick, true);
+    doc.removeEventListener("keydown", checkKey, true);
+    return trap;
+  };
   var checkDomRemoval = function checkDomRemoval2(mutations) {
-    var isFocusedNodeRemoved = mutations.some(function (mutation) {
-      var removedNodes = Array.from(mutation.removedNodes)
-      return removedNodes.some(function (node) {
-        return node === state.mostRecentlyFocusedNode
-      })
-    })
+    var isFocusedNodeRemoved = mutations.some(function(mutation) {
+      var removedNodes = Array.from(mutation.removedNodes);
+      return removedNodes.some(function(node) {
+        return node === state.mostRecentlyFocusedNode;
+      });
+    });
     if (isFocusedNodeRemoved) {
-      tryFocus(getInitialFocusNode())
+      tryFocus(getInitialFocusNode());
     }
-  }
-  var mutationObserver =
-    typeof window !== 'undefined' && 'MutationObserver' in window
-      ? new MutationObserver(checkDomRemoval)
-      : void 0
+  };
+  var mutationObserver = typeof window !== "undefined" && "MutationObserver" in window ? new MutationObserver(checkDomRemoval) : void 0;
   var updateObservedNodes = function updateObservedNodes2() {
     if (!mutationObserver) {
-      return
+      return;
     }
-    mutationObserver.disconnect()
+    mutationObserver.disconnect();
     if (state.active && !state.paused) {
-      state.containers.map(function (container) {
+      state.containers.map(function(container) {
         mutationObserver.observe(container, {
           subtree: true,
           childList: true
-        })
-      })
+        });
+      });
     }
-  }
+  };
   trap = {
     get active() {
-      return state.active
+      return state.active;
     },
     get paused() {
-      return state.paused
+      return state.paused;
     },
     activate: function activate(activateOptions) {
       if (state.active) {
-        return this
+        return this;
       }
-      var onActivate = getOption(activateOptions, 'onActivate')
-      var onPostActivate = getOption(activateOptions, 'onPostActivate')
-      var checkCanFocusTrap = getOption(activateOptions, 'checkCanFocusTrap')
+      var onActivate = getOption(activateOptions, "onActivate");
+      var onPostActivate = getOption(activateOptions, "onPostActivate");
+      var checkCanFocusTrap = getOption(activateOptions, "checkCanFocusTrap");
       if (!checkCanFocusTrap) {
-        updateTabbableNodes()
+        updateTabbableNodes();
       }
-      state.active = true
-      state.paused = false
-      state.nodeFocusedBeforeActivation = doc.activeElement
-      onActivate === null || onActivate === void 0 || onActivate()
+      state.active = true;
+      state.paused = false;
+      state.nodeFocusedBeforeActivation = doc.activeElement;
+      onActivate === null || onActivate === void 0 || onActivate();
       var finishActivation = function finishActivation2() {
         if (checkCanFocusTrap) {
-          updateTabbableNodes()
+          updateTabbableNodes();
         }
-        addListeners()
-        updateObservedNodes()
-        onPostActivate === null || onPostActivate === void 0 || onPostActivate()
-      }
+        addListeners();
+        updateObservedNodes();
+        onPostActivate === null || onPostActivate === void 0 || onPostActivate();
+      };
       if (checkCanFocusTrap) {
-        checkCanFocusTrap(state.containers.concat()).then(finishActivation, finishActivation)
-        return this
+        checkCanFocusTrap(state.containers.concat()).then(finishActivation, finishActivation);
+        return this;
       }
-      finishActivation()
-      return this
+      finishActivation();
+      return this;
     },
     deactivate: function deactivate(deactivateOptions) {
       if (!state.active) {
-        return this
+        return this;
       }
-      var options = _objectSpread2(
-        {
-          onDeactivate: config.onDeactivate,
-          onPostDeactivate: config.onPostDeactivate,
-          checkCanReturnFocus: config.checkCanReturnFocus
-        },
-        deactivateOptions
-      )
-      clearTimeout(state.delayInitialFocusTimer)
-      state.delayInitialFocusTimer = void 0
-      removeListeners()
-      state.active = false
-      state.paused = false
-      updateObservedNodes()
-      activeFocusTraps.deactivateTrap(trapStack, trap)
-      var onDeactivate = getOption(options, 'onDeactivate')
-      var onPostDeactivate = getOption(options, 'onPostDeactivate')
-      var checkCanReturnFocus = getOption(options, 'checkCanReturnFocus')
-      var returnFocus = getOption(options, 'returnFocus', 'returnFocusOnDeactivate')
-      onDeactivate === null || onDeactivate === void 0 || onDeactivate()
+      var options = _objectSpread2({
+        onDeactivate: config.onDeactivate,
+        onPostDeactivate: config.onPostDeactivate,
+        checkCanReturnFocus: config.checkCanReturnFocus
+      }, deactivateOptions);
+      clearTimeout(state.delayInitialFocusTimer);
+      state.delayInitialFocusTimer = void 0;
+      removeListeners();
+      state.active = false;
+      state.paused = false;
+      updateObservedNodes();
+      activeFocusTraps.deactivateTrap(trapStack, trap);
+      var onDeactivate = getOption(options, "onDeactivate");
+      var onPostDeactivate = getOption(options, "onPostDeactivate");
+      var checkCanReturnFocus = getOption(options, "checkCanReturnFocus");
+      var returnFocus = getOption(options, "returnFocus", "returnFocusOnDeactivate");
+      onDeactivate === null || onDeactivate === void 0 || onDeactivate();
       var finishDeactivation = function finishDeactivation2() {
-        delay(function () {
+        delay(function() {
           if (returnFocus) {
-            tryFocus(getReturnFocusNode(state.nodeFocusedBeforeActivation))
+            tryFocus(getReturnFocusNode(state.nodeFocusedBeforeActivation));
           }
-          onPostDeactivate === null || onPostDeactivate === void 0 || onPostDeactivate()
-        })
-      }
+          onPostDeactivate === null || onPostDeactivate === void 0 || onPostDeactivate();
+        });
+      };
       if (returnFocus && checkCanReturnFocus) {
-        checkCanReturnFocus(getReturnFocusNode(state.nodeFocusedBeforeActivation)).then(
-          finishDeactivation,
-          finishDeactivation
-        )
-        return this
+        checkCanReturnFocus(getReturnFocusNode(state.nodeFocusedBeforeActivation)).then(finishDeactivation, finishDeactivation);
+        return this;
       }
-      finishDeactivation()
-      return this
+      finishDeactivation();
+      return this;
     },
     pause: function pause(pauseOptions) {
       if (state.paused || !state.active) {
-        return this
+        return this;
       }
-      var onPause = getOption(pauseOptions, 'onPause')
-      var onPostPause = getOption(pauseOptions, 'onPostPause')
-      state.paused = true
-      onPause === null || onPause === void 0 || onPause()
-      removeListeners()
-      updateObservedNodes()
-      onPostPause === null || onPostPause === void 0 || onPostPause()
-      return this
+      var onPause = getOption(pauseOptions, "onPause");
+      var onPostPause = getOption(pauseOptions, "onPostPause");
+      state.paused = true;
+      onPause === null || onPause === void 0 || onPause();
+      removeListeners();
+      updateObservedNodes();
+      onPostPause === null || onPostPause === void 0 || onPostPause();
+      return this;
     },
     unpause: function unpause(unpauseOptions) {
       if (!state.paused || !state.active) {
-        return this
+        return this;
       }
-      var onUnpause = getOption(unpauseOptions, 'onUnpause')
-      var onPostUnpause = getOption(unpauseOptions, 'onPostUnpause')
-      state.paused = false
-      onUnpause === null || onUnpause === void 0 || onUnpause()
-      updateTabbableNodes()
-      addListeners()
-      updateObservedNodes()
-      onPostUnpause === null || onPostUnpause === void 0 || onPostUnpause()
-      return this
+      var onUnpause = getOption(unpauseOptions, "onUnpause");
+      var onPostUnpause = getOption(unpauseOptions, "onPostUnpause");
+      state.paused = false;
+      onUnpause === null || onUnpause === void 0 || onUnpause();
+      updateTabbableNodes();
+      addListeners();
+      updateObservedNodes();
+      onPostUnpause === null || onPostUnpause === void 0 || onPostUnpause();
+      return this;
     },
     updateContainerElements: function updateContainerElements(containerElements) {
-      var elementsAsArray = [].concat(containerElements).filter(Boolean)
-      state.containers = elementsAsArray.map(function (element) {
-        return typeof element === 'string' ? doc.querySelector(element) : element
-      })
+      var elementsAsArray = [].concat(containerElements).filter(Boolean);
+      state.containers = elementsAsArray.map(function(element) {
+        return typeof element === "string" ? doc.querySelector(element) : element;
+      });
       if (state.active) {
-        updateTabbableNodes()
+        updateTabbableNodes();
       }
-      updateObservedNodes()
-      return this
+      updateObservedNodes();
+      return this;
     }
-  }
-  trap.updateContainerElements(elements)
-  return trap
-}
+  };
+  trap.updateContainerElements(elements);
+  return trap;
+};
 
 // node_modules/.pnpm/@vueuse+integrations@10.9.0_focus-trap@7.5.4_qrcode@1.5.3_vue@3.4.26_typescript@5.4.5_/node_modules/@vueuse/integrations/useFocusTrap.mjs
 function useFocusTrap(target, options = {}) {
-  let trap
-  const { immediate, ...focusTrapOptions } = options
-  const hasFocus = ref(false)
-  const isPaused = ref(false)
-  const activate = (opts) => trap && trap.activate(opts)
-  const deactivate = (opts) => trap && trap.deactivate(opts)
+  let trap;
+  const { immediate, ...focusTrapOptions } = options;
+  const hasFocus = ref(false);
+  const isPaused = ref(false);
+  const activate = (opts) => trap && trap.activate(opts);
+  const deactivate = (opts) => trap && trap.deactivate(opts);
   const pause = () => {
     if (trap) {
-      trap.pause()
-      isPaused.value = true
+      trap.pause();
+      isPaused.value = true;
     }
-  }
+  };
   const unpause = () => {
     if (trap) {
-      trap.unpause()
-      isPaused.value = false
+      trap.unpause();
+      isPaused.value = false;
     }
-  }
+  };
   watch(
     () => unrefElement(target),
     (el) => {
-      if (!el) return
+      if (!el)
+        return;
       trap = createFocusTrap(el, {
         ...focusTrapOptions,
         onActivate() {
-          hasFocus.value = true
-          if (options.onActivate) options.onActivate()
+          hasFocus.value = true;
+          if (options.onActivate)
+            options.onActivate();
         },
         onDeactivate() {
-          hasFocus.value = false
-          if (options.onDeactivate) options.onDeactivate()
+          hasFocus.value = false;
+          if (options.onDeactivate)
+            options.onDeactivate();
         }
-      })
-      if (immediate) activate()
+      });
+      if (immediate)
+        activate();
     },
-    { flush: 'post' }
-  )
-  tryOnScopeDispose(() => deactivate())
+    { flush: "post" }
+  );
+  tryOnScopeDispose(() => deactivate());
   return {
     hasFocus,
     isPaused,
@@ -1254,9 +1071,11 @@ function useFocusTrap(target, options = {}) {
     deactivate,
     pause,
     unpause
-  }
+  };
 }
-export { useFocusTrap }
+export {
+  useFocusTrap
+};
 /*! Bundled license information:
 
 tabbable/dist/index.esm.js:
