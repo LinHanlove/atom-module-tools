@@ -66,5 +66,29 @@ export default {
       text: 'Special',
       items: getFilesItem('../utils/special/')
     }
+  ],
+  '/template/root/vue':[
+    {
+      text: 'template',
+      items:getFilesItem('../template/vue/')
+    }
+  ],
+  '/template/vue':[
+    {
+      text: 'template',
+      items:getFilesItem('../template/vue/')
+    }
+  ],
+  '/template/root/wxChat':[
+    {
+      text: 'template',
+      items:getFilesItem('../template/wxChat/')
+    }
+  ],
+  '/template/wxChat/':[
+    {
+      text: 'template',
+      items:getFilesItem('../template/wxChat/')
+    }
   ]
 }

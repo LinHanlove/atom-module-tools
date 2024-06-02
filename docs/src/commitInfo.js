@@ -1,5 +1,9 @@
 export const commitHistory = [
       { 
+          hash: "3175c3e",
+          message:"feat: fix get hash abnormal",
+          commitTime:"2024-05-29 00:04:53"
+        },{ 
           hash: "134f79c",
           message:"feat: add commit log at docs",
           commitTime:"2024-05-28 23:41:29"

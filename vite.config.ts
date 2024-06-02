@@ -9,7 +9,8 @@ export default defineConfig({
   base: './',
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'lib')
+      '@': resolve(__dirname, 'lib'),
+      "@/docs": resolve(__dirname, 'docs/src'),
     }
   },
   server: {
