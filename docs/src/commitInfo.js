@@ -1,5 +1,17 @@
 export const commitHistory = [
       { 
+          hash: "595f887",
+          message:"feat: :feet: fix build",
+          commitTime:"2024-06-02 21:35:12"
+        },{ 
+          hash: "aa4b618",
+          message:"feat: start template",
+          commitTime:"2024-06-02 21:29:51"
+        },{ 
+          hash: "3175c3e",
+          message:"feat: fix get hash abnormal",
+          commitTime:"2024-05-29 00:04:53"
+        },{ 
           hash: "134f79c",
           message:"feat: add commit log at docs",
           commitTime:"2024-05-28 23:41:29"

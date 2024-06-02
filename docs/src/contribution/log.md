@@ -1,4 +1,3 @@
-
 <script setup>
 import { ref } from 'vue'
 import {commitHistory} from '../commitInfo'
@@ -19,8 +18,8 @@ const handleToGitHub = (hash) => {
   历史提交记录
 </div>
 
-
 ::: danger
+
 <div class="p-4 mb-4 bg-red-100 border border-red-400 rounded-lg text-red-800">
   <p class="text-sm">下面是关于 <code>atom-tools</code> 的历史提交记录，其中包含 <code>hash</code> 提交记录的哈希值，提交记录的描述信息，以及提交时间，点击可查看具体的提交</p>
 </div>

@@ -56,24 +56,25 @@ yarn add  atom-tools
 推荐按需导入使用 atom-tools。
 
 **工具**
+
 ```ts
-import { pick } from 'atom-tools';
+import { pick } from 'atom-tools'
 
 interface Person {
-  name: string;
-  age: number;
-  email: string;
+  name: string
+  age: number
+  email: string
 }
 
 const person = {
   name: 'John Doe',
   age: 30,
   email: 'john.doe@example.com'
-};
+}
 
 // 使用 pick 函数筛选出 'name' 和 'age' 属性
-const selectedFields = pick(person, ['name', 'age']);
-console.log(selectedFields); // 输出：{ name: 'John Doe', age: 30 }
+const selectedFields = pick(person, ['name', 'age'])
+console.log(selectedFields) // 输出：{ name: 'John Doe', age: 30 }
 ```
 
 **vue自定义指令**
@@ -104,6 +105,7 @@ const visibilityOptions = {
 寻找志同道合的朋友一起参与 AtomTools 的开发。如果你对 TypeScript、JavaScript 工具库开发充满热情，欢迎加入我们，共同打造一个更加强大、易用的编程工具集。
 
 ## 未来规划
+
 - Vue 自定义指令：提供众多开箱即用的 Vue 自定义指令，简化 Vue 应用开发。
 - 组件封装：计划添加更多常用组件的封装，提升开发效率和用户体验。
 - 代码片段集合：集成一系列常用代码片段，帮助开发者快速解决特定问题。

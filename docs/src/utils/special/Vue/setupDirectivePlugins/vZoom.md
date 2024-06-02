@@ -4,7 +4,7 @@ title: v-zoom Directive
 
 # 缩放指令
 
-##  v-zoom
+## v-zoom
 
 ## 说明
 
@@ -24,7 +24,6 @@ title: v-zoom Directive
 
 该指令不返回任何值。
 
-
 ## 使用
 
 在 Vue 组件中，您可以通过以下方式使用 `v-zoom` 指令：
@@ -35,5 +34,4 @@ title: v-zoom Directive
     <!-- 这里的任何内容都可以被缩放 -->
   </div>
 </template>
-
 ```

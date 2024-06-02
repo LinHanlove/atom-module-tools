@@ -22,7 +22,8 @@
     /* 路径别名 */
     "baseUrl": "./",
     "paths": {
-      "@/*": ["./lib/*"]
+      "@/*": ["./lib/*"],
+      "@/docs/*": ["./docs/src/*"]
     },
 
     /* 类型编译 */
@@ -32,6 +33,13 @@
   },
 
   "include": [
+    "docs",
+    "docs/**/*.md",
+    "docs/**/*.mdx",
+    "docs/**/*.vue",
+    "docs/**/*.tsx",
+    "docs/**/*.ts",
+    "docs/**/*.tsx",
     "lib",
     "src",
     "lib/*.tsx",

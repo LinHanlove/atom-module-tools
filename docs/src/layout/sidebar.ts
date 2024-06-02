@@ -11,7 +11,8 @@ type IMenuItem = {
   collapsed?: boolean
 }
 
-const excludedFolders = ['WeChat']
+// 排除的文件夹名称列表
+const excludedFolders = ['node_modules', '.git','WeChat'];
 
 /**
  * 获取文件和文件夹的映射关系，并设置默认折叠状态
@@ -19,24 +20,33 @@ const excludedFolders = ['WeChat']
  * @returns 菜单项数组
  */
 const getFilesItem = (src: string): IMenuItem[] => {
-  return fs
-    .readdirSync(path.join(__dirname, src), { withFileTypes: true })
-    .filter((dirent) => dirent.name[0] !== '.' && !excludedFolders.includes(dirent.name)) // 过滤掉以点开头的文件或文件夹
-    .map((dirent) => {
-      const itemPath = path.join(src, dirent.name)
-      let menuItem: IMenuItem = { text: dirent.name.split('.')[0], collapsed: true }
+  try {
+    const dirent = fs.readdirSync(path.join(__dirname, src), { withFileTypes: true });
+    if (!dirent) {
+      return []; // 如果无法读取目录，返回空数组
+    }
+    return dirent
+      .filter((dirent) => dirent.name[0] !== '.' && !excludedFolders.includes(dirent.name))
+      .map((dirent) => {
+        const itemPath = path.join(src, dirent.name);
+        const menuItem: IMenuItem = {
+          text: dirent.name.split('.')[0],
+          collapsed: true,
+        };
 
-      if (dirent.isDirectory()) {
-        // 如果是文件夹，递归获取子菜单
-        menuItem.items = getFilesItem(itemPath)
-      } else {
-        // 如果是文件，设置链接
-        menuItem.link = `/${itemPath}`
-      }
+        if (dirent.isDirectory()) {
+          menuItem.items = getFilesItem(itemPath); // 递归获取子菜单
+        } else {
+          menuItem.link = `/${itemPath}`;
+        }
 
-      return menuItem
-    })
-}
+        return menuItem;
+      });
+  } catch (error) {
+    console.error(`无法读取目录 ${src}: ${error}`);
+    return []; // 如果发生错误，返回空数组
+  }
+};
 
 export default {
   // 使用递归获取的菜单项填充侧边栏结构
@@ -65,6 +75,30 @@ export default {
     {
       text: 'Special',
       items: getFilesItem('../utils/special/')
+    }
+  ],
+  '/template/root/vue': [
+    {
+      text: 'template',
+      items: getFilesItem('../template/vue/')
+    }
+  ],
+  '/template/vue': [
+    {
+      text: 'template',
+      items: getFilesItem('../template/vue/')
+    }
+  ],
+  '/template/root/wxChat': [
+    {
+      text: 'template',
+      items: getFilesItem('../template/wxChat/')
+    }
+  ],
+  '/template/wxChat/': [
+    {
+      text: 'template',
+      items: getFilesItem('../template/wxChat/')
     }
   ]
 }
