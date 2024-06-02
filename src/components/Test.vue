@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import {getUrlParams } from '@/public/main'
+import { getUrlParams } from '@/public/main'
 import { log } from '@/public/PrettyLog'
-
 
 const dragAudioPlayerCallback = (res: string) => {
   console.log(res)
@@ -16,27 +15,26 @@ const handleInput = () => {
 
 const handleOutsideClick = (e: any) => {
   log.warning('--------------------------------打印字符----------------------------------------')
-  log.info('这是一条信息日志');
-  log.error('这是一条错误日志');
-  log.warning('这是一条警告日志');
-  log.success('这是一条成功日志');
+  log.info('这是一条信息日志')
+  log.error('这是一条错误日志')
+  log.warning('这是一条警告日志')
+  log.success('这是一条成功日志')
   log.warning('--------------------------------打印多参数--------------------------------------')
 
-  log.info('打印信息', 'atom', 'tools');
-  log.error('打印错误', 'atom', 'tools');
-  log.warning('打印警告', 'atom', 'tools');
-  log.success('打印成功', 'atom', 'tools');
+  log.info('打印信息', 'atom', 'tools')
+  log.error('打印错误', 'atom', 'tools')
+  log.warning('打印警告', 'atom', 'tools')
+  log.success('打印成功', 'atom', 'tools')
   log.warning('--------------------------------打印含有引用类型的多参数-------------------------')
 
   log.success('打印成功', e, ['atom', 'tools'])
   log.success('打印成功', {
     name: 'atom',
-    type:'tools'
+    type: 'tools'
   })
-  log.success('打印成功',()=>{
-    console.log('123');
+  log.success('打印成功', () => {
+    console.log('123')
   })
-  
 }
 
 // 定义回调函数，它将在尺寸变化时被调用
@@ -58,16 +56,17 @@ const visibilityOptions = {
   }
 }
 
-
 // 解析地址栏参数
 const getUrlParamsFun = () => {
-  console.log(getUrlParams('https://account-devops.aliyun.com/logout?a=1&b=99','b'));
-  
+  console.log(getUrlParams('https://account-devops.aliyun.com/logout?a=1&b=99', 'b'))
 }
 </script>
 <template>
   <div id="parent-a" v-waterMarker style="width: 500px; height: 500px; background-color: teal">
-    <div v-draggable:parent-a v-copy="{ content: 'copy指令', type: 'dblclick', callback: dragAudioPlayerCallback }">
+    <div
+      v-draggable:parent-a
+      v-copy="{ content: 'copy指令', type: 'dblclick', callback: dragAudioPlayerCallback }"
+    >
       拖拽我~~
     </div>
 
@@ -82,21 +81,18 @@ const getUrlParamsFun = () => {
 
     <button v-outside-click="handleOutsideClick">在外面点击我</button>
 
-
     <div class="w-[200px] h-[800px]" v-resize="handleResize">观察我的大小变化！</div>
-
 
     <div @click="getUrlParamsFun">解析地址栏参数</div>
 
     <!-- ---------------- -->
 
-
     <div v-observe-visibility="visibilityOptions" class="visibility-target">我是否在视口中？</div>
 
-
-    <img v-zoom="{ minScale: 0.5, maxScale: 3, step: 0.2 }" src="https://via.placeholder.com/150" alt="可缩放的图片" />
-
-
-
+    <img
+      v-zoom="{ minScale: 0.5, maxScale: 3, step: 0.2 }"
+      src="https://via.placeholder.com/150"
+      alt="可缩放的图片"
+    />
   </div>
 </template>

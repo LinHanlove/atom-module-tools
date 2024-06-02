@@ -21,10 +21,9 @@
   /* 黑色模式 主题基色 */
   --vp-c-brand-dark: #008080;
   /* 侧边栏 */
-  --vp-sidebar-width:270px;
+  --vp-sidebar-width: 270px;
   /* 内容区 */
-  --lh-content-width:calc(100vw - 270px);
- 
+  --lh-content-width: calc(100vw - 270px);
 
   /* 按钮背景颜色 */
   .image-src {

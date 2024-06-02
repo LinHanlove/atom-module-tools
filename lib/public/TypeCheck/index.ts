@@ -37,7 +37,6 @@ export const isDef = <T = unknown>(value?: T): value is T => {
  * @returns
  */
 export const isObject = (value: any): value is Record<any, any> => {
-
   return value !== null && is(value, 'object')
 }
 

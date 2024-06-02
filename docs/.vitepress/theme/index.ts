@@ -8,5 +8,4 @@ export default {
   enhanceApp({ app }) {
     // app.component('Preview', Preview)
   }
-
 }

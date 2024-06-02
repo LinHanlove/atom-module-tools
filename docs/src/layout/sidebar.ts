@@ -67,28 +67,28 @@ export default {
       items: getFilesItem('../utils/special/')
     }
   ],
-  '/template/root/vue':[
+  '/template/root/vue': [
     {
       text: 'template',
-      items:getFilesItem('../template/vue/')
+      items: getFilesItem('../template/vue/')
     }
   ],
-  '/template/vue':[
+  '/template/vue': [
     {
       text: 'template',
-      items:getFilesItem('../template/vue/')
+      items: getFilesItem('../template/vue/')
     }
   ],
-  '/template/root/wxChat':[
+  '/template/root/wxChat': [
     {
       text: 'template',
-      items:getFilesItem('../template/wxChat/')
+      items: getFilesItem('../template/wxChat/')
     }
   ],
-  '/template/wxChat/':[
+  '/template/wxChat/': [
     {
       text: 'template',
-      items:getFilesItem('../template/wxChat/')
+      items: getFilesItem('../template/wxChat/')
     }
   ]
 }
