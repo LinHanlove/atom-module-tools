@@ -4,12 +4,12 @@ title: 封装 AJAX 请求
 
 # 封装 AJAX 请求
 
+## ajaxService
+
 ## 函数式封装
 
-### ajax
-
 #### 说明
-`ajax` 函数是一个通用的 AJAX 请求封装，支持 Promise 以及可选的成功和失败回调。它简化了 AJAX 请求的创建和处理流程。
+`ajaxService` 函数是一个通用的 AJAX 请求封装，支持 Promise 以及可选的成功和失败回调。它简化了 AJAX 请求的创建和处理流程。
 
 #### 参数
 | 参数名   | 类型    | 默认值 | 说明                                 |
@@ -27,7 +27,7 @@ title: 封装 AJAX 请求
  * @param {Object} options - AJAX 请求的配置项
  * @returns {Promise} - 包含请求结果的 Promise 对象
  */
-function ajax(options = {}) {
+const ajaxService = (options = {}) => {
   // 参数校验
   if (!options.url) {
     throw new Error('URL is required for ajax call');
@@ -113,18 +113,7 @@ ajax({
 ```
 
 ## 类方法式封装
-### AjaxService
-### 说明
-AjaxService 类封装了 AJAX 请求的创建和处理过程，支持链式调用和默认配置的设置。
 
-#### 构造函数
-| 参数名   | 类型    | 默认值 | 说明                                 |
-| -------- | ------- | ------ | ------------------------------------ |
-| options  | Object  | {}     | AJAX 请求的配置项。                 |
-#### 方法
-- request(options) - 发起 AJAX 请求。
-#### 返回值
-Promise - 包含请求结果的 Promise 对象。
 
 ## 代码演示
 ```js

@@ -1,5 +1,9 @@
 export const commitHistory = [
       { 
+          hash: "75d0048",
+          message:"feat: add customAjax",
+          commitTime:"2024-06-06 23:09:58"
+        },{ 
           hash: "4f1dbec",
           message:"Merge pull request #36 from LinHanlove/LinHanlove-patch-2",
           commitTime:"2024-06-06 21:37:35"
