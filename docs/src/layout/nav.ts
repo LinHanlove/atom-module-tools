@@ -6,8 +6,9 @@ export default [
     items: [
       {
         items: [
+          { text: '原生', link: '/template/root/native.md' },
           { text: 'vue', link: '/template/root/vue.md' },
-          { text: '原生微信小程序', link: '/template/root/wxChat.md' }
+          { text: '微信小程序', link: '/template/root/wxChat.md' },
         ]
       }
     ]
