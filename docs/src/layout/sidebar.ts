@@ -99,6 +99,19 @@ export default {
     {
       text: 'template',
       items: getFilesItem('../template/wxChat/')
+    },
+  ],
+  '/template/root/native': [
+    {
+        
+      text: 'template',
+      items: getFilesItem('../template/native/')
+    }
+  ],
+  '/template/native/': [
+    {
+      text: 'template',
+      items: getFilesItem('../template/native/')
     }
   ]
 }
