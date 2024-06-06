@@ -21,7 +21,10 @@
 
 🌟 **AtomTools** 是一个现代、基于 TypeScript 的 JavaScript 工具库，旨在提供项目开发中不可或缺的实用工具函数。通过简单的导入语句，您可以快速地将这些工具函数集成到您的项目中，无需任何复杂配置。
 
-<iframe style="width:100%;height:auto;min-width:600px;min-height:400px;" src="https://star-history.com/embed?secret=Z2hwX0RqSzd1cmVxSjMyVkViZmp3RXZKUjlVWXB4MHYzYzJVVHVPaA==#LinHanlove/atom-tools&Date" frameBorder="0"></iframe>
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=LinHanlove/atom-tools&type=Date)](https://star-history.com/#LinHanlove/atom-tools&Date)
 
 ### 选择 AtomTools 的理由
 
