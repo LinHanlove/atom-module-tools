@@ -108,3 +108,6 @@ export const debounce = (func: Function, wait: number, immediate?: boolean): Fun
     }
   }
 }
+
+
+export * from '@/public/HighOrderFunction/KeepLoop'

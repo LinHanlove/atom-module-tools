@@ -103,7 +103,6 @@ export default {
   ],
   '/template/root/native': [
     {
-        
       text: 'template',
       items: getFilesItem('../template/native/')
     }
