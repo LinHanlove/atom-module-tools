@@ -1,5 +1,5 @@
 ---
-title: KeepLoop 定时轮询类
+title: KeepLoop 定时轮询
 ---
 
 # KeepLoop 定时轮询类
@@ -14,38 +14,47 @@ title: KeepLoop 定时轮询类
 
 | 参数        | 描述                         | 类型                   | 默认值    |
 | ----------- | ---------------------------- | ---------------------- | --------- |
-| option      | 包含轮询设置的配置对象       | `TYPE.IKeepLoopOption` | ---  |
+| option      | 包含轮询设置的配置对象       | `TYPE.IKeepLoopOption` | ---       |
 
 ### 返回值
 
-`currentCount` 当前的轮询次数。
+- `TYPE.IReturnInfo`: 当前的轮询次数信息。
 
 ## 类型定义
 
 - `TYPE.IKeepLoopOption` 接口包括以下属性：
-  - `run`: **必选**. 每次轮询调用的函数，无返回值。
+  - `run`: **必选**. 每次轮询调用的函数。
   - `interval`: **必选**. 轮询之间的时间间隔，单位为毫秒，默认1000。
   - `maxCount`: **可选**. 最大轮询次数；如果为0或未指定，则轮询无限进行，默认0。
 
 - `TYPE.IReturnInfo` 接口包括以下属性：
   - `currentCount`: 当前的轮询次数。
 
+## 方法
+
+- `start()`: 开始轮询。
+- `stop()`: 停止轮询。
+- `pause()`: 暂停轮询。
+- `resume()`: 继续（恢复）轮询。
+
 ## 使用示例
 
 ### Vue 3 组件中使用 KeepLoop
 
-以下是如何在 Vue 3 组件中使用 `KeepLoop` 类的示例：
+以下是如何在 Vue 3 组件中使用 `KeepLoop` 类的示例，包括新增的暂停和继续功能：
 
 ```vue
 <template>
   <div>
     <button @click="startLoop">开始轮询</button>
+    <button @click="pauseLoop">暂停轮询</button>
+    <button @click="resumeLoop">继续轮询</button>
     <button @click="stopLoop">停止轮询</button>
   </div>
 </template>
 
 <script setup>
-import { KeepLoop,log } from 'atom-tools';
+import { KeepLoop, log } from 'atom-tools';
 import { ref } from 'vue';
 
 // 定义轮询函数
@@ -60,10 +69,22 @@ const startLoop = () => {
   if (!keepLoop.value) {
     keepLoop.value = new KeepLoop({
       run: loopFunc,
-      interval: 1000, // 设置轮询间隔为 5 秒
+      interval: 1000, // 设置轮询间隔为 1 秒
     });
   }
   keepLoop.value.start();
+};
+
+const pauseLoop = () => {
+  if (keepLoop.value) {
+    keepLoop.value.pause();
+  }
+};
+
+const resumeLoop = () => {
+  if (keepLoop.value) {
+    keepLoop.value.resume();
+  }
 };
 
 const stopLoop = () => {
@@ -73,6 +94,8 @@ const stopLoop = () => {
 };
 </script>
 ```
+
 ### 注意事项
 - 请确保在组件销毁时调用 stop 方法以停止轮询，防止内存泄漏。
 - 根据实际的业务逻辑，您可能需要对 loopFunc 函数返回的结果进行处理。
+- 使用 pause 和 resume 方法可以暂停和继续轮询，这对于节省资源或响应用户操作非常有用。
