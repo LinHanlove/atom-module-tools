@@ -1,15 +1,31 @@
 export const commitHistory = [
       { 
+          hash: "9c52a3a",
+          message:"feat: merge origin master",
+          commitTime:"2024-06-08 09:30:16"
+        },{ 
           hash: "1234e00",
           message:"feat: merge",
           commitTime:"2024-06-08 09:28:23"
+        },{ 
+          hash: "5777d2e",
+          message:"Merge pull request #40 from LinHanlove/feature-desensitizationTreatment",
+          commitTime:"2024-06-07 21:36:56"
+        },{ 
+          hash: "eacdc2b",
+          message:"feat: add maskString\nfeat: add maskString",
+          commitTime:"2024-06-07 21:28:18"
         },{ 
           hash: "fb6dfe5",
           message:"fix: customAjax docs",
           commitTime:"2024-06-06 23:16:33"
         },{ 
+          hash: "1d21e17",
+          message:"Merge pull request #37 from LinHanlove/feature-codeSnippet",
+          commitTime:"2024-06-06 23:10:47"
+        },{ 
           hash: "75d0048",
-          message:"feat: add customAjax",
+          message:"feat: add customAjax\nfeat: add customAjax",
           commitTime:"2024-06-06 23:09:58"
         },{ 
           hash: "4f1dbec",

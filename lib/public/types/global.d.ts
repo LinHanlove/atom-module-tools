@@ -46,7 +46,26 @@ export declare namespace TYPE {
     exitFullscreen?: () => Promise<void>
   }
 
+
+  /**
+ * @type KeepLoopOption 参数列表
+ */
+interface IKeepLoopOption {
+  run: (returnInfo: IReturnInfo) => IReturnInfo; // 需要轮询的函数
+  interval: number; // 轮询时间间隔，必须大于0
+  maxCount?: number; // 最大轮询次数，传 0 || 不传 表示无限轮询
+}
+
+/**
+ * @type IReturnInfo 返回信息
+ */
+interface IReturnInfo {
+  currentCount: number;
+}
+
   interface anyType {
     [key: string]: any
   }
+
+
 }

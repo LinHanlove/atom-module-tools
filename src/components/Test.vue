@@ -1,6 +1,22 @@
 <script setup lang="ts">
 import { getUrlParams } from '@/public/main'
 import { log } from '@/public/PrettyLog'
+import {KeepLoop} from '@/public/HighOrderFunction'
+
+// 要轮训的函数
+const loopFunc = (res) => {
+  console.log('轮询中...',res)
+}
+
+
+const keepLoop = new KeepLoop({
+    interval: 1000,
+    run: loopFunc,
+    
+})
+
+
+
 
 const dragAudioPlayerCallback = (res: string) => {
   console.log(res)
@@ -79,7 +95,15 @@ const getUrlParamsFun = () => {
 
     <button v-debounce:click="{ callback: handleClick, wait: 1000 }">点击我</button>
 
-    <button v-outside-click="handleOutsideClick">在外面点击我</button>
+    <button @click="keepLoop.start()"> 
+      点击轮训
+    </button>
+
+    <button @click="keepLoop.stop()">
+      停止轮训
+    </button>
+
+    <!-- <button v-outside-click="handleOutsideClick">在外面点击我</button> -->
 
     <div class="w-[200px] h-[800px]" v-resize="handleResize">观察我的大小变化！</div>
 
