@@ -103,6 +103,14 @@ const getUrlParamsFun = () => {
       停止轮训
     </button>
 
+    <button @click="keepLoop.pause()">
+      暂停轮训
+    </button>
+
+    <button @click="keepLoop.resume()">
+      继续轮训
+    </button>
+
     <!-- <button v-outside-click="handleOutsideClick">在外面点击我</button> -->
 
     <div class="w-[200px] h-[800px]" v-resize="handleResize">观察我的大小变化！</div>
