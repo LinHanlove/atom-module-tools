@@ -33,6 +33,32 @@ export const toLower = (value: string, all = false) => {
   return all ? value.toLowerCase() : value.charAt(0).toLowerCase() + value.slice(1)
 }
 
+
+/**
+ * 对字符串进行脱敏处理，只显示前几位和最后几位，其余部分用星号或省略号替代。
+ * @param {string} input - 需要脱敏的原始字符串。
+ * @param {number} [keepStart=0] - 需要保留的开头字符数。
+ * @param {number} [keepEnd=0] - 需要保留的结尾字符数。
+ * @param {string} [maskChar='*'] - 脱敏部分使用的字符，默认为星号。
+ * @returns {string} 脱敏后的字符串。
+ */
+export const maskString = (input: string, keepStart: number = 0, keepEnd: number = 0, maskChar: string = '*'): string => {
+  if (!input) throw new Error('Input string is required')
+
+  const inputStr: string = String(input)
+  const length: number = inputStr.length
+
+  if (length <= keepStart + keepEnd) {
+    return inputStr
+  }
+
+  const maskLength: number = length - keepStart - keepEnd
+  const mask: string = maskChar.repeat(maskLength)
+
+  return inputStr.substring(0, keepStart) + mask + inputStr.substring(length - keepEnd)
+}
+
+
 /**
  * 对手机号进行脱敏处理，只显示前三位和后四位，其余部分用星号替代。
  * @param {string | null | undefined} phoneNumber - 需要脱敏的手机号。
@@ -50,3 +76,39 @@ export const maskPhoneNumber = (phoneNumber: string | null | undefined): string 
 
   return phoneStr.replace(regex, '$1****$3')
 }
+
+/**
+ * 对地址进行脱敏处理，只显示前三位和后四位，其余部分用星号替代。
+ * @param {string | null | undefined} phoneNumber - 需要脱敏的手机号。
+ * @returns {string} 脱敏后的地址字符串。
+ */
+export const addressHidePart = (address: string,keepStart=3,keepEnd=4, maskChar='*'): string => {
+  return maskString(address, keepStart, keepEnd, maskChar)
+}
+
+// 姓氏脱敏
+export const nameHidePart = (name: string,keepStart=1,keepEnd=0,maskChar='*'): string => {
+  // 假设姓氏脱敏只显示第一个字符后跟星号
+  return maskString(name, keepStart, keepEnd, maskChar)
+}
+
+// 标签脱敏
+export const tagHidePart = (tag: string,keepStart=4,keepEnd=3,maskChar='...'): string => {
+  return maskString(tag, keepStart, keepEnd, maskChar)
+}
+
+// 身份证脱敏
+export const idCardHidePart = (idCard: string,keepStart=6,keepEnd=4 ,maskChar='*'): string => {
+  return maskString(idCard, keepStart, keepEnd, maskChar)
+}
+
+// 邮箱脱敏
+export const emailHidePart = (email: string,keepStart=2,keepEnd=2,maskChar='*'): string => {
+  return maskString(email, keepStart, keepEnd, maskChar)
+}
+
+// 银行卡脱敏
+export const bankCardHidePart = (bankCard: string,keepStart=4,keepEnd=4,maskChar='*'): string => {
+  return maskString(bankCard, keepStart, keepEnd, maskChar)
+}
+
