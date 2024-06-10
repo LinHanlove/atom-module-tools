@@ -7,7 +7,7 @@ export default defineConfig({
   title: 'atom-tools',
   description: 'atom-tools',
   srcDir: 'src',
-  head: [['link', { rel: 'icon', href: '/image/logo_2.png' }]],
+  head: [['link', { rel: 'icon', href: '/image/atom-logo.jpg' }]],
   themeConfig: {
     logo: '/image/logo.png',
     // https://vitepress.dev/reference/default-theme-config
