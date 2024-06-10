@@ -2,7 +2,7 @@
 title: KeepLoop 定时轮询
 ---
 
-# KeepLoop 定时轮询类
+# KeepLoop 定时轮询
 
 ## 概述
 
