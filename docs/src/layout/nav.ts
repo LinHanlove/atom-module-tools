@@ -13,6 +13,7 @@ export default [
       }
     ]
   },
-  { text: '更多', link: '/contribution/more' },
+  { text: 'AtomDraw', link: 'https://draw.atomnotion.com' },
+  { text: '开放', link: '/contribution/more' },
   { text: '提交记录', link: '/contribution/log' }
 ]
