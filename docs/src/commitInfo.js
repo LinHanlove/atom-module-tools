@@ -1,5 +1,13 @@
 export const commitHistory = [
       { 
+          hash: "c96913e",
+          message:"feat: updata logo",
+          commitTime:"2024-06-10 23:55:34"
+        },{ 
+          hash: "c0eaa72",
+          message:"feat: new add atomDraw",
+          commitTime:"2024-06-10 22:22:38"
+        },{ 
           hash: "a7e29f8",
           message:"feat: new add keeploop",
           commitTime:"2024-06-08 15:00:00"

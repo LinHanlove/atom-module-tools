@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getUrlParams } from '@/public/main'
+import { getUrlParams,formatDate } from '@/public/main'
 import { log } from '@/public/PrettyLog'
 import {KeepLoop} from '@/public/HighOrderFunction'
 
@@ -23,6 +23,22 @@ const dragAudioPlayerCallback = (res: string) => {
 }
 const handleClick = () => {
   console.log('点击触发啦~~~')
+}
+
+const handleClickTest = () => {
+  console.log('点击触发啦~~1~')
+  console.log(formatDate(new Date(), 'monthDay'))
+  console.log(formatDate(new Date(), 'yyyy'))
+  console.log(formatDate(new Date(), 'dateTime'))
+  const customFormatter = (dateInfo) => {
+  return `${dateInfo.yyyy}年${dateInfo.MM}月${dateInfo.dd}日`;
+  
+};
+
+// 使用自定义格式化函数
+console.log(formatDate(new Date(), customFormatter));
+
+console.log(formatDate(new Date(), 'yyyy-MM月mm日')) // 输出：自定义格式的字符串
 }
 
 const handleInput = () => {
@@ -94,6 +110,7 @@ const getUrlParamsFun = () => {
     </div>
 
     <button v-debounce:click="{ callback: handleClick, wait: 1000 }">点击我</button>
+    <button @click="handleClickTest">点击测试按钮</button>
 
     <button @click="keepLoop.start()"> 
       点击轮训

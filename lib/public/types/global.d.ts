@@ -63,9 +63,22 @@ interface IReturnInfo {
   currentCount: number;
 }
 
-  interface anyType {
-    [key: string]: any
-  }
+
+/**
+ * @interface 日期信息
+ */
+interface IDateInfo {
+  yyyy: string;
+  MM: string;
+  dd: string;
+  HH: string;
+  mm: string;
+  ss: string;
+}
+
+interface anyType {
+  [key: string]: any
+}
 
 
 }
