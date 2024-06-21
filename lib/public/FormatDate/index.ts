@@ -1,6 +1,7 @@
 import { fillZero } from '../Number'
 import * as CONSTANT from './constant'
 import { isNaN } from '../TypeCheck'
+import { TYPE } from '@/public/types/global'
 
 /**
  * @function 将传入的值转换为日期对象，如果无法转换则抛出错误。
@@ -38,13 +39,13 @@ export const toDate = (date: string | number | Date | null | undefined): Date =>
  * @function 日期转年月日
  * @param value
  */
-export const formatDate = (value: string | number | Date | null | undefined): string => {
-  const date = toDate(value)
-  const year = date.getFullYear()
-  const month = fillZero(date.getMonth() + 1) // getMonth() 返回的月份是从 0 开始的
-  const day = fillZero(date.getDate())
-  return `${year}-${month}-${day}`
-}
+// export const formatDate = (value: string | number | Date | null | undefined): string => {
+//   const date = toDate(value)
+//   const year = date.getFullYear()
+//   const month = fillZero(date.getMonth() + 1) // getMonth() 返回的月份是从 0 开始的
+//   const day = fillZero(date.getDate())
+//   return `${year}-${month}-${day}`
+// }
 
 /**
  * @function 日期转年月
@@ -168,3 +169,85 @@ export const getTwoDaysApart = (
   // 将毫秒差转换为天数，并四舍五入
   return Math.ceil(timeDifference / CONSTANT.DATA_CONSTANT.ONE_DAY)
 }
+
+
+
+
+/**
+ * 参数归一化函数，将传入的格式化字符串或函数规范化，
+ * 以便于在日期格式化中使用。
+ * 
+ * @param formatter 可以是日期格式化的字符串描述，或者是一个格式化函数
+ * @returns 返回一个格式化函数
+ */
+const formatNormalize = (formatter: string | ((dateInfo: TYPE.IDateInfo) => string)) =>{
+
+  // 如果传入的是一个函数，则直接返回该函数
+  if (typeof formatter === 'function') return formatter;
+
+  // 边界情况：如果传入的不是字符串，则抛出错误
+  if (typeof formatter !== 'string') {
+    throw new Error('formatter must be a string or a function!');
+  }
+
+  // 根据传入的格式化字符串关键字，映射到具体的格式化模板
+  const formatMap: { [key: string]: string } = {
+    date: 'yyyy-MM-dd',
+    dateTime: 'yyyy-MM-dd HH:mm:ss',
+    time: 'HH:mm:ss',
+    year: 'yyyy',
+    monthDay: 'MM-dd'
+  };
+
+  // 使用查找表获取格式化模板
+  const formatString = formatMap[formatter] || formatter;
+
+  return (dateInfo:any) => {
+    const { yyyy, MM, dd, HH, mm, ss } = dateInfo;
+
+    // 使用正则替换，将格式化模板中的占位符替换为对应的日期时间信息
+    return formatString.replace(/yyyy/g, yyyy)
+                         .replace(/MM/g, MM)
+                         .replace(/dd/g, dd)
+                         .replace(/HH/g, HH)
+                         .replace(/mm/g, mm)
+                         .replace(/ss/g, ss);
+  };
+}
+
+/**
+ * 格式化日期函数，根据提供的格式化选项将 Date 对象转换为字符串
+ * 
+ * @param date Date对象，需要被格式化的日期
+ * @param formatter 日期的格式化描述或格式化函数
+ * @param isPad 是否对日期时间的各个部分进行零填充
+ * @returns 返回格式化后的日期字符串
+ */
+export const formatDate = (date: Date, formatter:string| ((dateInfo: any) => string), isPad: boolean = true) => {
+  // 参数归一化
+  formatter = formatNormalize(formatter) ;
+
+  const pad = (value: number|string, length: number = 2) => {
+    return isPad ? (value+'').padStart(length, '0') : String(value);
+  };
+
+  const dateInfo: { [key: string]: string | number } = {
+    yyyy: date.getFullYear(),
+    MM: date.getMonth() + 1,
+    dd: date.getDate(),
+    HH: date.getHours(),
+    mm: date.getMinutes(),
+    ss: date.getSeconds()
+  };
+
+  // 对日期信息中的年月日时分秒进行格式化，根据isPad选项决定是否进行零填充
+  dateInfo.yyyy = pad(dateInfo.yyyy, 4);
+  dateInfo.MM = pad(dateInfo.MM);
+  dateInfo.dd = pad(dateInfo.dd);
+  dateInfo.HH = pad(dateInfo.HH);
+  dateInfo.mm = pad(dateInfo.mm);
+  dateInfo.ss = pad(dateInfo.ss);
+
+  // 使用传入的formatter函数进行格式化
+  return formatter(dateInfo);
+};
