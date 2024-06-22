@@ -1,4 +1,3 @@
-import { fillZero } from '../Number'
 import * as CONSTANT from './constant'
 import { isNaN } from '../TypeCheck'
 import { TYPE } from '@/public/types/global'
@@ -35,86 +34,6 @@ export const toDate = (date: string | number | Date | null | undefined): Date =>
   return parsedDate
 }
 
-/**
- * @function 日期转年月日
- * @param value
- */
-// export const formatDate = (value: string | number | Date | null | undefined): string => {
-//   const date = toDate(value)
-//   const year = date.getFullYear()
-//   const month = fillZero(date.getMonth() + 1) // getMonth() 返回的月份是从 0 开始的
-//   const day = fillZero(date.getDate())
-//   return `${year}-${month}-${day}`
-// }
-
-/**
- * @function 日期转年月
- */
-export const formatYearMonth = (value: string | number | Date | null | undefined): string => {
-  const date = toDate(value)
-  const year = date.getFullYear()
-  const month = fillZero(date.getMonth() + 1) // getMonth() 返回的月份是从 0 开始的
-  return `${year}-${month}`
-}
-
-/**
- * @function 日期转月日
- * @param value 可以是 Date 对象、日期字符串、日期数字或者 null/undefined
- * @returns 返回格式化的月日字符串，如 '08-15'
- */
-export const formatMonthDay = (value: string | number | Date | null | undefined): string => {
-  const date = toDate(value)
-  const month = fillZero(date.getMonth() + 1) // getMonth() 返回的月份是从 0 开始的
-  const day = fillZero(date.getDate())
-  return `${month}-${day}` // 返回格式化的月日字符串，格式为 MM-DD
-}
-
-/**
- * @function 传入日期获取年份
- * @param value
- * @returns
- */
-export const formatDateGetYear = (value: string | Date | number): string => {
-  if (typeof value === 'string') {
-    // 如果是字符串，解析年份部分
-    const yearPart = value.split('-')[0]
-    return yearPart
-  } else if (value instanceof Date) {
-    // 如果是 Date 对象，直接获取年份
-    return value.getFullYear().toString()
-  } else {
-    // 如果是数字或其他类型，先转换为 Date 对象再获取年份
-    return new Date(value).getFullYear().toString()
-  }
-}
-
-/**
- * @function 日期转标准时间
- * @param value
- * @returns
- */
-export const formatDateTime = (value: string | number | Date | null | undefined) => {
-  const date = toDate(value)
-
-  const year = date.getFullYear()
-  const month = fillZero(date.getMonth() + 1)
-  const day = fillZero(date.getDate())
-
-  const hours = fillZero(date.getHours())
-  const minutes = fillZero(date.getMinutes())
-  const seconds = fillZero(date.getSeconds())
-
-  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
-}
-
-/**
- * @function 日期转换为特有格式
- * @param 日期 例：08-25
- */
-export const transformDate = (value: string | number | Date | null | undefined) => {
-  const date = toDate(value)
-  return formatMonthDay(date).replace(/-/g, '月') + '日'
-}
 
 /**
  * @function 指定日期转星期
@@ -169,9 +88,6 @@ export const getTwoDaysApart = (
   // 将毫秒差转换为天数，并四舍五入
   return Math.ceil(timeDifference / CONSTANT.DATA_CONSTANT.ONE_DAY)
 }
-
-
-
 
 /**
  * 参数归一化函数，将传入的格式化字符串或函数规范化，

@@ -1,5 +1,9 @@
 export const commitHistory = [
       { 
+          hash: "037fef8",
+          message:"feat: :date:  fix formatDate",
+          commitTime:"2024-06-22 00:20:45"
+        },{ 
           hash: "c96913e",
           message:"feat: updata logo",
           commitTime:"2024-06-10 23:55:34"
