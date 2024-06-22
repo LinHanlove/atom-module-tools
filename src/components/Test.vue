@@ -2,6 +2,7 @@
 import { getUrlParams,formatDate } from '@/public/main'
 import { log } from '@/public/PrettyLog'
 import {KeepLoop} from '@/public/HighOrderFunction'
+import {debounceRef} from '@/special/Vue/main'
 
 // 要轮训的函数
 const loopFunc = (res) => {
@@ -16,7 +17,7 @@ const keepLoop = new KeepLoop({
 })
 
 
-
+const text  = debounceRef('')
 
 const dragAudioPlayerCallback = (res: string) => {
   console.log(res)
@@ -103,6 +104,10 @@ const getUrlParamsFun = () => {
     </div>
 
     <input type="text" v-debounce:input="{ callback: handleInput, wait: 1000 }" />
+
+    <input type="text" v-model="text">
+
+    {{ text }}
 
     <div class="bg-teal-500" v-highlight="{ keyword: 'Vue', style: { color: 'red' } }">
       学习使用 Vue.js 是一件非常有趣的事情。

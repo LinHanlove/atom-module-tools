@@ -1,5 +1,13 @@
 export const commitHistory = [
       { 
+          hash: "5f3ed41",
+          message:"feat: :seedling:",
+          commitTime:"2024-06-22 19:31:22"
+        },{ 
+          hash: "ff099cf",
+          message:"feat: :trident:  delete not need format",
+          commitTime:"2024-06-22 14:20:03"
+        },{ 
           hash: "037fef8",
           message:"feat: :date:  fix formatDate",
           commitTime:"2024-06-22 00:20:45"
