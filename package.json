@@ -52,7 +52,7 @@
     }
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build:special": "node buildSpecial.mjs",
     "build:tools": "vite build",
     "extract-commit": "node extract-commit.mjs",
