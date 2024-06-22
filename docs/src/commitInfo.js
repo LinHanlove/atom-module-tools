@@ -1,5 +1,9 @@
 export const commitHistory = [
       { 
+          hash: "ff099cf",
+          message:"feat: :trident:  delete not need format",
+          commitTime:"2024-06-22 14:20:03"
+        },{ 
           hash: "037fef8",
           message:"feat: :date:  fix formatDate",
           commitTime:"2024-06-22 00:20:45"
