@@ -1,5 +1,9 @@
 export const commitHistory = [
       { 
+          hash: "5848a7b",
+          message:"feat: :rose:",
+          commitTime:"2024-06-22 19:36:04"
+        },{ 
           hash: "5f3ed41",
           message:"feat: :seedling:",
           commitTime:"2024-06-22 19:31:22"
