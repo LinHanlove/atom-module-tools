@@ -117,7 +117,7 @@ export const exitFullScreen = (): void => {
  * @function 禁止右键，选择，复制
  */
 export const preventRightKey = () => {
-  ;['contextmenu', 'selectstart', 'copy'].forEach(function (e) {
+  ['contextmenu', 'selectstart', 'copy'].forEach(function (e) {
     document.addEventListener(e, function (event) {
       return (event.returnValue = false)
     })
@@ -147,3 +147,83 @@ export const clearAllCookie = (name?: string) => {
     }
   }
 }
+
+/**
+ * @function 判断是否是微信浏览器
+ */
+export const isWxBrowser = () => {
+  const ua = window.navigator.userAgent.toLowerCase();
+  return /micromessenger/i.test(ua);
+};
+
+/**
+ * @function 判断是否是支付宝浏览器
+ */
+export const isAliBrowser = () => {
+  const ua = window.navigator.userAgent.toLowerCase();
+  return /alipayclient/i.test(ua);
+};
+
+/**
+ * @function 判断是否是抖音客户端浏览器
+ */
+export const isDouyinBrowser = () => {
+  const ua = window.navigator.userAgent.toLowerCase();
+  return /aweme/i.test(ua);
+};
+
+/**
+ * @function 判断是否是抖音极速版客户端浏览器
+ */
+export const isDouyinLiteBrowser = () => {
+  const ua = window.navigator.userAgent.toLowerCase();
+  return /aweme_lite/i.test(ua);
+};
+
+/**
+ * @function 判断是否是QQ浏览器
+ */
+export const isQqBrowser = () => {
+  const ua = window.navigator.userAgent.toLowerCase();
+  return /mqqbrowser|mobile qq/i.test(ua);
+};
+
+/**
+ * @function 判断是否是百度浏览器
+ */
+export const isBaiduBrowser = () => {
+  const ua = window.navigator.userAgent.toLowerCase();
+  return /baidubrowser/i.test(ua);
+};
+
+/**
+ * @function 判断是否是Safari浏览器
+ */
+export const isSafariBrowser = () => {
+  const ua = window.navigator.userAgent.toLowerCase();
+  return /safari/i.test(ua) && !/chrome/i.test(ua);
+};
+
+/**
+ * @function 判断是否是UC浏览器
+ */
+export const isUcBrowser = () => {
+  const ua = window.navigator.userAgent.toLowerCase();
+  return /ucbrowser/i.test(ua);
+};
+
+/**
+ * @function 判断是否是360浏览器
+ */
+export const is360Browser = () => {
+  const ua = window.navigator.userAgent.toLowerCase();
+  return /360browser/i.test(ua);
+};
+
+/**
+ * @function 判断是否是搜狗浏览器
+ */
+export const isSogouBrowser = () => {
+  const ua = window.navigator.userAgent.toLowerCase();
+  return /sogoumobilebrowser/i.test(ua);
+};
