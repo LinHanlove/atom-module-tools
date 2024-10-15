@@ -109,5 +109,23 @@ export const debounce = (func: Function, wait: number, immediate?: boolean): Fun
   }
 }
 
+/**
+ * @function 创建一个单例模式，确保某个类只有一个实例。
+ * @param className 需要单例的类
+ * @returns 单例的类
+ */
+export const sington = <T extends new (...args: any[]) => any>(className: T): T=>{
+  let ins: InstanceType<T> 
+  const proxy = new Proxy(className,{
+    construct(target,args){
+      if(!ins){
+        ins = Reflect.construct(target,args)
+      }
+      return ins
+    }
+  })
+  return proxy
+}
+
 
 export * from '@/public/HighOrderFunction/KeepLoop'
