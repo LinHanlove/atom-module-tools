@@ -1,31 +1,67 @@
 export const commitHistory = [
       { 
+          hash: "e11b877",
+          message:"feat: new add 单例的类",
+          commitTime:"2024-10-15 12:00:04"
+        },{ 
+          hash: "b56c81d",
+          message:"Merge pull request #47 from LinHanlove/feature-codeSnippet",
+          commitTime:"2024-06-22 19:36:49"
+        },{ 
+          hash: "5848a7b",
+          message:"Feature code snippet\nfeat: :rose:",
+          commitTime:"2024-06-22 19:36:04"
+        },{ 
           hash: "5f3ed41",
           message:"feat: :seedling:",
           commitTime:"2024-06-22 19:31:22"
         },{ 
+          hash: "8e6fa0b",
+          message:"Merge pull request #46 from LinHanlove/feature-codeSnippet",
+          commitTime:"2024-06-22 14:28:10"
+        },{ 
           hash: "ff099cf",
-          message:"feat: :trident:  delete not need format",
+          message:"feat: :trident:  delete not need format\nfeat: :trident:  delete not need format",
           commitTime:"2024-06-22 14:20:03"
         },{ 
+          hash: "33762d3",
+          message:"Merge pull request #45 from LinHanlove/feature-codeSnippet",
+          commitTime:"2024-06-22 00:26:16"
+        },{ 
           hash: "037fef8",
-          message:"feat: :date:  fix formatDate",
+          message:"feat: :date:  fix formatDate\nfeat: :date:  fix formatDate",
           commitTime:"2024-06-22 00:20:45"
         },{ 
+          hash: "a5a6725",
+          message:"Merge pull request #44 from LinHanlove/feature-codeSnippet",
+          commitTime:"2024-06-10 23:56:18"
+        },{ 
           hash: "c96913e",
-          message:"feat: updata logo",
+          message:"feat: updata logo\nfeat: updata logo",
           commitTime:"2024-06-10 23:55:34"
         },{ 
+          hash: "0c1a891",
+          message:"Merge pull request #43 from LinHanlove/feature-codeSnippet",
+          commitTime:"2024-06-10 22:23:37"
+        },{ 
           hash: "c0eaa72",
-          message:"feat: new add atomDraw",
+          message:"feat: new add atomDraw\nfeat: new add atomDraw",
           commitTime:"2024-06-10 22:22:38"
         },{ 
+          hash: "532bf04",
+          message:"Merge pull request #42 from LinHanlove/feature-codeSnippet",
+          commitTime:"2024-06-08 15:01:10"
+        },{ 
           hash: "a7e29f8",
-          message:"feat: new add keeploop",
+          message:"feat: new add keeploop\nfeat: new add keeploop",
           commitTime:"2024-06-08 15:00:00"
         },{ 
+          hash: "ed134eb",
+          message:"Merge pull request #41 from LinHanlove/feature-codeSnippet",
+          commitTime:"2024-06-08 11:17:27"
+        },{ 
           hash: "88f053e",
-          message:"feat: add keeploop calss",
+          message:"feat: add keeploop class\nfeat: add keeploop calss",
           commitTime:"2024-06-08 11:13:11"
         },{ 
           hash: "9c52a3a",
