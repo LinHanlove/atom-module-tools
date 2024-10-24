@@ -112,7 +112,7 @@ export const readFileAsText = (file: File): Promise<string> => {
       return;
     }
     const reader = new FileReader();
-    reader.onload = function (e) {
+    reader.onload = function () {
       if (reader.result && typeof reader.result === 'string') {
         resolve(reader.result as string);
       }
