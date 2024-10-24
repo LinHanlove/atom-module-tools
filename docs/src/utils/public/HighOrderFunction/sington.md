@@ -24,7 +24,6 @@ title: Singleton Factory
 
 ### 代码演示
 
-#### 创建单例类
 
 ```typescript
 import { singleton } from 'atom-tools';

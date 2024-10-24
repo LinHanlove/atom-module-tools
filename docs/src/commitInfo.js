@@ -1,5 +1,9 @@
 export const commitHistory = [
       { 
+          hash: "b337f03",
+          message:"feat: new add Singleton Factory",
+          commitTime:"2024-10-15 13:37:36"
+        },{ 
           hash: "e11b877",
           message:"feat: new add 单例的类",
           commitTime:"2024-10-15 12:00:04"
