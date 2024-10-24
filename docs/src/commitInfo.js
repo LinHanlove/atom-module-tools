@@ -1,25 +1,5 @@
 export const commitHistory = [
-      { 
-          hash: "b337f03",
-          message:"feat: new add Singleton Factory",
-          commitTime:"2024-10-15 13:37:36"
-        },{ 
-          hash: "e11b877",
-          message:"feat: new add 单例的类",
-          commitTime:"2024-10-15 12:00:04"
-        },{ 
-          hash: "b56c81d",
-          message:"Merge pull request #47 from LinHanlove/feature-codeSnippet",
-          commitTime:"2024-06-22 19:36:49"
-        },{ 
-          hash: "5848a7b",
-          message:"Feature code snippet\nfeat: :rose:",
-          commitTime:"2024-06-22 19:36:04"
-        },{ 
-          hash: "5f3ed41",
-          message:"feat: :seedling:",
-          commitTime:"2024-06-22 19:31:22"
-        },{ 
+      { { 
           hash: "8e6fa0b",
           message:"Merge pull request #46 from LinHanlove/feature-codeSnippet",
           commitTime:"2024-06-22 14:28:10"
