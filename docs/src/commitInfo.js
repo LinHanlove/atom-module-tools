@@ -1,9 +1,5 @@
 export const commitHistory = [
-      { 
-          hash: "5f3ed41",
-          message:"feat: :seedling:",
-          commitTime:"2024-06-22 19:31:22"
-        },{ 
+      { { 
           hash: "8e6fa0b",
           message:"Merge pull request #46 from LinHanlove/feature-codeSnippet",
           commitTime:"2024-06-22 14:28:10"
