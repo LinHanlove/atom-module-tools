@@ -63,4 +63,4 @@ async function extractCommitInfo() {
   }
 }
 
-extractCommitInfo()
+// extractCommitInfo()

@@ -58,7 +58,7 @@
     "extract-commit": "node extract-commit.mjs",
     "prettier": " prettier --write .  ",
     "build": "pnpm prettier  && pnpm build:tools && pnpm build:special && tsc",
-    "docs:dev": "pnpm extract-commit && vitepress dev docs",
+    "docs:dev": "pnpm extract-commit && vitepress dev docs --host",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
   },
